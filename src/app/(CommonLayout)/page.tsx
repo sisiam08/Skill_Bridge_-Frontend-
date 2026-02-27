@@ -1,8 +1,17 @@
+import Footer from "@/components/layout/Footer";
+import { FeaturedSection } from "@/components/modules/Home/FeaturedSection";
+import HeroSection from "@/components/modules/Home/HeroSection";
+import { Testimonials } from "@/components/modules/Home/Testimonials";
+import { WorkFlow } from "@/components/modules/Home/WorkFlow";
 
-
-export default async function Home() {
-
+export default function Home() {
   return (
-    <div>This is Home page</div>
+    <main className="min-h-screen bg-background text-foreground">
+      <HeroSection />
+      <WorkFlow />
+      <FeaturedSection />
+      <Testimonials />
+      <Footer />
+    </main>
   );
 }
