@@ -4,16 +4,19 @@ import Pagination from "@/components/layout/Pagination";
 import FiltersSidebar from "@/components/modules/Tutor/FilterSidebar";
 import TutorCard from "@/components/layout/TutorCard";
 import { Filters, PaginationType, TutorCardProps } from "@/types";
-import { useState, useEffect, type ComponentProps } from "react";
+import { useState, useEffect } from "react";
 import Sorting from "@/components/layout/Sorting";
+import { useSearchParams } from "next/navigation";
 
 export default function TutorsPage() {
+  const searchParams = useSearchParams();
+
   const [filters, setFilters] = useState<Filters>({
-    search: undefined,
-    category: undefined,
+    search: searchParams.get("search") || undefined,
+    category: searchParams.get("category") || undefined,
     minPrice: undefined,
     maxPrice: undefined,
-    rating: undefined,
+    rating: searchParams.get("rating") || undefined,
     availability: undefined,
     sortBy: undefined,
     sortOrder: undefined,

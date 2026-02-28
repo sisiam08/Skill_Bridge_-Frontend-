@@ -1,18 +1,14 @@
-import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function FeaturedSection() {
-  const tutors = [
-    {
-      name: "Alex Rivera",
-      subject: "Mathematics",
-      price: "$45",
-      rating: "★ 4.9 (124 reviews)",
-      desc: "Expert in Calculus and Algebra with 5 years experience helping students ace their exams.",
-      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuB2dAT1JqkOVf6rnWBPCTIXQCD80LbN4bQlfnZER5mH-SzwElsLm9vT-C-sWG1QniigmL5SxkGiQkrhEohBtggcEndJKlHf-d3g04TcATh40kILHmvgCj7yIZLbMrPnun89VgQ76nycVyCtmox-2PPlrpw9iIoGnfLeqdnP1US0M2w861BkIjfUFL331hCZP7KjiFOLo_AfbnrGyqt6OHtiRAz25co5_ocbRrLoqRdzoTisPT96XLpm7DSqKyKPn46V7Xoaca8hBg",
-    },
-  ];
-
   return (
     <section className="py-16 md:py-24 bg-[#f8f6f6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,13 +24,16 @@ export function FeaturedSection() {
             </p>
           </div>
 
-          <a
-            href="#"
-            className="text-[#ec5b13] font-bold flex items-center gap-2 hover:gap-3 transition-all text-sm"
+          <Button
+            asChild
+            variant="link"
+            className="text-[#ec5b13] font-bold flex items-center gap-2 hover:gap-3 transition-all text-sm p-0 h-auto no-underline hover:no-underline"
           >
-            View all tutors
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </a>
+            <Link href="#">
+              View all tutors
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Link>
+          </Button>
         </div>
 
         {/* Grid */}
@@ -51,21 +50,25 @@ export function FeaturedSection() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-[#ec5b13]">
-                  ★ Rating
-                </div>
+                <Badge
+                  variant="secondary"
+                  className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-[#ec5b13]"
+                >
+                  <span className="material-symbols-outlined text-sm">star</span>
+                  Rating
+                </Badge>
               </div>
 
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h3 className="text-xl font-bold text-[#221610]">
+                    <CardTitle className="text-xl font-bold text-[#221610]">
                       Tutor Name
-                    </h3>
+                    </CardTitle>
 
-                    <p className="text-sm text-[#ec5b13] font-semibold uppercase tracking-wider">
+                    <CardDescription className="text-sm text-[#ec5b13] font-semibold uppercase tracking-wider">
                       Subject
-                    </p>
+                    </CardDescription>
                   </div>
 
                   <div className="text-right">
@@ -76,9 +79,9 @@ export function FeaturedSection() {
                   </div>
                 </div>
 
-                <p className="text-[#4b4b4b] text-sm mb-6 line-clamp-2">
+                <CardDescription className="text-[#4b4b4b] text-sm mb-6 line-clamp-2">
                   Tutor description goes here.
-                </p>
+                </CardDescription>
 
                 <Button className="w-full bg-[#ec5b13]/10 text-[#ec5b13] hover:bg-[#ec5b13] hover:text-white rounded-xl transition-all">
                   View Profile

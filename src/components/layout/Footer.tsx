@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
 export default function Footer() {
   const footerLinks = [
     {
@@ -41,7 +45,7 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-gray-500 leading-relaxed">
-              The world's leading marketplace for 1-on-1 expert tutoring. Master
+              The world&apos;s leading marketplace for 1-on-1 expert tutoring. Master
               any skill with personal guidance.
             </p>
           </div>
@@ -55,12 +59,13 @@ export default function Footer() {
               <ul className="flex flex-col gap-3 text-sm text-gray-500">
                 {section.links.map((link) => (
                   <li key={link}>
-                    <a
-                      href="#"
-                      className="hover:text-[#ec5b13] transition-colors"
+                    <Button
+                      asChild
+                      variant="link"
+                      className="font-normal hover:text-[#ec5b13] transition-colors p-0 h-auto text-inherit no-underline hover:no-underline"
                     >
-                      {link}
-                    </a>
+                      <Link href="#">{link}</Link>
+                    </Button>
                   </li>
                 ))}
               </ul>
@@ -68,19 +73,25 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="pt-8 mt-12 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-          <p>© 2024 SkillBridge Inc. All rights reserved.</p>
+        <div className="pt-8 mt-12">
+          <Separator className="bg-gray-200 dark:bg-gray-800" />
+          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+            <p>&copy; 2024 SkillBridge Inc. All rights reserved.</p>
 
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-[#ec5b13] transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-[#ec5b13] transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-[#ec5b13] transition-colors">
-              Cookie Settings
-            </a>
+            <div className="flex gap-6">
+              {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
+                (item) => (
+                  <Button
+                    key={item}
+                    asChild
+                    variant="link"
+                    className="font-normal hover:text-[#ec5b13] transition-colors p-0 h-auto text-inherit no-underline hover:no-underline text-xs"
+                  >
+                    <Link href="#">{item}</Link>
+                  </Button>
+                ),
+              )}
+            </div>
           </div>
         </div>
       </div>

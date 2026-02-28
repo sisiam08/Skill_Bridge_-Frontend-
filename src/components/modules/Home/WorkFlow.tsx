@@ -1,4 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export function WorkFlow() {
   const steps = [
@@ -28,7 +34,7 @@ export function WorkFlow() {
             How SkillBridge Works
           </h2>
 
-          <div className="h-1.5 w-20 bg-[#ec5b13] mx-auto mt-4 rounded-full" />
+          <Separator className="h-1.5 w-20 bg-[#ec5b13] mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Grid */}
@@ -46,13 +52,13 @@ export function WorkFlow() {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-[#221610] mb-3">
+                <CardTitle className="text-xl font-bold text-[#221610] mb-3">
                   {step.title}
-                </h3>
+                </CardTitle>
 
-                <p className="text-[#4b4b4b] text-sm leading-relaxed">
+                <CardDescription className="text-[#4b4b4b] text-sm leading-relaxed">
                   {step.desc}
-                </p>
+                </CardDescription>
               </CardContent>
             </Card>
           ))}
