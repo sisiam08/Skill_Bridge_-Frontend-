@@ -2,20 +2,36 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { getcategory } from "@/actions/category.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Categories } from "@/types";
 import hero_img from ".././../../../public/register-page-content.png";
+
+const HeroFilters = dynamic(() => import("./HeroFilters"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+      >
+        Category
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+      >
+        Rating
+      </Button>
+    </div>
+  ),
+});
 
 export default function HeroSection() {
   const [searchValue, setSeachValue] = useState("");
@@ -108,43 +124,17 @@ export default function HeroSection() {
               </div>
 
               {/* Filters */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-                <Select
-                  value={categoryValue || undefined}
-                  onValueChange={(value) =>
-                    setCategory(value === "all" ? "" : value)
-                  }
-                >
-                  <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
-                    <SelectValue placeholder="Category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    {categories.map((cat) => (
-                      <SelectItem key={cat.id} value={cat.name}>
-                        {cat.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={ratingValue || undefined}
-                  onValueChange={(value) =>
-                    setRating(value === "all" ? "" : value)
-                  }
-                >
-                  <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
-                    <SelectValue placeholder="Rating" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Ratings</SelectItem>
-                    <SelectItem value="5">5 & up</SelectItem>
-                    <SelectItem value="4">4 & up</SelectItem>
-                    <SelectItem value="3">3 & up</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <HeroFilters
+                categories={categories}
+                categoryValue={categoryValue}
+                ratingValue={ratingValue}
+                onCategoryChange={(value) =>
+                  setCategory(value === "all" ? "" : value)
+                }
+                onRatingChange={(value) =>
+                  setRating(value === "all" ? "" : value)
+                }
+              />
             </form>
           </div>
 

@@ -1,14 +1,32 @@
+"use client"
+
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import TutorCard from "@/components/layout/TutorCard";
+import { useEffect, useState } from "react";
+import { getAllTutors } from "@/actions/tutor.action";
+import { TutorCardProps } from "@/types";
 
 export function FeaturedSection() {
+  const [tutors, setTutors] = useState<TutorCardProps[]>([]);
+
+  useEffect(() => {
+    const fetchFeaturedTutors = async () => {
+      const response = await getAllTutors();
+      const featuredTutors = Array.isArray(response?.data)
+        ? response.data
+        : Array.isArray(response?.data?.data)
+          ? response.data.data
+          : Array.isArray(response)
+            ? response
+            : [];
+
+      setTutors(featuredTutors);
+    };
+
+    fetchFeaturedTutors();
+  }, []);
+
   return (
     <section className="py-16 md:py-24 bg-[#f8f6f6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,65 +47,16 @@ export function FeaturedSection() {
             variant="link"
             className="text-[#ec5b13] font-bold flex items-center gap-2 hover:gap-3 transition-all text-sm p-0 h-auto no-underline hover:no-underline"
           >
-            <Link href="#">
+            <Link href="/find_tutors">
               View all tutors
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </Button>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <Card
-              key={item}
-              className="group overflow-hidden border border-gray-100 rounded-2xl hover:shadow-2xl hover:shadow-[#ec5b13]/10 transition-all bg-white"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={`https://picsum.photos/seed/tutor${item}/600/400`}
-                  alt="Tutor"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-
-                <Badge
-                  variant="secondary"
-                  className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-[#ec5b13]"
-                >
-                  <span className="material-symbols-outlined text-sm">star</span>
-                  Rating
-                </Badge>
-              </div>
-
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <CardTitle className="text-xl font-bold text-[#221610]">
-                      Tutor Name
-                    </CardTitle>
-
-                    <CardDescription className="text-sm text-[#ec5b13] font-semibold uppercase tracking-wider">
-                      Subject
-                    </CardDescription>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="text-2xl font-black text-[#221610]">
-                      $Price
-                    </span>
-                    <span className="text-gray-400 text-sm">/hr</span>
-                  </div>
-                </div>
-
-                <CardDescription className="text-[#4b4b4b] text-sm mb-6 line-clamp-2">
-                  Tutor description goes here.
-                </CardDescription>
-
-                <Button className="w-full bg-[#ec5b13]/10 text-[#ec5b13] hover:bg-[#ec5b13] hover:text-white rounded-xl transition-all">
-                  View Profile
-                </Button>
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {tutors.map((tutor) => (
+            <TutorCard key={tutor.id} {...tutor} />
           ))}
         </div>
       </div>
