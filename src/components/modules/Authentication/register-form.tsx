@@ -22,13 +22,15 @@ import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { toast } from "sonner";
+import { UserRole } from "@/constants/roles";
 
 const formSchema = z.object({
   role: z.string().min(1, "Role is required!"),
   name: z.string().min(1, "Full Name is required!"),
   email: z.email("Invalid email!"),
-  password: z.string().min(6, "Minimum length is 6!"),
-  confirmPassword: z.string().min(6, "Minimum length is 6!"),
+  password: z.string().min(8, "Minimum length is 8!"),
+  confirmPassword: z.string().min(8, "Minimum length is 8!"),
 });
 
 export default function RegisterForm() {
@@ -38,9 +40,10 @@ export default function RegisterForm() {
       callbackURL: "http://localhost:3000",
     });
   };
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     defaultValues: {
-      role: "student",
+      role: UserRole.STUDENT,
       name: "",
       email: "",
       password: "",
@@ -48,7 +51,31 @@ export default function RegisterForm() {
     },
     validators: { onSubmit: formSchema },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      setLoading(true);
+      const toastId = toast.loading("Creating user...");
+
+      try {
+        const userData = {
+          name: value.name,
+          email: value.email,
+          password: value.password,
+          role: value.role,
+        };
+        const { data, error } = await authClient.signUp.email(userData);
+
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        }
+
+        toast.success("Verification email sent! Please check your inbox.", {
+          id: toastId,
+        });
+      } catch (error: any) {
+        toast.error(error.message, { id: toastId });
+      } finally {
+        setLoading(false);
+      }
     },
   });
   const [passwordValue, setPasswordValue] = useState("");
@@ -56,7 +83,7 @@ export default function RegisterForm() {
   const passwordsMatch =
     passwordValue.length > 0 && passwordValue === confirmPasswordValue;
   return (
-    <Card className="lg:px-6">
+    <Card className="lg:px-6 rounded-none rounded-r-2xl">
       <CardHeader>
         <CardTitle className="text-3xl font-black text-[#ec5b13]  dark:text-white mb-2">
           Create Account
@@ -94,14 +121,14 @@ export default function RegisterForm() {
                       className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-primary/5"
                     >
                       <ToggleGroupItem
-                        value="student"
+                        value={UserRole.STUDENT}
                         className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-[#ec5b13] data-[state=on]:text-white"
                       >
                         Student
                       </ToggleGroupItem>
 
                       <ToggleGroupItem
-                        value="tutor"
+                        value={UserRole.TUTOR}
                         className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-[#ec5b13] data-[state=on]:text-white"
                       >
                         Tutor
@@ -257,17 +284,15 @@ export default function RegisterForm() {
         <Button
           form="sign-up"
           type="submit"
-          disabled={!passwordsMatch}
-          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white dark:text-black font-bold  py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
+          disabled={loading || !passwordsMatch}
+          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
         >
-          Create Account
+          {loading ? "Verification mail sending..." : "Create Account"}
         </Button>
         <p className="text-sm">or</p>
         <Button
           type="submit"
-          onClick={() => handleGoogleLogin()
-
-          }
+          onClick={handleGoogleLogin}
           className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white dark:text-black font-bold  py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
         >
           Continue with google

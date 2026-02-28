@@ -45,6 +45,7 @@ export default function FiltersSidebar({
             onClick={() => {
               setFilters({
                 search: undefined,
+                category: undefined,
                 minPrice: undefined,
                 maxPrice: undefined,
                 rating: undefined,
@@ -67,11 +68,11 @@ export default function FiltersSidebar({
           </h3>
 
           <RadioGroup
-            value={filters.search ?? ""}
+            value={filters.category ?? ""}
             onValueChange={(value) =>
               setFilters((prev: Filters) => ({
                 ...prev,
-                search: value,
+                category: value,
                 page: "1",
               }))
             }

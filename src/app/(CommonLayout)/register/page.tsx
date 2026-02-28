@@ -5,8 +5,8 @@ import registerImg from "../../../../public/register-page-content.png";
 
 export default function RegisterPage() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 mx-2">
-      <Card className="hidden lg:block relative bg-primary/10 overflow-hidden">
+    <div className="grid grid-cols-1 lg:grid-cols-2 mx-30 my-5">
+      <Card className="hidden lg:block relative bg-primary/10 overflow-hidden rounded-none rounded-l-2xl">
         <div>
           <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5" />
 

@@ -1,5 +1,6 @@
 export type Filters = {
   search?: string | undefined;
+  category?: string | undefined;
   minPrice?: string | undefined;
   maxPrice?: string | undefined;
   rating?: string | undefined;
@@ -21,7 +22,6 @@ export type PaginationType = {
   limit: number;
   totalPages: number;
 };
-
 
 export type PaginationProps = {
   paginationInfo: PaginationType;

@@ -20,10 +20,13 @@ import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { toast } from "sonner";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.email("Invalid email!"),
-  password: z.string().min(6, "Minimum length is 6!"),
+  password: z.string().min(8, "Minimum length is 8!"),
 });
 
 export default function LoginForm() {
@@ -33,6 +36,10 @@ export default function LoginForm() {
       callbackURL: "http://localhost:3000",
     });
   };
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [showVerifyButton, setShowVerifyButton] = useState(false);
+  const [verificationEmail, setVerificationEmail] = useState("");
   const form = useForm({
     defaultValues: {
       email: "",
@@ -40,7 +47,36 @@ export default function LoginForm() {
     },
     validators: { onSubmit: formSchema },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      setLoading(true);
+      const toastId = toast.loading("Logging...");
+
+      try {
+        const { data, error } = await authClient.signIn.email({
+          email: value.email,
+          password: value.password,
+        });
+
+        if (error?.code === "EMAIL_NOT_VERIFIED") {
+          toast.warning("Please verify your email first!");
+          setVerificationEmail(value.email);
+          setShowVerifyButton(true);
+          return;
+        }
+
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        }
+
+        toast.success("Login successful!", {
+          id: toastId,
+        });
+        router.push("/");
+      } catch (error: any) {
+        toast.error(error.message, { id: toastId });
+      } finally {
+        setLoading(false);
+      }
     },
   });
   return (
@@ -86,6 +122,7 @@ export default function LoginForm() {
                         className="pl-10 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl"
                       />
                     </div>
+
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
                     )}
@@ -133,14 +170,29 @@ export default function LoginForm() {
         <Button
           form="sign-up"
           type="submit"
-          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white dark:text-black font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
+          disabled={loading}
+          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
         >
-          Create Account
+          {loading ? "Logging..." : "Login"}
         </Button>
+        {showVerifyButton && (
+          <Button
+            type="button"
+            onClick={() =>
+              authClient.sendVerificationEmail({
+                email: verificationEmail,
+                callbackURL: "http://localhost:3000",
+              })
+            }
+            className="bg-transparent p-0 text-primary hover:bg-transparent hover:underline shadow-none"
+          >
+            Resend Verification Email
+          </Button>
+        )}
         <p className="text-sm">or</p>
         <Button
           type="submit"
-          onClick={() => handleGoogleLogin()}
+          onClick={handleGoogleLogin}
           className="w-full bg-[#c47852] hover:bg-[#d44f10] text-white dark:text-black font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
         >
           Log in with google

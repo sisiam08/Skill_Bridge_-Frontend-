@@ -10,6 +10,7 @@ import Sorting from "@/components/layout/Sorting";
 export default function TutorsPage() {
   const [filters, setFilters] = useState<Filters>({
     search: undefined,
+    category: undefined,
     minPrice: undefined,
     maxPrice: undefined,
     rating: undefined,
@@ -37,7 +38,7 @@ export default function TutorsPage() {
     const fetchTutors = async () => {
       const { data } = await getAllTutors(filters, { revalidate: 10 });
       if (data) {
-        setTutors(data);
+        setTutors(data ?? { data: [], pagination: {} });
       }
     };
     fetchTutors();
