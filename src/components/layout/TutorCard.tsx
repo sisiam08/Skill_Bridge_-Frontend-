@@ -7,22 +7,11 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import default_avatar from "../../.././../public/default-avatar-profile.jpg";
+import default_avatar from "../../.././public/default-avatar-profile.jpg";
 import Image from "next/image";
+import { TutorCardProps } from "@/types";
 
-interface TutorCardProps {
-  user?: {
-    name?: string;
-    image?: string | null;
-  };
-  category?: {
-    name?: string;
-  };
-  totalRating?: number;
-  totalReview?: number;
-  hourlyRate?: number;
-  bio?: string;
-}
+
 
 export default function TutorCard({
   user,

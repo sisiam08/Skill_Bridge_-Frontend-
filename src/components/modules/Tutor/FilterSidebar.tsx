@@ -14,12 +14,14 @@ export default function FiltersSidebar({
   setFilters,
 }: FiltersStateProp) {
   const [categories, setCategories] = useState<Categories[]>([]);
+  const minPriceValue = Number(filters.minPrice ?? "0");
+  const maxPriceValue = Number(filters.maxPrice ?? "1000");
 
   useEffect(() => {
     (async () => {
-      const { data } = await getcategory();
+      const response = await getcategory();
 
-      setCategories(data);
+      setCategories(response?.data ?? []);
     })();
   }, []);
 
@@ -33,8 +35,6 @@ export default function FiltersSidebar({
     { label: "Sat", value: "sat", dayOfWeek: "6" },
   ];
 
-  let isReset = false;
-
   return (
     <aside className="w-full shrink-0 lg:w-64">
       <div className="flex flex-col gap-6">
@@ -43,13 +43,16 @@ export default function FiltersSidebar({
           <Button
             className="text-xs font-medium text-primary bg-white hover:bg-gray-100"
             onClick={() => {
-              isReset = true;
               setFilters({
                 search: undefined,
                 minPrice: undefined,
                 maxPrice: undefined,
                 rating: undefined,
                 availability: undefined,
+                sortBy: undefined,
+                sortOrder: undefined,
+                page: "1",
+                limit: "10",
               });
             }}
           >
@@ -64,11 +67,12 @@ export default function FiltersSidebar({
           </h3>
 
           <RadioGroup
-            value={filters.search}
+            value={filters.search ?? ""}
             onValueChange={(value) =>
               setFilters((prev: Filters) => ({
                 ...prev,
                 search: value,
+                page: "1",
               }))
             }
             className="flex flex-col gap-2"
@@ -102,15 +106,13 @@ export default function FiltersSidebar({
 
           <div className="px-2 space-y-4">
             <Slider
-              value={[
-                parseInt(filters.minPrice ?? "0"),
-                parseInt(filters.maxPrice ?? "1000"),
-              ]}
+              value={[minPriceValue, maxPriceValue]}
               onValueChange={(value) =>
                 setFilters((prev: Filters) => ({
                   ...prev,
                   minPrice: value[0].toString(),
                   maxPrice: value[1].toString(),
+                  page: "1",
                 }))
               }
               max={1000}
@@ -120,10 +122,10 @@ export default function FiltersSidebar({
 
             <div className="flex justify-between text-xs font-medium">
               <span className="rounded bg-primary/10 px-2 py-1">
-                {filters.minPrice}/hr
+                {minPriceValue}/hr
               </span>
               <span className="rounded bg-primary/10 px-2 py-1">
-                {filters.maxPrice}/hr
+                {maxPriceValue}/hr
               </span>
             </div>
           </div>
@@ -136,11 +138,12 @@ export default function FiltersSidebar({
           </h3>
 
           <RadioGroup
-            value={filters.rating?.toString()}
+            value={filters.rating ?? ""}
             onValueChange={(value) =>
               setFilters((prev: Filters) => ({
                 ...prev,
                 rating: value,
+                page: "1",
               }))
             }
           >
@@ -174,11 +177,12 @@ export default function FiltersSidebar({
 
           <ToggleGroup
             type="single"
-            value={filters.availability}
+            value={filters.availability ?? ""}
             onValueChange={(value) =>
               setFilters((prev: Filters) => ({
                 ...prev,
-                availability: value,
+                availability: value || undefined,
+                page: "1",
               }))
             }
             className="flex flex-wrap gap-2 justify-start"
