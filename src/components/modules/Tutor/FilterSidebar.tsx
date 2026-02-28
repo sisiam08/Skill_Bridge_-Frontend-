@@ -1,0 +1,210 @@
+"use client";
+
+import { Categories, Filters, FiltersStateProp } from "@/types";
+import { useEffect, useState } from "react";
+import { getcategory } from "@/actions/category.action";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+
+export default function FiltersSidebar({
+  filters,
+  setFilters,
+}: FiltersStateProp) {
+  const [categories, setCategories] = useState<Categories[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await getcategory();
+
+      setCategories(data);
+    })();
+  }, []);
+
+  const days = [
+    { label: "Sun", value: "sun", dayOfWeek: "0" },
+    { label: "Mon", value: "mon", dayOfWeek: "1" },
+    { label: "Tue", value: "tue", dayOfWeek: "2" },
+    { label: "Wed", value: "wed", dayOfWeek: "3" },
+    { label: "Thu", value: "thu", dayOfWeek: "4" },
+    { label: "Fri", value: "fri", dayOfWeek: "5" },
+    { label: "Sat", value: "sat", dayOfWeek: "6" },
+  ];
+
+  let isReset = false;
+
+  return (
+    <aside className="w-full shrink-0 lg:w-64">
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold">Filters</h2>
+          <Button
+            className="text-xs font-medium text-primary bg-white hover:bg-gray-100"
+            onClick={() => {
+              isReset = true;
+              setFilters({
+                search: undefined,
+                minPrice: undefined,
+                maxPrice: undefined,
+                rating: undefined,
+                availability: undefined,
+              });
+            }}
+          >
+            Reset All
+          </Button>
+        </div>
+
+        {/* Category filter */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Category
+          </h3>
+
+          <RadioGroup
+            value={filters.search}
+            onValueChange={(value) =>
+              setFilters((prev: Filters) => ({
+                ...prev,
+                search: value,
+              }))
+            }
+            className="flex flex-col gap-2"
+          >
+            {categories.map((cat: Categories) => (
+              <div
+                key={cat.id}
+                className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-primary/5 cursor-pointer"
+              >
+                <RadioGroupItem
+                  value={cat.name}
+                  id={cat.id}
+                  className="border-primary/30 text-primary"
+                />
+                <Label
+                  htmlFor={cat.id}
+                  className="text-sm font-medium cursor-pointer"
+                >
+                  {cat.name}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </div>
+
+        {/* Price range slider */}
+        <div className="space-y-4">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Price per hour
+          </h3>
+
+          <div className="px-2 space-y-4">
+            <Slider
+              value={[
+                parseInt(filters.minPrice ?? "0"),
+                parseInt(filters.maxPrice ?? "1000"),
+              ]}
+              onValueChange={(value) =>
+                setFilters((prev: Filters) => ({
+                  ...prev,
+                  minPrice: value[0].toString(),
+                  maxPrice: value[1].toString(),
+                }))
+              }
+              max={1000}
+              step={50}
+              className="cursor-pointer"
+            />
+
+            <div className="flex justify-between text-xs font-medium">
+              <span className="rounded bg-primary/10 px-2 py-1">
+                {filters.minPrice}/hr
+              </span>
+              <span className="rounded bg-primary/10 px-2 py-1">
+                {filters.maxPrice}/hr
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Rating */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Rating
+          </h3>
+
+          <RadioGroup
+            value={filters.rating?.toString()}
+            onValueChange={(value) =>
+              setFilters((prev: Filters) => ({
+                ...prev,
+                rating: value,
+              }))
+            }
+          >
+            <div className="flex items-center gap-3 rounded-lg border border-primary/10 p-3 transition-colors hover:border-primary/40 cursor-pointer">
+              <RadioGroupItem value="4" id="r1" />
+              <Label
+                htmlFor="r1"
+                className="text-sm font-medium cursor-pointer"
+              >
+                4 & up
+              </Label>
+            </div>
+
+            <div className="flex items-center gap-3 rounded-lg border border-primary/10 p-3 transition-colors hover:border-primary/40 cursor-pointer">
+              <RadioGroupItem value="3" id="r2" />
+              <Label
+                htmlFor="r2"
+                className="text-sm font-medium cursor-pointer"
+              >
+                3 & up
+              </Label>
+            </div>
+          </RadioGroup>
+        </div>
+
+        {/* Availability */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Availability (Select a Day)
+          </h3>
+
+          <ToggleGroup
+            type="single"
+            value={filters.availability}
+            onValueChange={(value) =>
+              setFilters((prev: Filters) => ({
+                ...prev,
+                availability: value,
+              }))
+            }
+            className="flex flex-wrap gap-2 justify-start"
+          >
+            {days.map((d) => (
+              <ToggleGroupItem
+                key={d.value}
+                value={d.dayOfWeek}
+                className="
+              rounded-full
+              border border-primary/20
+              bg-white
+              px-3 py-1
+              text-xs font-medium
+              transition-all
+              hover:bg-primary hover:text-white
+              data-[state=on]:bg-primary
+              data-[state=on]:text-white
+            "
+              >
+                {d.label}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+        </div>
+      </div>
+    </aside>
+  );
+}
