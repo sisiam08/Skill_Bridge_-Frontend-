@@ -39,9 +39,9 @@ export default function FiltersSidebar({
     <aside className="w-full shrink-0 lg:w-64">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold">Filters</h2>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Filters</h2>
           <Button
-            className="text-xs font-medium text-primary bg-white hover:bg-gray-100"
+            className="text-xs font-medium text-primary bg-white dark:bg-background hover:bg-gray-100 dark:hover:bg-muted"
             onClick={() => {
               setFilters({
                 search: undefined,
@@ -63,7 +63,7 @@ export default function FiltersSidebar({
 
         {/* Category filter */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Category
           </h3>
 
@@ -90,7 +90,7 @@ export default function FiltersSidebar({
                 />
                 <Label
                   htmlFor={cat.id}
-                  className="text-sm font-medium cursor-pointer"
+                  className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
                 >
                   {cat.name}
                 </Label>
@@ -101,7 +101,7 @@ export default function FiltersSidebar({
 
         {/* Price range slider */}
         <div className="space-y-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Price per hour
           </h3>
 
@@ -122,10 +122,10 @@ export default function FiltersSidebar({
             />
 
             <div className="flex justify-between text-xs font-medium">
-              <span className="rounded bg-primary/10 px-2 py-1">
+              <span className="rounded bg-primary/10 px-2 py-1 text-slate-800 dark:text-slate-200">
                 {minPriceValue}/hr
               </span>
-              <span className="rounded bg-primary/10 px-2 py-1">
+              <span className="rounded bg-primary/10 px-2 py-1 text-slate-800 dark:text-slate-200">
                 {maxPriceValue}/hr
               </span>
             </div>
@@ -134,7 +134,7 @@ export default function FiltersSidebar({
 
         {/* Rating */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Rating
           </h3>
 
@@ -148,21 +148,21 @@ export default function FiltersSidebar({
               }))
             }
           >
-            <div className="flex items-center gap-3 rounded-lg border border-primary/10 p-3 transition-colors hover:border-primary/40 cursor-pointer">
+            <div className="flex items-center gap-3 rounded-lg border border-primary/10 dark:border-primary/25 p-3 transition-colors hover:border-primary/40 cursor-pointer">
               <RadioGroupItem value="4" id="r1" />
               <Label
                 htmlFor="r1"
-                className="text-sm font-medium cursor-pointer"
+                className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
               >
                 4 & up
               </Label>
             </div>
 
-            <div className="flex items-center gap-3 rounded-lg border border-primary/10 p-3 transition-colors hover:border-primary/40 cursor-pointer">
+            <div className="flex items-center gap-3 rounded-lg border border-primary/10 dark:border-primary/25 p-3 transition-colors hover:border-primary/40 cursor-pointer">
               <RadioGroupItem value="3" id="r2" />
               <Label
                 htmlFor="r2"
-                className="text-sm font-medium cursor-pointer"
+                className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
               >
                 3 & up
               </Label>
@@ -172,7 +172,7 @@ export default function FiltersSidebar({
 
         {/* Availability */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Availability (Select a Day)
           </h3>
 
@@ -195,7 +195,7 @@ export default function FiltersSidebar({
                 className="
               rounded-full
               border border-primary/20
-              bg-white
+              bg-white dark:bg-background
               px-3 py-1
               text-xs font-medium
               transition-all

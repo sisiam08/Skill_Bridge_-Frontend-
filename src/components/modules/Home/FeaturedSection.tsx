@@ -28,16 +28,19 @@ export function FeaturedSection() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-[#f8f6f6]">
+    <section
+      id="featured-tutors"
+      className="scroll-mt-20 py-16 md:py-24 bg-[#f8f6f6] dark:bg-[#1a120d]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 text-center md:text-left">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#221610]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#221610] dark:text-white">
               Featured Expert Tutors
             </h2>
 
-            <p className="text-[#4b4b4b] mt-2 text-sm md:text-base">
+            <p className="text-[#4b4b4b] dark:text-slate-300 mt-2 text-sm md:text-base">
               Highly rated professionals ready to help you succeed.
             </p>
           </div>

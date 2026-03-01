@@ -26,11 +26,11 @@ export function WorkFlow() {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-[#f8f6f6]">
+    <section className="py-16 md:py-20 bg-[#f8f6f6] dark:bg-[#1a120d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#221610]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#221610] dark:text-white">
             How SkillBridge Works
           </h2>
 
@@ -42,7 +42,7 @@ export function WorkFlow() {
           {steps.map((step) => (
             <Card
               key={step.title}
-              className="bg-white border border-gray-100 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300"
+              className="bg-white dark:bg-[#221610] border border-gray-100 dark:border-gray-800 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300"
             >
               <CardContent className="p-8 flex flex-col items-center">
                 {/* Icon Circle */}
@@ -52,11 +52,11 @@ export function WorkFlow() {
                   </span>
                 </div>
 
-                <CardTitle className="text-xl font-bold text-[#221610] mb-3">
+                <CardTitle className="text-xl font-bold text-[#221610] dark:text-white mb-3">
                   {step.title}
                 </CardTitle>
 
-                <CardDescription className="text-[#4b4b4b] text-sm leading-relaxed">
+                <CardDescription className="text-[#4b4b4b] dark:text-slate-300 text-sm leading-relaxed">
                   {step.desc}
                 </CardDescription>
               </CardContent>

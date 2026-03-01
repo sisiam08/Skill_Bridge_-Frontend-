@@ -27,7 +27,7 @@ export default function HeroFilters({
   return (
     <div className="flex flex-wrap justify-center lg:justify-start gap-2">
       <Select value={categoryValue || undefined} onValueChange={onCategoryChange}>
-        <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
+        <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
           <SelectValue placeholder="Category" />
         </SelectTrigger>
         <SelectContent>
@@ -41,7 +41,7 @@ export default function HeroFilters({
       </Select>
 
       <Select value={ratingValue || undefined} onValueChange={onRatingChange}>
-        <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
+        <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
           <SelectValue placeholder="Rating" />
         </SelectTrigger>
         <SelectContent>

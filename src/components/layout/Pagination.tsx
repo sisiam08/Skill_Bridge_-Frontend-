@@ -38,7 +38,7 @@ export default function Pagination({
         type="button"
         disabled={page <= 1}
         onClick={() => onPageChange(page - 1)}
-        className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-background-dark"
+        className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="material-symbols-outlined">chevron_left</span>
       </Button>
@@ -47,7 +47,7 @@ export default function Pagination({
       {pageNumbers.map((num, index) => {
         if (num < 0) {
           return (
-            <span key={`ellipsis-${index}`} className="px-1 text-slate-400">
+            <span key={`ellipsis-${index}`} className="px-1 text-slate-400 dark:text-slate-500">
               ...
             </span>
           );
@@ -64,7 +64,7 @@ export default function Pagination({
             className={
               isActive
                 ? "flex size-10 items-center justify-center rounded-lg bg-primary font-bold text-white disabled:cursor-default disabled:opacity-100"
-                : "flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white transition-colors hover:bg-primary/5 dark:bg-background-dark"
+                : "flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background transition-colors hover:bg-primary/5"
             }
           >
             {num}
@@ -77,7 +77,7 @@ export default function Pagination({
         type="button"
         disabled={page >= totalPages}
         onClick={() => onPageChange(page + 1)}
-        className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-background-dark"
+        className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="material-symbols-outlined">chevron_right</span>
       </Button>

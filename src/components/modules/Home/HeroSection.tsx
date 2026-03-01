@@ -18,14 +18,14 @@ const HeroFilters = dynamic(() => import("./HeroFilters"), {
       <Button
         type="button"
         variant="outline"
-        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
       >
         Category
       </Button>
       <Button
         type="button"
         variant="outline"
-        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] bg-white border border-gray-200 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+        className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
       >
         Rating
       </Button>
@@ -59,18 +59,17 @@ export default function HeroSection() {
     if (ratingValue) {
       params.append("rating", ratingValue);
     }
-    
+
     const query = params.toString();
 
     router.push(query ? `/find_tutors?${query}` : "/find_tutors");
-    
   };
 
   return (
-    <section className="relative py-14 md:py-20 overflow-hidden bg-[#f8f6f6]">
+    <section className="relative py-14 md:py-20 overflow-hidden bg-[#f8f6f6] dark:bg-[#1a120d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT CONTENT */}
+          {/* Left Content */}
           <div className="flex flex-col gap-6 md:gap-8 text-center lg:text-left">
             <Badge
               variant="secondary"
@@ -82,12 +81,12 @@ export default function HeroSection() {
               Unlock Your Potential
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black leading-tight tracking-tight text-[#221610]">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black leading-tight tracking-tight text-[#221610] dark:text-white">
               Connect with Expert Tutors,
               <span className="text-[#ec5b13] block">Learn Anything</span>
             </h1>
 
-            <p className="text-base md:text-lg text-[#4b4b4b] leading-relaxed max-w-lg mx-auto lg:mx-0">
+            <p className="text-base md:text-lg text-[#4b4b4b] dark:text-slate-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
               Find the perfect mentor to help you master new skills with
               personalized one-on-one sessions tailored to your goals.
             </p>
@@ -100,8 +99,8 @@ export default function HeroSection() {
               }}
             >
               {/* Search Box */}
-              <div className="flex flex-col md:flex-row gap-2 bg-white p-2 rounded-2xl shadow-xl shadow-[#ec5b13]/5 border border-[#ec5b13]/10">
-                <div className="flex-1 flex items-center px-4 gap-3 border-b md:border-b-0 md:border-r border-gray-100">
+              <div className="flex flex-col md:flex-row gap-2 bg-white dark:bg-[#221610] p-2 rounded-2xl shadow-xl shadow-[#ec5b13]/5 border border-[#ec5b13]/10 dark:border-[#ec5b13]/20">
+                <div className="flex-1 flex items-center px-4 gap-3 border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700">
                   <span className="text-[#ec5b13] material-symbols-outlined">
                     search
                   </span>
@@ -111,7 +110,7 @@ export default function HeroSection() {
                     value={searchValue}
                     onChange={(e) => setSeachValue(e.target.value)}
                     placeholder="Search subjects (e.g. Physics, TypeScript)"
-                    className="border-none focus-visible:ring-0 bg-transparent text-[#221610] placeholder:text-gray-400"
+                    className="border-none focus-visible:ring-0 bg-transparent text-[#221610] dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </div>
 
@@ -138,7 +137,7 @@ export default function HeroSection() {
             </form>
           </div>
 
-          {/* RIGHT IMAGE */}
+          {/* Right Image */}
           <div className="relative flex justify-center">
             <div className="absolute -top-10 -right-10 w-56 md:w-64 h-56 md:h-64 bg-[#ec5b13]/20 rounded-full blur-3xl" />
 

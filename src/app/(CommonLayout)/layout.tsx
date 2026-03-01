@@ -1,15 +1,23 @@
 import Head from "@/components/layout/Head";
 import Navbar from "@/components/layout/Navbar";
+import { UserService } from "@/services/user.service";
 
-export default function RootLayout({
+export default async function CommonLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await UserService.getSession();
+  let isLoggedIn = false;
+
+  if (session?.data?.user) {
+    isLoggedIn = true;
+  }
+
   return (
-    <div className="bg-background-light dark:bg-background-dark min-h-screen font-display text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       <Head />
-      <Navbar isLoggedIn={false} />
+      <Navbar isLoggedIn={isLoggedIn} />
       <main>{children}</main>
     </div>
   );
