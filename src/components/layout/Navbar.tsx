@@ -163,14 +163,14 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
                 {isLoggedIn && (
                   <>
                     <Link
-                      href="#"
+                      href="/dashboard"
                       className="text-sm font-medium text-[#221610] dark:text-slate-100 hover:text-[#ec5b13] transition-colors py-2.5"
                     >
                       Dashboard
                     </Link>
 
                     <Link
-                      href="#"
+                      href="/dashboard/profile"
                       className="text-sm font-medium text-[#221610] dark:text-slate-100 hover:text-[#ec5b13] transition-colors py-2.5"
                     >
                       Profile

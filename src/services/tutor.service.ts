@@ -32,7 +32,6 @@ export const TutorService = {
       const data = res.json();
 
       return { data, error: null };
-
     } catch (error) {
       return {
         data: null,
@@ -40,6 +39,17 @@ export const TutorService = {
           message: "Somthing went wrong!",
         },
       };
+    }
+  },
+  getTutorById: async function (id: string) {
+    try {
+      const res = await fetch(`${API_URL}/tutors/${id}`);
+
+      const data = await res.json();
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong!" } };
     }
   },
 };
