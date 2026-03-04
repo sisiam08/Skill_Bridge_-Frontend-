@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { GraduationCap, LogOut } from "lucide-react";
 
 import {
   Sidebar,
@@ -21,6 +21,7 @@ import { AdminRoutes } from "@/routes/adminRoutes";
 import { StudentRoutes } from "@/routes/studentRoutes";
 import { TutorRoutes } from "@/routes/tutorRoutes";
 import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 
 export function AppSidebar({
   user,
@@ -57,12 +58,12 @@ export function AppSidebar({
     <Sidebar {...props}>
       <SidebarHeader>
         <div className="flex items-center gap-3 pt-2 pb-6 pl-2">
-          {/* <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-            <span className="material-symbols-outlined">school</span>
-          </div> */}
+          <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
+            <GraduationCap className="size-5" strokeWidth={2.2} />
+          </div>
 
           <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
-            SkillBridge
+            <Link href={"/"}>SkillBridge</Link>
           </span>
         </div>
       </SidebarHeader>

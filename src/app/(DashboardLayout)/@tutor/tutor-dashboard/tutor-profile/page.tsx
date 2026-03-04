@@ -24,12 +24,14 @@ import { Separator } from "@/components/ui/separator";
 
 export default function TutorProfileClient() {
   // UI-only state for design preview (no data fetching)
-  const [hasTutorProfile, setHasTutorProfile] = useState(false);
+  const [hasTutorProfile, setHasTutorProfile] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+
   const [avatarPreview, setAvatarPreview] = useState(
     "/default-avatar-profile.jpg",
   );
+
   const [name, setName] = useState("Tutor Name");
   const [email, setEmail] = useState("tutor@email.com");
   const [phone, setPhone] = useState("+8801XXXXXXXXX");
@@ -39,13 +41,14 @@ export default function TutorProfileClient() {
   const [bio, setBio] = useState(
     "Short description about your teaching background...",
   );
+
   const [isMounted, setIsMounted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const isProfessionalFormMode = isEditing || isCreating;
-  const areProfessionalFieldsDisabled = !isProfessionalFormMode;
-  const isAccountFormMode = isEditing;
-  const areAccountFieldsDisabled = !isAccountFormMode;
+  const isProfileFormEditMode = isEditing || isCreating;
+  const isProfileFormDisableMode = !isProfileFormEditMode;
+  const isAccountFormEditMode = isEditing;
+  const isAccountFormDisableMode = !isAccountFormEditMode;
 
   useEffect(() => {
     setIsMounted(true);
@@ -117,20 +120,20 @@ export default function TutorProfileClient() {
                 <AvatarFallback>TP</AvatarFallback>
               </Avatar>
               <div className="flex-1 space-y-2">
-                <input
+                <Input
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
                   className="hidden"
                   onChange={handleAvatarChange}
-                  disabled={areAccountFieldsDisabled}
+                  disabled={isAccountFormDisableMode}
                 />
-                {isAccountFormMode ? (
+                {isAccountFormEditMode ? (
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
-                    disabled={areAccountFieldsDisabled}
+                    disabled={isAccountFormDisableMode}
                     onClick={() => fileInputRef.current?.click()}
                   >
                     Add Profile Picture
@@ -142,11 +145,11 @@ export default function TutorProfileClient() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="name">Name</Label>
-                {isAccountFormMode ? (
+                {isAccountFormEditMode ? (
                   <Input
                     id="name"
                     value={name}
-                    disabled={areAccountFieldsDisabled}
+                    disabled={isAccountFormDisableMode}
                     onChange={(event) => setName(event.target.value)}
                   />
                 ) : (
@@ -157,12 +160,12 @@ export default function TutorProfileClient() {
               </div>
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="email">Email</Label>
-                {isAccountFormMode ? (
+                {isAccountFormEditMode ? (
                   <Input
                     id="email"
                     type="email"
                     value={email}
-                    disabled={areAccountFieldsDisabled}
+                    disabled={isAccountFormDisableMode}
                     onChange={(event) => setEmail(event.target.value)}
                   />
                 ) : (
@@ -173,12 +176,12 @@ export default function TutorProfileClient() {
               </div>
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="phone">Phone</Label>
-                {isAccountFormMode ? (
+                {isAccountFormEditMode ? (
                   <Input
                     id="phone"
                     type="tel"
                     value={phone}
-                    disabled={areAccountFieldsDisabled}
+                    disabled={isAccountFormDisableMode}
                     onChange={(event) => setPhone(event.target.value)}
                   />
                 ) : (
@@ -220,14 +223,14 @@ export default function TutorProfileClient() {
 
           <CardContent className="space-y-5">
             {hasTutorProfile || isCreating ? (
-              <>
+              <form>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
-                    {isProfessionalFormMode ? (
+                    {isProfileFormEditMode ? (
                       isMounted ? (
                       <Select
-                        disabled={areProfessionalFieldsDisabled}
+                        disabled={isProfileFormDisableMode}
                         value={category}
                         onValueChange={setCategory}
                       >
@@ -251,12 +254,12 @@ export default function TutorProfileClient() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="experience">Experience (Years)</Label>
-                    {isProfessionalFormMode ? (
+                    {isProfileFormEditMode ? (
                       <Input
                         id="experience"
                         type="number"
                         value={experienceYears}
-                        disabled={areProfessionalFieldsDisabled}
+                        disabled={isProfileFormDisableMode}
                         onChange={(event) =>
                           setExperienceYears(event.target.value)
                         }
@@ -269,12 +272,12 @@ export default function TutorProfileClient() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="hourly-rate">Hourly Rate (tk)</Label>
-                    {isProfessionalFormMode ? (
+                    {isProfileFormEditMode ? (
                       <Input
                         id="hourly-rate"
                         type="number"
                         value={hourlyRate}
-                        disabled={areProfessionalFieldsDisabled}
+                        disabled={isProfileFormDisableMode}
                         onChange={(event) => setHourlyRate(event.target.value)}
                       />
                     ) : (
@@ -285,15 +288,15 @@ export default function TutorProfileClient() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 my-5">
                   <Label htmlFor="bio">Bio</Label>
-                  {isProfessionalFormMode ? (
+                  {isProfileFormEditMode ? (
                     <textarea
                       id="bio"
                       value={bio}
                       rows={5}
                       className="flex min-h-28 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      disabled={areProfessionalFieldsDisabled}
+                      disabled={isProfileFormDisableMode}
                       onChange={(event) => setBio(event.target.value)}
                     />
                   ) : (
@@ -308,20 +311,20 @@ export default function TutorProfileClient() {
                 <div className="mt-15 flex flex-wrap justify-center gap-2">
                   <Button
                     className="bg-[#ec5b13] hover:bg-[#d44f10] text-white"
-                    disabled={areProfessionalFieldsDisabled}
+                    disabled={isProfileFormDisableMode}
                     onClick={handleSubmitForm}
                   >
                     {isCreating ? "Create Profile" : "Save Changes"}
                   </Button>
                   <Button
                     variant="outline"
-                    disabled={areProfessionalFieldsDisabled}
+                    disabled={isProfileFormDisableMode}
                     onClick={handleCancelForm}
                   >
                     Cancel
                   </Button>
                 </div>
-              </>
+              </form>
             ) : (
               <div className="flex justify-center py-6">
                 <Button

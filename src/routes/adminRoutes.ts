@@ -11,12 +11,8 @@ export const AdminRoutes: Routes = {
       url: "/admin-dashboard/category",
     },
     {
-      title: "Tutors",
-      url: "/admin-dashboard/tutors",
-    },
-    {
-      title: "Students",
-      url: "/admin-dashboard/students",
+      title: "Users",
+      url: "/admin-dashboard/users",
     },
   ],
 };

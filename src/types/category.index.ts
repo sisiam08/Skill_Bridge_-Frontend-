@@ -1,5 +1,5 @@
 export type Categories = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   isActive?: boolean;
 };

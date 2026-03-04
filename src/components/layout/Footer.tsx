@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { GraduationCap } from "lucide-react";
 
 export default function Footer() {
   const footerLinks = [
@@ -36,7 +37,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="size-8 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-                <span className="material-symbols-outlined">school</span>
+                <GraduationCap className="size-5" strokeWidth={2.2} />
               </div>
 
               <span className="text-xl font-bold text-[#221610] dark:text-white">

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useMobileMenu } from "@/hooks";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
+import { GraduationCap } from "lucide-react";
 
 export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMobileMenu();
@@ -15,7 +16,7 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-              <span className="material-symbols-outlined">school</span>
+              <GraduationCap className="size-5" strokeWidth={2.2} />
             </div>
 
             <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
