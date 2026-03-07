@@ -31,9 +31,29 @@ export type TutorProfile = {
     name?: string;
     email?: string;
     image?: string | null;
+    phone?: string | null;
+    role?: string;
+    status?: string;
   };
   category?: {
     id?: string;
     name?: string;
   };
 };
+
+
+export type TutorProfileCreateData = {
+  userId: string;
+  categoriesId: string;
+  bio?: string | null;
+  hourlyRate: number;
+  experienceYears: number;
+};
+
+export type TutorProfileUpdateData = {
+  userId: string;
+  categoriesId: string;
+  bio?: string | null;
+  hourlyRate: number;
+  experienceYears: number;
+}

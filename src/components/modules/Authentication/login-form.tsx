@@ -57,7 +57,7 @@ export default function LoginForm() {
         });
 
         if (error?.code === "EMAIL_NOT_VERIFIED") {
-          toast.warning("Please verify your email first!");
+          toast.warning("Please verify your email first!", { id: toastId });
           setVerificationEmail(value.email);
           setShowVerifyButton(true);
           return;

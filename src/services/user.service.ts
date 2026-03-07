@@ -1,7 +1,9 @@
 import { env } from "@/env";
+import { UserUpdate } from "@/types";
 import { cookies } from "next/headers";
 
 const AUTH_URL = env.AUTH_URL;
+const API_URL = env.API_URL;
 
 export const UserService = {
   getSession: async function () {
@@ -28,6 +30,34 @@ export const UserService = {
 
       return {
         data: session,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        data: null,
+        error: {
+          message: "Something went wrong!",
+        },
+      };
+    }
+  },
+
+  updateUser: async function (userData: UserUpdate) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/users/me`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await res.json();
+
+      return {
+        data,
         error: null,
       };
     } catch (error) {
