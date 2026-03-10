@@ -1,0 +1,35 @@
+"use server";
+
+import { AvailabilityService } from "@/services/availability.service";
+import { AvailabilityType } from "@/types";
+
+export const setAvailability = async (availability: AvailabilityType) => {
+  const { data, error } =
+    await AvailabilityService.setAvailability(availability);
+
+  return { data, error };
+};
+
+export const getAvailability = async (tutorId: string) => {
+  const { data, error } = await AvailabilityService.getAvailability(tutorId);
+
+  return { data, error };
+};
+
+export const updateAvailability = async (
+  id: string,
+  payload: Partial<AvailabilityType>,
+) => {
+  const { data, error } = await AvailabilityService.updateAvailability(
+    id,
+    payload,
+  );
+
+  return { data, error };
+};
+
+export const deleteAvailability = async (id: string) => {
+  const { data, error } = await AvailabilityService.deleteAvailability(id);
+
+  return { data, error };
+};

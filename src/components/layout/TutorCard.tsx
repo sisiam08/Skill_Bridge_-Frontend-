@@ -11,8 +11,6 @@ import default_avatar from "../../.././public/default-avatar-profile.jpg";
 import Image from "next/image";
 import { TutorCardProps } from "@/types";
 
-
-
 export default function TutorCard({
   user,
   category,
@@ -23,15 +21,21 @@ export default function TutorCard({
 }: TutorCardProps) {
   const averageRating = totalReview > 0 ? totalRating / totalReview : 0;
 
+  console.log("User Image: ", user?.image);
+
   return (
     <Card className={"group overflow-hidden"}>
-      <CardHeader className="flex items-start justify-between gap-4">
+      <CardHeader className="flex items-center justify-center gap-4">
         <div className="flex items-center gap-3">
-          {user?.image ? (
-            <Image src={user.image} alt={user?.name ?? "Tutor"} />
-          ) : (
-            <Image src={default_avatar} alt={user?.name ?? "Tutor"} />
-          )}
+          <div className="relative h-30 w-30 shrink-0 overflow-hidden rounded-full sm:h-48 sm:w-48">
+            <Image
+              src={user?.image || default_avatar}
+              alt={user?.name ?? "Tutor"}
+              fill
+              unoptimized
+              className="object-cover"
+            />
+          </div>
         </div>
       </CardHeader>
 
@@ -58,7 +62,7 @@ export default function TutorCard({
             <span className="text-xs text-slate-500">tk/hr</span>
           </div>
 
-          <Button>View Profile</Button>
+          <Button className="cursor-pointer">View Profile</Button>
         </div>
       </CardFooter>
     </Card>

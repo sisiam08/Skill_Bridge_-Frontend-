@@ -4,3 +4,4 @@ export type * from "./service.index";
 export type * from "./tutor.type";
 export type * from "./route.type";
 export type * from "./user.type";
+export type * from "./availability.type";
