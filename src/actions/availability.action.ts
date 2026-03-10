@@ -18,11 +18,11 @@ export const getAvailability = async (tutorId: string) => {
 
 export const updateAvailability = async (
   id: string,
-  payload: Partial<AvailabilityType>,
+  availability: Partial<AvailabilityType>,
 ) => {
   const { data, error } = await AvailabilityService.updateAvailability(
     id,
-    payload,
+    availability,
   );
 
   return { data, error };

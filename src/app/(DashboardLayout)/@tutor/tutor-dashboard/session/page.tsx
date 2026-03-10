@@ -84,7 +84,7 @@ const getSessionEndTime = (dateIso: string, timeRange: string) => {
   return new Date(`${dateIso}T${convertTo24Hour(endTime)}:00`);
 };
 
-export default function TutorSessionClient() {
+export default function TutorSessionPage() {
   const [defaultClassLink, setDefaultClassLink] = useState(
     "https://meet.google.com/default-link",
   );
@@ -259,14 +259,6 @@ export default function TutorSessionClient() {
             </div>
           </CardHeader>
         </Card>
-
-        {!hasAnySession && (
-          <Card>
-            <CardContent className="py-8 text-center text-sm text-muted-foreground">
-              No today or upcoming sessions right now.
-            </CardContent>
-          </Card>
-        )}
 
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="space-y-6 xl:col-span-2">

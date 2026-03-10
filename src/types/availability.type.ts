@@ -6,3 +6,9 @@ export type AvailabilityType = {
   endTime: string;
   isActive?: boolean;
 };
+
+export type UpdateAvailabilityType = {
+  id: string;
+  startTime: string;
+  endTime: string;
+};

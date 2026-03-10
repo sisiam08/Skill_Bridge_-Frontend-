@@ -45,7 +45,7 @@ export const AvailabilityService = {
 
   updateAvailability: async (
     id: string,
-    payload: Partial<AvailabilityType>,
+    availability: Partial<AvailabilityType>,
   ) => {
     try {
       const cookieStore = await cookies();
@@ -55,7 +55,7 @@ export const AvailabilityService = {
           "Content-Type": "application/json",
           Cookie: cookieStore.toString(),
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(availability),
       });
 
       const data = await res.json();
