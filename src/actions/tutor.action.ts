@@ -32,4 +32,15 @@ export const createTutorProfile = async (tutorData: TutorProfileCreateData) => {
 export const updateTutorProfile = async (tutorData: TutorProfileCreateData) => {
   const { data } = await TutorService.updateTutorProfile(tutorData);
   return data;
-}
+};
+
+export const setDefaultClassLink = async (defaultClassLink: string) => {
+  const { data, error } =
+    await TutorService.setDefaultClassLink(defaultClassLink);
+  return { data, error };
+};
+
+export const getDefaultClassLink = async () => {
+  const { data, error } = await TutorService.getDefaultClassLink();
+  return { data, error };
+};

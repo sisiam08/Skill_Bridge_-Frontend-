@@ -6,6 +6,7 @@ import {
   TutorProfileCreateData,
 } from "@/types";
 import { cookies } from "next/headers";
+import { set } from "zod";
 
 const API_URL = env.API_URL;
 
@@ -93,7 +94,7 @@ export const TutorService = {
           Cookie: cookieStore.toString(),
         },
         body: JSON.stringify(tutorProfileData),
-      }); 
+      });
 
       if (!res.ok) {
         return {
@@ -122,7 +123,7 @@ export const TutorService = {
           Cookie: cookieStore.toString(),
         },
         body: JSON.stringify(tutorProfileData),
-      }); 
+      });
 
       if (!res.ok) {
         return {
@@ -131,6 +132,41 @@ export const TutorService = {
         };
       }
 
+      const data = await res.json();
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong!" } };
+    }
+  },
+
+  setDefaultClassLink: async function (defaultClassLink: string) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/tutors/defaultClassLink`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify({ defaultClassLink }),
+      });
+      const data = await res.json();
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong!" } };
+    }
+  },
+
+  getDefaultClassLink: async function () {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/tutors/defaultClassLink`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
       const data = await res.json();
 
       return { data, error: null };

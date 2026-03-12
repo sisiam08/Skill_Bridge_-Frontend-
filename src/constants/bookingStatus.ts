@@ -1,0 +1,6 @@
+export const BookingStatus = {
+  CONFIRMED: "CONFIRMED",
+  RUNNING: "RUNNING",
+  COMPLETED: "COMPLETED",
+  CANCELLED: "CANCELLED",
+};
