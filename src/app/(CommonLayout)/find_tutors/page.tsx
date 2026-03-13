@@ -90,7 +90,6 @@ export default function TutorsPage() {
             ))}
           </div>
 
-          {/* Pagination */}
           <Pagination
             paginationInfo={tutors.pagination}
             onPageChange={handlePageChange}

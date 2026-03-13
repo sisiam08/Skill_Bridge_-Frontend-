@@ -57,3 +57,28 @@ export type TutorProfileUpdateData = {
   hourlyRate: number;
   experienceYears: number;
 }
+
+export type TutorStats = {
+  earnings: {
+    totalEarnings: number;
+    earningsThisMonth: number;
+    earningsToday: number;
+    hourlyRate: number;
+  };
+  profile: {
+    uniqueStudents: number;
+    experienceYears: number;
+    activeDays: number;
+    averageRating: number;
+    totalRatings: number;
+    reviewCount: number;
+  };
+  sessions: {
+    completed: number;
+    completedToday: number;
+    completedThisWeek: number;
+    cancelled: number;
+    cancelledThisMonth: number;
+    upcoming: number;
+  };
+};

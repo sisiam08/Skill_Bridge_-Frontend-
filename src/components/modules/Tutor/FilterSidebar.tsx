@@ -84,7 +84,7 @@ export default function FiltersSidebar({
                 className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-primary/5 cursor-pointer"
               >
                 <RadioGroupItem
-                  value={cat.name}
+                  value={cat.name!}
                   id={cat.id}
                   className="border-primary/30 text-primary"
                 />

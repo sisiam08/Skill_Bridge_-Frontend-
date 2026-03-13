@@ -171,6 +171,11 @@ export default function TutorSessionPage() {
       );
       return;
     }
+
+    setLinkOption("default");
+    setNewClassLink("");
+    setSheetOpen(true);
+    setSheetSession(session);
   };
 
   const saveDefaultClassLink = async (link: string) => {

@@ -42,6 +42,27 @@ export const UserService = {
     }
   },
 
+  getUser: async () => {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/users/me`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      const data = await res.json();
+
+      return { data, error: null };
+    } catch (error: any) {
+      return {
+        data: null,
+        error: { message: error.message || "Something went wrong!" },
+      };
+    }
+  },
+
   updateUser: async function (userData: UserUpdate) {
     try {
       const cookieStore = await cookies();
