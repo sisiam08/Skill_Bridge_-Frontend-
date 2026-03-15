@@ -37,6 +37,7 @@ import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
+import { CalendarDays, CalendarPlus2, Clock3 } from "lucide-react";
 
 const AvailabilitySchema = z.object({
   dayOfWeek: z.number().min(0).max(6),
@@ -158,7 +159,7 @@ export default function TutorAvailabilityPage() {
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 p-4">
-      <Card>
+      <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="text-2xl">Tutor Availability</CardTitle>
@@ -178,7 +179,10 @@ export default function TutorAvailabilityPage() {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <CardHeader>
-            <CardTitle>Weekly Schedule</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <CalendarDays className="size-4 text-[#ec5b13]" />
+              Weekly Schedule
+            </CardTitle>
             <CardDescription>
               Click a slot to enable/disable or update or delete it.
             </CardDescription>
@@ -187,7 +191,7 @@ export default function TutorAvailabilityPage() {
             {weekDays.map(({ day, slots }) => (
               <div
                 key={day}
-                className="flex items-start gap-4 rounded-lg border p-3"
+                className="flex items-start gap-4 rounded-lg border border-border/80 bg-muted/15 p-3"
               >
                 <p className="w-24 shrink-0 pt-1 font-medium">
                   {daysWithNumber[day]}
@@ -296,7 +300,10 @@ export default function TutorAvailabilityPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Add Time Slot</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <CalendarPlus2 className="size-4 text-[#ec5b13]" />
+              Add Time Slot
+            </CardTitle>
             <CardDescription>
               Add a new slot for a selected day.
             </CardDescription>
@@ -368,6 +375,7 @@ export default function TutorAvailabilityPage() {
                 </div>
 
                 <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white">
+                  <Clock3 className="mr-2 size-4" />
                   Add Slot
                 </Button>
               </form>

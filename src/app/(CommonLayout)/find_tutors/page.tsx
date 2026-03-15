@@ -65,7 +65,7 @@ export default function TutorsPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-4 py-8 lg:px-10">
+    <main className="mx-auto w-full max-w-7xl px-4 py-8">
       <div className="flex flex-col gap-8 lg:flex-row">
         <FiltersSidebar filters={filters} setFilters={setFilters} />
 
@@ -85,8 +85,8 @@ export default function TutorsPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {tutors?.data?.map((tutor) => (
-              <TutorCard key={tutor.id} {...tutor} />
+            {tutors?.data?.map((tutor, idx) => (
+              <TutorCard key={tutor.id} {...tutor} animationIndex={idx} />
             ))}
           </div>
 

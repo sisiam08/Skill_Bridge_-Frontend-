@@ -31,7 +31,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#f8f6f6] dark:bg-[#221610] border-t border-gray-200 dark:border-gray-800 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="grid gap-10 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
@@ -46,8 +46,8 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-gray-500 leading-relaxed">
-              The world&apos;s leading marketplace for 1-on-1 expert tutoring. Master
-              any skill with personal guidance.
+              The world&apos;s leading marketplace for 1-on-1 expert tutoring.
+              Master any skill with personal guidance.
             </p>
           </div>
 

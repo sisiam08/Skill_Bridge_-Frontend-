@@ -8,9 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { TutorStats } from "@/types";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
+import {
+  Banknote,
+  CalendarClock,
+  Star,
+  TrendingUp,
+  UserRoundCheck,
+} from "lucide-react";
 
 export default function TutorDashboardPage() {
   const [stats, setStats] = useState<TutorStats | null>(null);
@@ -45,21 +53,25 @@ export default function TutorDashboardPage() {
       title: "Total Earnings",
       value: `৳ ${stats?.earnings.totalEarnings ?? 0}`,
       note: "All time earnings",
+      icon: Banknote,
     },
     {
       title: "Monthly Earnings",
       value: `৳ ${stats?.earnings.earningsThisMonth ?? 0}`,
       note: `${format(new Date(), "MMMM, yyyy")} earnings`,
+      icon: TrendingUp,
     },
     {
       title: "Today's Earnings",
       value: `৳ ${stats?.earnings.earningsToday ?? 0}`,
       note: `${stats?.sessions.completedToday ?? 0} sessions today`,
+      icon: CalendarClock,
     },
     {
       title: "Hourly Rate",
       value: `৳ ${stats?.earnings.hourlyRate ?? 0}`,
       note: "Per session hour",
+      icon: Banknote,
     },
   ];
 
@@ -68,21 +80,25 @@ export default function TutorDashboardPage() {
       title: "Total Unique Students",
       value: `${stats?.profile.uniqueStudents ?? 0}`,
       note: "Students taught all time",
+      icon: UserRoundCheck,
     },
     {
       title: "Experience",
       value: `${stats?.profile.experienceYears ?? 0} yrs`,
       note: "Years of teaching",
+      icon: TrendingUp,
     },
     {
       title: "Active Availability",
       value: `${stats?.profile.activeDays ?? 0} days`,
       note: "Days open per week",
+      icon: CalendarClock,
     },
     {
       title: "Average Rating",
       value: `${stats?.profile.averageRating ?? 0} / 5`,
       note: `Based on ${stats?.profile.reviewCount ?? 0} reviews`,
+      icon: Star,
     },
   ];
 
@@ -91,67 +107,84 @@ export default function TutorDashboardPage() {
       title: "Completed Sessions",
       value: `${stats?.sessions.completed ?? 0}`,
       note: `${stats?.sessions.completedThisWeek ?? 0} this week`,
+      icon: UserRoundCheck,
     },
     {
       title: "Cancelled Sessions",
       value: `${stats?.sessions.cancelled ?? 0}`,
       note: `${stats?.sessions.cancelledThisMonth ?? 0} this month`,
+      icon: CalendarClock,
     },
     {
       title: "Upcoming Sessions",
       value: `${stats?.sessions.upcoming ?? 0}`,
       note: "Confirmed sessions in today and future",
+      icon: TrendingUp,
     },
   ];
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 p-4">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">Tutor Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Track your sessions, earnings, and students.
-        </p>
-      </div>
+      <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
+        <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-1">
+            <CardTitle className="text-2xl">Tutor Dashboard</CardTitle>
+            <CardDescription>
+              Track your sessions, earnings, and student engagement.
+            </CardDescription>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+              {stats?.sessions.upcoming ?? 0} Upcoming
+            </Badge>
+            <Badge variant="secondary">
+              {stats?.profile.averageRating ?? 0} Avg Rating
+            </Badge>
+          </div>
+        </CardHeader>
+      </Card>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {earningsStats.map((item) => (
-          <Card key={item.title} className="overflow-hidden">
-            <CardContent className="p-0">
-              <div
-                className={`flex items-center justify-between px-5 pt-5 pb-3`}
-              >
+        {earningsStats.map((item, idx) => (
+          <Card
+            key={item.title}
+            className="animate-in fade-in slide-in-from-bottom-2 duration-500 overflow-hidden"
+            style={{ animationDelay: `${idx * 80}ms` }}
+          >
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {item.title}
                   </p>
-                  <p className={`mt-1 text-2xl font-bold`}>{item.value}</p>
+                  <p className="mt-2 text-2xl font-bold">{item.value}</p>
                 </div>
+                <item.icon className="size-4 text-[#ec5b13]" />
               </div>
-              <div className="px-5 py-3">
-                <p className="text-xs text-muted-foreground">{item.note}</p>
-              </div>
+              <p className="mt-2 text-xs text-muted-foreground">{item.note}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {profileStats.map((item) => (
-          <Card key={item.title} className="overflow-hidden">
-            <CardContent className="p-0">
-              <div
-                className={`flex items-center justify-between px-5 pt-5 pb-3`}
-              >
+        {profileStats.map((item, idx) => (
+          <Card
+            key={item.title}
+            className="animate-in fade-in slide-in-from-bottom-2 duration-500 overflow-hidden"
+            style={{ animationDelay: `${idx * 90}ms` }}
+          >
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {item.title}
                   </p>
-                  <p className={`mt-1 text-2xl font-bold`}>{item.value}</p>
+                  <p className="mt-2 text-2xl font-bold">{item.value}</p>
                 </div>
+                <item.icon className="size-4 text-[#ec5b13]" />
               </div>
-              <div className="px-5 py-3">
-                <p className="text-xs text-muted-foreground">{item.note}</p>
-              </div>
+              <p className="mt-2 text-xs text-muted-foreground">{item.note}</p>
             </CardContent>
           </Card>
         ))}
@@ -189,22 +222,25 @@ export default function TutorDashboardPage() {
         </Card>
 
         <div className="flex flex-col gap-4 xl:col-span-2">
-          {sessionStats.map((item) => (
-            <Card key={item.title} className="overflow-hidden">
-              <CardContent className="p-0">
-                <div
-                  className={`flex items-center justify-between px-5 pt-4 pb-2`}
-                >
+          {sessionStats.map((item, idx) => (
+            <Card
+              key={item.title}
+              className="animate-in fade-in slide-in-from-bottom-2 duration-500 overflow-hidden"
+              style={{ animationDelay: `${idx * 100}ms` }}
+            >
+              <CardContent className="p-5">
+                <div className="flex items-start justify-between">
                   <div>
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                       {item.title}
                     </p>
-                    <p className={`mt-1 text-2xl font-bold`}>{item.value}</p>
+                    <p className="mt-2 text-2xl font-bold">{item.value}</p>
                   </div>
+                  <item.icon className="size-4 text-[#ec5b13]" />
                 </div>
-                <div className="flex items-center justify-between px-5 py-2">
-                  <p className="text-xs text-muted-foreground">{item.note}</p>
-                </div>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {item.note}
+                </p>
               </CardContent>
             </Card>
           ))}

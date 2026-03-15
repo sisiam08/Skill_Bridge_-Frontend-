@@ -11,12 +11,16 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-[#f8f6f6]/80 dark:bg-[#221610]/80 backdrop-blur-md border-b border-[#ec5b13]/10 dark:border-[#ec5b13]/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-              <GraduationCap className="size-5" strokeWidth={2.2} />
+              <GraduationCap
+                className="size-5"
+                strokeWidth={2.2}
+                suppressHydrationWarning
+              />
             </div>
 
             <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
@@ -71,13 +75,6 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
                   href="/dashboard"
                 >
                   Dashboard
-                </Link>
-
-                <Link
-                  className="text-sm font-medium text-[#221610] dark:text-slate-100 hover:text-[#ec5b13] transition-colors"
-                  href="/dashboard/profile"
-                >
-                  Profile
                 </Link>
 
                 <Button className="bg-[#ec5b13] hover:bg-[#d44f10] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all hover:scale-105">
@@ -168,13 +165,6 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
                       className="text-sm font-medium text-[#221610] dark:text-slate-100 hover:text-[#ec5b13] transition-colors py-2.5"
                     >
                       Dashboard
-                    </Link>
-
-                    <Link
-                      href="/dashboard/profile"
-                      className="text-sm font-medium text-[#221610] dark:text-slate-100 hover:text-[#ec5b13] transition-colors py-2.5"
-                    >
-                      Profile
                     </Link>
 
                     <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all hover:scale-105">

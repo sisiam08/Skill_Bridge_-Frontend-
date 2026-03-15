@@ -26,3 +26,8 @@ export const updateBookingStatus = async (
   );
   return { data, error };
 };
+
+export const getMyBookings = async () => {
+  const { data, error } = await BookingService.getMyBookings();
+  return { data, error };
+};

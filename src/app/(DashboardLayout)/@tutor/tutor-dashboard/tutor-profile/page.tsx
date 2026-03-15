@@ -37,6 +37,14 @@ import { Field, FieldError } from "@/components/ui/field";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { uploadImage } from "@/actions/upload.action";
+import {
+  BadgeCheck,
+  BriefcaseBusiness,
+  Camera,
+  PencilLine,
+  Save,
+  UserRound,
+} from "lucide-react";
 
 const TutorProfileSchema = z.object({
   categoryId: z.string().min(1, "Category is required"),
@@ -97,7 +105,6 @@ export default function TutorProfilePage() {
     (async () => {
       const session = await getSession();
       if (!session?.data?.user) return;
-      console.log(session);
 
       setUserId(session.data.user.id);
       setName(session?.data?.user?.name || "tutor name");
@@ -240,21 +247,21 @@ export default function TutorProfilePage() {
 
       const toastId = toast.loading("Saving changes...");
 
+      try {
       if (selectedFileRef.current) {
         const response = await uploadImage(selectedFileRef.current);
         console.log(response);
 
-        if (!response.success) {
+        if (!response.data.success) {
           toast.error("Failed to upload image.", { id: toastId });
           return;
         }
 
-        updatedData.image = response.url;
+        updatedData.image = response.data.data.url;
       }
 
-      console.log(updatedData);
+      // console.log(updatedData);
 
-      try {
         const response = await updateUser(updatedData);
 
         if (value.email !== mainEmail) {
@@ -308,7 +315,7 @@ export default function TutorProfilePage() {
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 p-4">
-      <Card>
+      <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
             <CardTitle className="text-2xl">Tutor Profile</CardTitle>
@@ -341,6 +348,7 @@ export default function TutorProfilePage() {
                 }
               }}
             >
+              <PencilLine className="mr-2 size-4" />
               Edit Profile
             </Button>
           </div>
@@ -350,7 +358,10 @@ export default function TutorProfilePage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-1">
           <CardHeader>
-            <CardTitle>Account details</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <UserRound className="size-4 text-[#ec5b13]" />
+              Account details
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <form>
@@ -377,6 +388,7 @@ export default function TutorProfilePage() {
                       disabled={isAccountFormDisableMode}
                       onClick={() => fileInputRef.current?.click()}
                     >
+                      <Camera className="mr-2 size-4" />
                       Add Profile Picture
                     </Button>
                   ) : null}
@@ -489,11 +501,16 @@ export default function TutorProfilePage() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">Role</p>
-                <Badge>{role}</Badge>
+                <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+                  {role}
+                </Badge>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">Status</p>
-                <Badge variant="secondary">{status}</Badge>
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  <BadgeCheck className="size-3.5" />
+                  {status}
+                </Badge>
               </div>
             </div>
           </CardContent>
@@ -502,7 +519,10 @@ export default function TutorProfilePage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-1">
-              <CardTitle>Professional profile details</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <BriefcaseBusiness className="size-4 text-[#ec5b13]" />
+                Professional profile details
+              </CardTitle>
               <CardDescription>
                 {isCreating
                   ? "Write all tutor information to create your profile."
@@ -697,6 +717,7 @@ export default function TutorProfilePage() {
                         profileForm.handleSubmit();
                       }}
                     >
+                      <Save className="mr-2 size-4" />
                       Save Changes
                     </Button>
                   )}
@@ -723,6 +744,7 @@ export default function TutorProfilePage() {
                     setIsCreating(true);
                   }}
                 >
+                  <PencilLine className="mr-2 size-4" />
                   Create Profile
                 </Button>
               </div>

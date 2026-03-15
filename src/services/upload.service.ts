@@ -7,6 +7,7 @@ export const UploadService = {
     try {
       const formData = new FormData();
       formData.append("image", file);
+      
       const res = await fetch(`${API_URL}/uploads`, {
         method: "POST",
         body: formData,

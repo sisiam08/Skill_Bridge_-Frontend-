@@ -126,7 +126,7 @@ export default function CategoryPage() {
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 p-4">
-      <Card>
+      <Card className="animate-in fade-in slide-in-from-bottom-2 duration-500">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
             <CardTitle className="text-2xl">Category Management</CardTitle>
@@ -141,7 +141,7 @@ export default function CategoryPage() {
       </Card>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <Card className="xl:col-span-1">
+        <Card className="xl:col-span-1 animate-in fade-in slide-in-from-bottom-2 duration-500 [animation-delay:80ms]">
           <CardHeader>
             <CardTitle>Create Category</CardTitle>
             <CardDescription>
@@ -189,7 +189,7 @@ export default function CategoryPage() {
           </CardContent>
         </Card>
 
-        <Card className="xl:col-span-2">
+        <Card className="xl:col-span-2 animate-in fade-in slide-in-from-bottom-2 duration-500 [animation-delay:140ms]">
           <CardHeader>
             <CardTitle>All Categories</CardTitle>
             <CardDescription>

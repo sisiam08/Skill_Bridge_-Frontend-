@@ -11,8 +11,8 @@ export const StudentRoutes: Routes = {
       url: "/dashboard/profile",
     },
     {
-      title: "Sessions",
-      url: "/dashboard/sessions",
+      title: "Session",
+      url: "/dashboard/session",
     },
   ],
 };

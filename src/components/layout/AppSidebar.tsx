@@ -59,7 +59,11 @@ export function AppSidebar({
       <SidebarHeader>
         <div className="flex items-center gap-3 pt-2 pb-6 pl-2">
           <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-            <GraduationCap className="size-5" strokeWidth={2.2} />
+            <GraduationCap
+              className="size-5"
+              strokeWidth={2.2}
+              suppressHydrationWarning
+            />
           </div>
 
           <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
@@ -88,7 +92,7 @@ export function AppSidebar({
               title="Logout"
               className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
             >
-              <LogOut />
+              <LogOut suppressHydrationWarning />
               <span>Logout</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

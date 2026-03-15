@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export function FeaturedSection() {
       id="featured-tutors"
       className="scroll-mt-20 py-16 md:py-24 bg-[#f8f6f6] dark:bg-[#1a120d]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 text-center md:text-left">
           <div>

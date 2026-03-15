@@ -1,5 +1,6 @@
 export type TutorCardProps = {
   id?: string;
+  animationIndex?: number;
   user?: {
     id?: string;
     name?: string;
@@ -41,7 +42,6 @@ export type TutorProfile = {
   };
 };
 
-
 export type TutorProfileCreateData = {
   userId: string;
   categoriesId: string;
@@ -56,7 +56,7 @@ export type TutorProfileUpdateData = {
   bio?: string | null;
   hourlyRate: number;
   experienceYears: number;
-}
+};
 
 export type TutorStats = {
   earnings: {

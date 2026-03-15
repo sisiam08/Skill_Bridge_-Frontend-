@@ -12,6 +12,7 @@ import Image from "next/image";
 import { TutorCardProps } from "@/types";
 
 export default function TutorCard({
+  animationIndex = 0,
   user,
   category,
   totalRating = 0,
@@ -24,7 +25,10 @@ export default function TutorCard({
   console.log("User Image: ", user?.image);
 
   return (
-    <Card className={"group overflow-hidden"}>
+    <Card
+      className="group animate-in fade-in slide-in-from-bottom-2 duration-500 overflow-hidden"
+      style={{ animationDelay: `${animationIndex * 70}ms` }}
+    >
       <CardHeader className="flex items-center justify-center gap-4">
         <div className="flex items-center gap-3">
           <div className="relative h-30 w-30 shrink-0 overflow-hidden rounded-full sm:h-48 sm:w-48">
