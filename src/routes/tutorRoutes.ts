@@ -18,5 +18,9 @@ export const TutorRoutes: Routes = {
       title: "Availability",
       url: "/tutor-dashboard/availability",
     },
+    {
+      title: "History",
+      url: "/tutor-dashboard/history",
+    },
   ],
 };

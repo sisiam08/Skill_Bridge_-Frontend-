@@ -48,12 +48,14 @@ export default function ReviewSessionSheet({
   setReviewText,
   submitReview,
 }: ReviewSessionSheetProps) {
+  const hasReview = () => Boolean(reviewSession?.reviews);
+
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
-      <SheetContent side="right" className="w-full sm:max-w-2xl p-0 gap-0">
+      <SheetContent side="right" className="w-full sm:max-w-2xl p-0 gap-0" showCloseButton={false}>
         <SheetHeader className="border-b bg-linear-to-r from-orange-50 via-white to-amber-50 px-6 py-5 text-left">
           <SheetTitle className="flex items-center gap-2 text-xl text-[rgb(34,22,16)] dark:text-[#221610]">
-            <MessageSquare className="size-5 text-[#ec5b13]" />
+            <MessageSquare className="size-5 text-[#ec5b13]" suppressHydrationWarning/>
             Review Session
           </SheetTitle>
           <SheetDescription className="text-[#6b4f3d] dark:text-[#6b4f3d]">
@@ -143,6 +145,7 @@ export default function ReviewSessionSheet({
 
                         return (
                           <button
+                          disabled={hasReview()}
                             key={value}
                             type="button"
                             className="transition-transform hover:scale-110"
@@ -181,6 +184,7 @@ export default function ReviewSessionSheet({
                   </p>
                 </div>
                 <Textarea
+                disabled={hasReview()}
                   rows={6}
                   value={reviewText}
                   onChange={(event) => setReviewText(event.target.value)}
@@ -206,7 +210,12 @@ export default function ReviewSessionSheet({
           <Button
             className="bg-[#ec5b13] text-white hover:bg-[#d44f10] font-normal"
             onClick={submitReview}
-            disabled={!reviewSession || rating === 0 || !reviewText.trim()}
+            disabled={
+              hasReview() ||
+              !reviewSession ||
+              rating === 0 ||
+              !reviewText.trim()
+            }
           >
             <MessageSquare className="mr-2 size-4" />
             Submit Review

@@ -348,7 +348,7 @@ export default function TutorProfilePage() {
                 }
               }}
             >
-              <PencilLine className="mr-2 size-4" />
+              <PencilLine className="mr-2 size-4" suppressHydrationWarning/>
               Edit Profile
             </Button>
           </div>
@@ -359,7 +359,7 @@ export default function TutorProfilePage() {
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UserRound className="size-4 text-[#ec5b13]" />
+              <UserRound className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
               Account details
             </CardTitle>
           </CardHeader>
@@ -388,7 +388,7 @@ export default function TutorProfilePage() {
                       disabled={isAccountFormDisableMode}
                       onClick={() => fileInputRef.current?.click()}
                     >
-                      <Camera className="mr-2 size-4" />
+                      <Camera className="mr-2 size-4" suppressHydrationWarning/>
                       Add Profile Picture
                     </Button>
                   ) : null}
@@ -508,7 +508,7 @@ export default function TutorProfilePage() {
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">Status</p>
                 <Badge variant="secondary" className="flex items-center gap-1">
-                  <BadgeCheck className="size-3.5" />
+                  <BadgeCheck className="size-3.5" suppressHydrationWarning/>
                   {status}
                 </Badge>
               </div>
@@ -520,7 +520,7 @@ export default function TutorProfilePage() {
           <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-1">
               <CardTitle className="flex items-center gap-2">
-                <BriefcaseBusiness className="size-4 text-[#ec5b13]" />
+                <BriefcaseBusiness className="size-4 text-[#ec5b13]" suppressHydrationWarning />
                 Professional profile details
               </CardTitle>
               <CardDescription>
@@ -717,7 +717,7 @@ export default function TutorProfilePage() {
                         profileForm.handleSubmit();
                       }}
                     >
-                      <Save className="mr-2 size-4" />
+                      <Save className="mr-2 size-4" suppressHydrationWarning/>
                       Save Changes
                     </Button>
                   )}
@@ -744,7 +744,7 @@ export default function TutorProfilePage() {
                     setIsCreating(true);
                   }}
                 >
-                  <PencilLine className="mr-2 size-4" />
+                  <PencilLine className="mr-2 size-4" suppressHydrationWarning/>
                   Create Profile
                 </Button>
               </div>

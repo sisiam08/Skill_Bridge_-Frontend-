@@ -14,5 +14,9 @@ export const AdminRoutes: Routes = {
       title: "Users",
       url: "/admin-dashboard/users",
     },
+    {
+      title: "Bookings",
+      url: "/admin-dashboard/bookings",
+    },
   ],
 };

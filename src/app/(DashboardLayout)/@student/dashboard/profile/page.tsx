@@ -174,7 +174,7 @@ export default function StudentProfilePage() {
                 form.setFieldValue("phone", phone);
               }}
             >
-              <PencilLine className="mr-2 size-4" />
+              <PencilLine className="mr-2 size-4" suppressHydrationWarning />
               Edit Profile
             </Button>
           </div>
@@ -184,7 +184,10 @@ export default function StudentProfilePage() {
       <Card className="max-w-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <UserRound className="size-4 text-[#ec5b13]" />
+            <UserRound
+              className="size-4 text-[#ec5b13]"
+              suppressHydrationWarning
+            />
             Account details
           </CardTitle>
         </CardHeader>
@@ -219,7 +222,7 @@ export default function StudentProfilePage() {
                     disabled={!isEditing}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Camera className="mr-2 size-4" />
+                    <Camera className="mr-2 size-4" suppressHydrationWarning />
                     Add Profile Picture
                   </Button>
                 ) : null}
@@ -331,7 +334,7 @@ export default function StudentProfilePage() {
             <div className="flex items-center justify-between">
               <p className="text-muted-foreground">Status</p>
               <Badge variant="secondary" className="flex items-center gap-1">
-                <BadgeCheck className="size-3.5" />
+                <BadgeCheck className="size-3.5" suppressHydrationWarning />
                 {status}
               </Badge>
             </div>
@@ -345,7 +348,7 @@ export default function StudentProfilePage() {
               form="profileForm"
               type="submit"
             >
-              <Save className="mr-2 size-4" />
+              <Save className="mr-2 size-4" suppressHydrationWarning />
               Save Changes
             </Button>
 

@@ -31,32 +31,6 @@ export const BookingService = {
     }
   },
 
-  sendClassLink: async (bookingId: string, classLink: string) => {
-    try {
-      const cookieStore = await cookies();
-      const res = await fetch(`${API_URL}/bookings/${bookingId}/classLink`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
-        },
-        body: JSON.stringify({ classLink }),
-      });
-
-      const data = await res.json();
-
-      return {
-        data,
-        error: null,
-      };
-    } catch (error: any) {
-      return {
-        data: null,
-        error: { message: error.message || "Something went wrong!" },
-      };
-    }
-  },
-
   updateBookingStatus: async (bookingId: string, status: string) => {
     try {
       const cookieStore = await cookies();

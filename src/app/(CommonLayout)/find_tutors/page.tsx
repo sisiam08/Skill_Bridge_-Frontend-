@@ -1,7 +1,7 @@
 "use client";
 import { getAllTutors } from "@/actions/tutor.action";
 import Pagination from "@/components/layout/Pagination";
-import FiltersSidebar from "@/components/modules/Tutor/FilterSidebar";
+import FiltersSidebar from "@/components/layout/FilterSidebar";
 import TutorCard from "@/components/layout/TutorCard";
 import { Filters, PaginationType, TutorCardProps } from "@/types";
 import { useState, useEffect } from "react";

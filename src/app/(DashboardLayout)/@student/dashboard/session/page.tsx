@@ -24,17 +24,20 @@ import {
   MessageSquare,
   NotebookTabs,
   Star,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { createReview } from "@/actions/review.action";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 
 export default function StudentSessionPage() {
   const [todaySessions, setTodaySessions] = useState<StudentBookings[]>([]);
@@ -249,10 +252,15 @@ export default function StudentSessionPage() {
             </CardContent>
 
             <CardFooter>
-              <Button variant="outline" className="w-full font-normal">
-                <ArrowRight className="mr-2 size-4" />
-                View all history
-              </Button>
+              <Link href="/dashboard/history">
+                <Button variant="outline" className="w-full font-normal">
+                  <ArrowRight
+                    className="mr-2 size-4"
+                    suppressHydrationWarning
+                  />
+                  View all history
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
 
@@ -299,14 +307,33 @@ export default function StudentSessionPage() {
         submitReview={submitReview}
       />
 
+      {/* <SheetContent
+        side="right"
+        showCloseButton={false}
+        className="w-full sm:max-w-2xl p-0 gap-0"
+      >
+        <SheetHeader className="relative border-b bg-linear-to-r from-orange-50 via-white to-amber-50 px-6 py-5 text-left">
+          <SheetClose className="absolute right-4 top-4 rounded-sm p-1 text-[#221610] opacity-90 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#ec5b13] focus:ring-offset-2">
+            <X className="size-4" />
+            <span className="sr-only">Close</span>
+          </SheetClose> */}
+
       <Sheet open={feedBackSheetOpen} onOpenChange={setFeedbackSheetOpen}>
         <SheetContent
           side="bottom"
+          showCloseButton={false}
           className="inset-auto left-1/2 top-1/2 w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-xl border flex flex-col max-h-[80vh]"
         >
-          <SheetHeader className="shrink-0">
-            <SheetTitle className="flex items-center gap-2 text-xl text-[rgb(34,22,16)] dark:text-white">
-              <MessageSquare className="size-5 text-[#ec5b13]" />
+          <SheetHeader className="shrink-0 relative border-b bg-linear-to-r from-orange-50 via-orange-50 to-amber-50 px-6 py-5 text-left">
+            <SheetClose className="absolute right-4 top-4 rounded-sm p-1 text-[#221610] opacity-90 transition-opacity hover:opacity-100 focus:outline-none">
+              <X className="size-4" />
+              <span className="sr-only">Close</span>
+            </SheetClose>
+            <SheetTitle className="flex items-center gap-2 text-xl text-[rgb(34,22,16)] dark:text-[#221610]">
+              <MessageSquare
+                className="size-5 text-[#ec5b13]"
+                suppressHydrationWarning
+              />
               Add Reviews
             </SheetTitle>
             <SheetDescription className="text-[#6b4f3d] dark:text-[#6b4f3d]">

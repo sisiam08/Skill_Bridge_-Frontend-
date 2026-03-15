@@ -14,5 +14,9 @@ export const StudentRoutes: Routes = {
       title: "Session",
       url: "/dashboard/session",
     },
+    {
+      title: "History",
+      url: "/dashboard/history",
+    },
   ],
 };

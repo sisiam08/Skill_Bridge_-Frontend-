@@ -8,14 +8,6 @@ export const getBookingSessions = async () => {
   return { data, error };
 };
 
-export const sendClassLink = async (bookingId: string, classLink: string) => {
-  const { data, error } = await BookingService.sendClassLink(
-    bookingId,
-    classLink,
-  );
-  return { data, error };
-};
-
 export const updateBookingStatus = async (
   bookingId: string,
   status: string,

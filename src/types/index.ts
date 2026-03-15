@@ -7,3 +7,4 @@ export type * from "./user.type";
 export type * from "./availability.type";
 export type * from "./booking.type";
 export type * from "./review.type";
+export type * from "./student.type";

@@ -180,7 +180,7 @@ export default function TutorAvailabilityPage() {
         <Card className="xl:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CalendarDays className="size-4 text-[#ec5b13]" />
+              <CalendarDays className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
               Weekly Schedule
             </CardTitle>
             <CardDescription>
@@ -301,7 +301,7 @@ export default function TutorAvailabilityPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CalendarPlus2 className="size-4 text-[#ec5b13]" />
+              <CalendarPlus2 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
               Add Time Slot
             </CardTitle>
             <CardDescription>
@@ -375,7 +375,7 @@ export default function TutorAvailabilityPage() {
                 </div>
 
                 <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white">
-                  <Clock3 className="mr-2 size-4" />
+                  <Clock3 className="mr-2 size-4" suppressHydrationWarning/>
                   Add Slot
                 </Button>
               </form>

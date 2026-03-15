@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   getBookingSessions,
-  sendClassLink,
   updateBookingStatus,
 } from "@/actions/booking.action";
 import SessionCard from "@/components/layout/SessionCard";
@@ -24,6 +23,7 @@ import { TutorBookingSession } from "@/types";
 import { toast } from "sonner";
 import {
   getDefaultClassLink,
+  sendClassLink,
   setDefaultClassLink,
 } from "@/actions/tutor.action";
 import { CalendarClock, Clock3, Link2 } from "lucide-react";
@@ -236,7 +236,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Clock3 className="size-4 text-[#ec5b13]" />
+                  <Clock3 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
                   Today's Sessions
                 </CardTitle>
                 <CardDescription>Sessions scheduled for today.</CardDescription>
@@ -265,7 +265,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CalendarClock className="size-4 text-[#ec5b13]" />
+                  <CalendarClock className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
                   Upcoming Sessions
                 </CardTitle>
                 <CardDescription>Future confirmed sessions.</CardDescription>
@@ -296,7 +296,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Link2 className="size-4 text-[#ec5b13]" />
+                  <Link2 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
                   Class Link
                 </CardTitle>
                 <CardDescription>
@@ -315,7 +315,7 @@ export default function TutorSessionPage() {
                   className="w-full bg-[#ec5b13] text-white hover:bg-[#d44f10]"
                   onClick={() => saveDefaultClassLink(defaultClassLink)}
                 >
-                  <Link2 className="mr-2 size-4" />
+                  <Link2 className="mr-2 size-4" suppressHydrationWarning />
                   Save Class Link
                 </Button>
               </CardContent>
