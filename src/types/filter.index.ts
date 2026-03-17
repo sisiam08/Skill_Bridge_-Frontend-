@@ -25,5 +25,5 @@ export type PaginationType = {
 
 export type PaginationProps = {
   paginationInfo: PaginationType;
-  onPageChange: (page: number) => void;
+  handlePageChange: (page: number) => void;
 };

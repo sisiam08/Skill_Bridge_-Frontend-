@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StudentRecentActivity, StudentStats } from "@/types";
+import { format } from "date-fns";
 import {
   BookOpenCheck,
   CalendarCheck2,
@@ -93,7 +94,7 @@ export default function StudentDashboardPage() {
     Object.keys(studentRecentActivity?.recentBooking || {}).length > 0
       ? {
           title: "Booking Confirmed",
-          description: `${studentRecentActivity?.recentBooking.categoryName} on ${studentRecentActivity?.recentBooking.sessionDate}`,
+          description: `${studentRecentActivity?.recentBooking.categoryName} on ${format(new Date(studentRecentActivity?.recentBooking.sessionDate ?? ""), "PPP")}`,
           time: studentRecentActivity?.recentBooking.timeAgo ?? "-",
         }
       : null,

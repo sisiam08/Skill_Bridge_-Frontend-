@@ -37,7 +37,7 @@ export const TutorService = {
 
       const res = await fetch(url.toString(), config);
 
-      const data = res.json();
+      const data = await res.json();
 
       return { data, error: null };
     } catch (error) {

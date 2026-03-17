@@ -38,6 +38,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { CalendarDays, CalendarPlus2, Clock3 } from "lucide-react";
+import Availabilities from "@/components/layout/Availabilities";
 
 const AvailabilitySchema = z.object({
   dayOfWeek: z.number().min(0).max(6),
@@ -65,7 +66,8 @@ export default function TutorAvailabilityPage() {
   const loadAvailabilities = async () => {
     const response = await getTutorProfile();
 
-    if (response?.data) setAvailabilities(response.data.availability);
+    if (response?.data.success)
+      setAvailabilities(response.data.data.availability);
   };
 
   useEffect(() => {
@@ -176,132 +178,26 @@ export default function TutorAvailabilityPage() {
         </CardHeader>
       </Card>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <Card className="xl:col-span-2">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-6">
+        <div className="col-span-4">
+          <Availabilities
+          availabilities={availabilities}
+          isTutorView={true}
+          editingSlot={editingSlot}
+          setEditingSlot={setEditingSlot}
+          handleUpdate={handleUpdate}
+          handleToggle={handleToggle}
+          handleDelete={handleDelete}
+        />
+        </div>
+
+        <Card className="col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CalendarDays className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
-              Weekly Schedule
-            </CardTitle>
-            <CardDescription>
-              Click a slot to enable/disable or update or delete it.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {weekDays.map(({ day, slots }) => (
-              <div
-                key={day}
-                className="flex items-start gap-4 rounded-lg border border-border/80 bg-muted/15 p-3"
-              >
-                <p className="w-24 shrink-0 pt-1 font-medium">
-                  {daysWithNumber[day]}
-                </p>
-
-                {slots.length === 0 ? (
-                  <p className="text-sm text-muted-foreground pt-1">No slots</p>
-                ) : (
-                  <div className="flex flex-wrap gap-2">
-                    {slots.map((slot) => {
-                      const isEditing = editingSlot?.id === slot.id;
-                      return isEditing && editingSlot ? (
-                        <div
-                          key={slot.id}
-                          className="flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-1.5"
-                        >
-                          <Input
-                            type="time"
-                            className="h-7 w-28 text-xs"
-                            value={editingSlot.startTime}
-                            onChange={(e) =>
-                              setEditingSlot({
-                                ...editingSlot,
-                                startTime: e.target.value,
-                              })
-                            }
-                          />
-                          <span className="text-xs text-muted-foreground">
-                            –
-                          </span>
-                          <Input
-                            type="time"
-                            className="h-7 w-28 text-xs"
-                            value={editingSlot.endTime}
-                            onChange={(e) =>
-                              setEditingSlot({
-                                ...editingSlot,
-                                endTime: e.target.value,
-                              })
-                            }
-                          />
-                          <Button
-                            size="sm"
-                            className="h-7 bg-[#ec5b13] px-2 text-xs hover:bg-[#d44f10] text-white"
-                            onClick={handleUpdate}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-7 px-2 text-xs"
-                            onClick={() => setEditingSlot(null)}
-                          >
-                            Cancel
-                          </Button>
-                        </div>
-                      ) : (
-                        <DropdownMenu key={slot.id}>
-                          <DropdownMenuTrigger asChild>
-                            <button
-                              className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors cursor-pointer ${
-                                slot.isActive
-                                  ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
-                                  : "border-muted bg-muted text-muted-foreground line-through"
-                              }`}
-                            >
-                              {convertInto12h(slot.startTime)} –{" "}
-                              {convertInto12h(slot.endTime)}
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="start">
-                            <DropdownMenuItem
-                              onClick={() => handleToggle(slot)}
-                            >
-                              {slot.isActive ? "Disable slot" : "Enable slot"}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={() =>
-                                setEditingSlot({
-                                  id: slot.id!,
-                                  startTime: slot.startTime,
-                                  endTime: slot.endTime,
-                                })
-                              }
-                            >
-                              Update slot
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem
-                              className="text-red-500 focus:text-red-500"
-                              onClick={() => handleDelete(slot)}
-                            >
-                              Delete slot
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CalendarPlus2 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+              <CalendarPlus2
+                className="size-4 text-[#ec5b13]"
+                suppressHydrationWarning
+              />
               Add Time Slot
             </CardTitle>
             <CardDescription>
@@ -375,7 +271,7 @@ export default function TutorAvailabilityPage() {
                 </div>
 
                 <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white">
-                  <Clock3 className="mr-2 size-4" suppressHydrationWarning/>
+                  <Clock3 className="mr-2 size-4" suppressHydrationWarning />
                   Add Slot
                 </Button>
               </form>

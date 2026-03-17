@@ -30,8 +30,39 @@ export const AvailabilityService = {
 
   getAvailability: async (tutorId: string) => {
     try {
-      const res = await fetch(`${API_URL}/tutors/${tutorId}/availability`);
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/tutors/${tutorId}/availability`, {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
 
+      const data = await res.json();
+
+      return { data, error: null };
+    } catch (error: any) {
+      return {
+        data: null,
+        error: { message: error.message || "Something went wrong!" },
+      };
+    }
+  },
+
+  getAvailableSlots: async (
+    tutorId: string,
+    selectedDate: Date,
+    slotDuration: string,
+  ) => {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(
+        `${API_URL}/tutors/${tutorId}/availableSlots/?selectedDate=${selectedDate}&slotDuration=${slotDuration}`,
+        {
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
       const data = await res.json();
 
       return { data, error: null };

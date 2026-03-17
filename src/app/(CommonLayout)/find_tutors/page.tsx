@@ -3,7 +3,7 @@ import { getAllTutors } from "@/actions/tutor.action";
 import Pagination from "@/components/layout/Pagination";
 import FiltersSidebar from "@/components/layout/FilterSidebar";
 import TutorCard from "@/components/layout/TutorCard";
-import { Filters, PaginationType, TutorCardProps } from "@/types";
+import { Filters, PaginationType, TutorCardProps, TutorProfile } from "@/types";
 import { useState, useEffect } from "react";
 import Sorting from "@/components/layout/Sorting";
 import { useSearchParams } from "next/navigation";
@@ -25,7 +25,7 @@ export default function TutorsPage() {
   });
 
   const [tutors, setTutors] = useState<{
-    data: TutorCardProps[];
+    data: TutorProfile[];
     pagination: PaginationType;
   }>({
     data: [],
@@ -38,13 +38,12 @@ export default function TutorsPage() {
   });
 
   useEffect(() => {
-    const fetchTutors = async () => {
-      const { data } = await getAllTutors(filters, { revalidate: 10 });
-      if (data) {
-        setTutors(data ?? { data: [], pagination: {} });
-      }
-    };
-    fetchTutors();
+    (async () => {
+      const response = await getAllTutors(filters, { revalidate: 10 });
+      if (!response.data.success) return;
+
+      setTutors(response.data.data ?? { data: [], pagination: {} });
+    })();
   }, [filters]);
 
   const { totalData }: PaginationType = tutors.pagination;
@@ -86,13 +85,13 @@ export default function TutorsPage() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {tutors?.data?.map((tutor, idx) => (
-              <TutorCard key={tutor.id} {...tutor} animationIndex={idx} />
+              <TutorCard key={tutor.id} tutor={tutor} animationIndex={idx} />
             ))}
           </div>
 
           <Pagination
             paginationInfo={tutors.pagination}
-            onPageChange={handlePageChange}
+            handlePageChange={handlePageChange}
           />
         </div>
       </div>

@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import TutorCard from "@/components/layout/TutorCard";
 import { useEffect, useState } from "react";
 import { getAllTutors } from "@/actions/tutor.action";
-import { TutorCardProps } from "@/types";
+import { TutorProfile } from "@/types";
 
 export function FeaturedSection() {
-  const [tutors, setTutors] = useState<TutorCardProps[]>([]);
+  const [tutors, setTutors] = useState<TutorProfile[]>([]);
 
   useEffect(() => {
     const fetchFeaturedTutors = async () => {
@@ -59,7 +59,7 @@ export function FeaturedSection() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
           {tutors.map((tutor) => (
-            <TutorCard key={tutor.id} {...tutor} />
+            <TutorCard key={tutor.id} tutor={tutor} />
           ))}
         </div>
       </div>

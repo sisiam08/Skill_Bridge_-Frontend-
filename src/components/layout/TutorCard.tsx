@@ -10,19 +10,17 @@ import { Button } from "@/components/ui/button";
 import default_avatar from "../../.././public/default-avatar-profile.jpg";
 import Image from "next/image";
 import { TutorCardProps } from "@/types";
+import Link from "next/link";
 
 export default function TutorCard({
+  tutor,
   animationIndex = 0,
-  user,
-  category,
-  totalRating = 0,
-  totalReview = 0,
-  hourlyRate = 0,
-  bio = "",
 }: TutorCardProps) {
-  const averageRating = totalReview > 0 ? totalRating / totalReview : 0;
+  const averageRating =
+    tutor.totalReviews > 0 ? tutor.totalRating / tutor.totalReviews : 0;
 
-  console.log("User Image: ", user?.image);
+  // console.log("User Image: ", user?.image);
+  // let id = tutor.id;
 
   return (
     <Card
@@ -33,8 +31,8 @@ export default function TutorCard({
         <div className="flex items-center gap-3">
           <div className="relative h-30 w-30 shrink-0 overflow-hidden rounded-full sm:h-48 sm:w-48">
             <Image
-              src={user?.image || default_avatar}
-              alt={user?.name ?? "Tutor"}
+              src={tutor.user?.image || default_avatar}
+              alt={tutor.user?.name ?? "Tutor"}
               fill
               unoptimized
               className="object-cover"
@@ -45,7 +43,7 @@ export default function TutorCard({
 
       <CardContent>
         <div className="flex items-center justify-between">
-          <CardTitle>{user?.name ?? "Unknown Tutor"}</CardTitle>
+          <CardTitle>{tutor.user?.name ?? "Unknown Tutor"}</CardTitle>
           <div className="flex items-center gap-2 text-amber-500">
             <span className="material-symbols-outlined text-sm">star</span>
             <span className="text-sm font-bold">
@@ -53,20 +51,24 @@ export default function TutorCard({
             </span>
           </div>
         </div>
-        <CardDescription>{category?.name ?? "General"}</CardDescription>
+        <CardDescription>{tutor.category?.name ?? "General"}</CardDescription>
         <p className="mb-2 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
-          {bio}
+          {tutor.bio}
         </p>
       </CardContent>
 
       <CardFooter>
         <div className="flex w-full items-center justify-between">
           <div>
-            <span className="text-lg font-bold text-primary">{hourlyRate}</span>
+            <span className="text-lg font-bold text-primary">
+              {tutor.hourlyRate}
+            </span>
             <span className="text-xs text-slate-500">tk/hr</span>
           </div>
 
-          <Button className="cursor-pointer">View Profile</Button>
+          <Link href={`/find_tutors/${tutor.id}`}>
+            <Button className="cursor-pointer">View Profile</Button>
+          </Link>
         </div>
       </CardFooter>
     </Card>

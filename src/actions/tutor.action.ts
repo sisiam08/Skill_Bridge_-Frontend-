@@ -8,30 +8,30 @@ export const getAllTutors = async (
   params?: Filters,
   options?: ServiceOptions,
 ) => {
-  const { data } = await TutorService.getAllTutors(params, options);
+  const { data, error } = await TutorService.getAllTutors(params, options);
   updateTag("tutors");
 
-  return data;
+  return {  data, error };
 };
 
 export const getTutorById = async (id: string) => {
-  const { data } = await TutorService.getTutorById(id);
-  return data;
+  const { data, error } = await TutorService.getTutorById(id);
+  return { data, error };
 };
 
 export const getTutorProfile = async () => {
-  const { data } = await TutorService.getTutorProfile();
-  return data;
+  const { data, error } = await TutorService.getTutorProfile();
+  return { data, error };
 };
 
 export const createTutorProfile = async (tutorData: TutorProfileCreateData) => {
-  const { data } = await TutorService.createTutorProfile(tutorData);
-  return data;
+  const { data, error } = await TutorService.createTutorProfile(tutorData);
+  return { data, error };
 };
 
 export const updateTutorProfile = async (tutorData: TutorProfileCreateData) => {
-  const { data } = await TutorService.updateTutorProfile(tutorData);
-  return data;
+  const { data, error } = await TutorService.updateTutorProfile(tutorData);
+  return { data, error };
 };
 
 export const setDefaultClassLink = async (defaultClassLink: string) => {

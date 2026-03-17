@@ -12,3 +12,14 @@ export type UpdateAvailabilityType = {
   startTime: string;
   endTime: string;
 };
+
+export type SlotType = {
+  startTime: string;
+  endTime: string;
+};
+
+export type AvailableSlotType = {
+  dayOfWeek: number;
+  availableSlots: SlotType[];
+  price: number;
+};

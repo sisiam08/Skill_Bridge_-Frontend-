@@ -1,21 +1,3 @@
-export type TutorCardProps = {
-  id?: string;
-  animationIndex?: number;
-  user?: {
-    id?: string;
-    name?: string;
-    email?: string;
-    image?: string | null;
-  };
-  category?: {
-    id?: string;
-    name?: string;
-  };
-  totalRating?: number;
-  totalReview?: number;
-  hourlyRate?: number;
-  bio?: string;
-};
 
 export type TutorProfile = {
   id: string;
@@ -40,6 +22,11 @@ export type TutorProfile = {
     id?: string;
     name?: string;
   };
+};
+
+export type TutorCardProps = {
+  tutor: TutorProfile;  
+  animationIndex?: number;
 };
 
 export type TutorProfileCreateData = {

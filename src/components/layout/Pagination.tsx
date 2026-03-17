@@ -23,7 +23,7 @@ const getPageNumbers = (current: number, total: number) => {
 
 export default function Pagination({
   paginationInfo,
-  onPageChange,
+  handlePageChange,
 }: PaginationProps) {
   const { page, totalPages } = paginationInfo;
 
@@ -37,7 +37,7 @@ export default function Pagination({
       <Button
         type="button"
         disabled={page <= 1}
-        onClick={() => onPageChange(page - 1)}
+        onClick={() => handlePageChange(page - 1)}
         className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="material-symbols-outlined">chevron_left</span>
@@ -60,7 +60,7 @@ export default function Pagination({
             key={num}
             type="button"
             disabled={isActive}
-            onClick={() => onPageChange(num)}
+            onClick={() => handlePageChange(num)}
             className={
               isActive
                 ? "flex size-10 items-center justify-center rounded-lg bg-primary font-bold text-white disabled:cursor-default disabled:opacity-100"
@@ -76,7 +76,7 @@ export default function Pagination({
       <Button
         type="button"
         disabled={page >= totalPages}
-        onClick={() => onPageChange(page + 1)}
+        onClick={() => handlePageChange(page + 1)}
         className="flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background transition-colors hover:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="material-symbols-outlined">chevron_right</span>

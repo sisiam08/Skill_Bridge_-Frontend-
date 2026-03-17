@@ -45,3 +45,9 @@ export type StudentBookings = {
 };
 
 export type SessionCardBooking = StudentBookings | TutorBookingSession;
+
+export type BookingSlot = {
+  sessionDate: string;
+  startTime: string;
+  endTime: string;
+}

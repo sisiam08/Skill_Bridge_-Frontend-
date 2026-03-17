@@ -16,6 +16,20 @@ export const getAvailability = async (tutorId: string) => {
   return { data, error };
 };
 
+export const getAvailableSlots = async (
+  tutorId: string,
+  selectedDate: Date,
+  slotDuration: string,
+) => {
+  const { data, error } = await AvailabilityService.getAvailableSlots(
+    tutorId,
+    selectedDate,
+    slotDuration,
+  );
+
+  return { data, error };
+};
+
 export const updateAvailability = async (
   id: string,
   availability: Partial<AvailabilityType>,

@@ -1,6 +1,7 @@
 "use server";
 
 import { BookingService } from "@/services/booking.service";
+import { BookingSlot } from "@/types";
 
 export const getBookingSessions = async () => {
   const { data, error } = await BookingService.getBookingSessions();
@@ -21,5 +22,16 @@ export const updateBookingStatus = async (
 
 export const getMyBookings = async () => {
   const { data, error } = await BookingService.getMyBookings();
+  return { data, error };
+};
+
+export const createBooking = async (
+  tutorId: string,
+  bookingData: BookingSlot,
+) => {
+  const { data, error } = await BookingService.createBooking(
+    tutorId,
+    bookingData,
+  );
   return { data, error };
 };

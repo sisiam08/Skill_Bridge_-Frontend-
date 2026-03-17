@@ -1,4 +1,6 @@
 import { env } from "@/env";
+import { BookingSlot } from "@/types";
+import { create } from "domain";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -8,14 +10,11 @@ export const BookingService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(
-        `${API_URL}/tutors/bookings`,
-        {
-          headers: {
-            cookie: cookieStore.toString(),
-          },
+      const res = await fetch(`${API_URL}/tutors/bookings`, {
+        headers: {
+          cookie: cookieStore.toString(),
         },
-      );
+      });
 
       const data = await res.json();
 
@@ -61,14 +60,11 @@ export const BookingService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(
-        `${API_URL}/bookings/my-bookings`,
-        {
-          headers: {
-            cookie: cookieStore.toString(),
-          },
+      const res = await fetch(`${API_URL}/bookings/my-bookings`, {
+        headers: {
+          cookie: cookieStore.toString(),
         },
-      );
+      });
 
       const data = await res.json();
 
@@ -84,4 +80,28 @@ export const BookingService = {
     }
   },
 
+  createBooking: async (tutorId: string, bookingData: BookingSlot) => {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify({ tutorId, ...bookingData }),
+      });
+      const data = await res.json();
+
+      return {
+        data,
+        error: null,
+      };
+    } catch (error: any) {
+      return {
+        data: null,
+        error: { message: error.message || "Something went wrong!" },
+      };
+    }
+  },
 };
