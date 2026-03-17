@@ -27,7 +27,7 @@ export default function HeroSection() {
   useEffect(() => {
     (async () => {
       const response = await getcategory();
-      setCategories(response?.data ?? []);
+      setCategories(response?.data?.data ?? []);
     })();
   }, []);
 

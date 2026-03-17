@@ -18,6 +18,13 @@ export const BookingService = {
 
       const data = await res.json();
 
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get booking sessions!" },
+        };
+      }
+
       return {
         data,
         error: null,
@@ -44,10 +51,14 @@ export const BookingService = {
 
       const data = await res.json();
 
-      return {
-        data,
-        error: null,
-      };
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to update booking status!" },
+        };
+      }
+
+      return { data, error: null };
     } catch (error: any) {
       return {
         data: null,
@@ -67,6 +78,13 @@ export const BookingService = {
       });
 
       const data = await res.json();
+
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get my bookings!" },
+        };
+      }
 
       return {
         data,
@@ -93,10 +111,14 @@ export const BookingService = {
       });
       const data = await res.json();
 
-      return {
-        data,
-        error: null,
-      };
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to create booking!" },
+        };
+      }
+
+      return { data, error: null };
     } catch (error: any) {
       return {
         data: null,

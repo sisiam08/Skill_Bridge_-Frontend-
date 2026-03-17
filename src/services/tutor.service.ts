@@ -39,6 +39,13 @@ export const TutorService = {
 
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get all tutors!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error) {
       return {
@@ -56,6 +63,13 @@ export const TutorService = {
 
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get tutor by id!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };
@@ -71,11 +85,14 @@ export const TutorService = {
         },
       });
 
-      if (!res.ok) {
-        return { data: null, error: { message: "Unauthorized" } };
-      }
-
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get tutor profile!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error) {
@@ -97,14 +114,14 @@ export const TutorService = {
         body: JSON.stringify(tutorProfileData),
       });
 
-      if (!res.ok) {
+      const data = await res.json();
+
+      if (!res.ok || !data?.success) {
         return {
           data: null,
-          error: { message: "Failed to create tutor profile" },
+          error: { message: data?.message || "Failed to create tutor profile" },
         };
       }
-
-      const data = await res.json();
 
       return { data, error: null };
     } catch (error) {
@@ -126,16 +143,16 @@ export const TutorService = {
         body: JSON.stringify(tutorProfileData),
       });
 
-      if (!res.ok) {
+      const data = await res.json();
+
+      if (!res.ok || !data?.success) {
         return {
           data: null,
-          error: { message: "Failed to update tutor profile" },
+          error: { message: data?.message || "Failed to update tutor profile" },
         };
       }
 
-      const data = await res.json();
-
-      return { data, error: null };
+        return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };
     }
@@ -153,8 +170,14 @@ export const TutorService = {
         body: JSON.stringify({ defaultClassLink }),
       });
 
-
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to set default class link!" },
+        };
+      } 
 
       return { data, error: null };
     } catch (error) {
@@ -171,6 +194,13 @@ export const TutorService = {
         },
       });
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get default class link!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error) {
@@ -192,10 +222,14 @@ export const TutorService = {
 
       const data = await res.json();
 
-      return {
-        data,
-        error: null,
-      };
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to send class link!" },
+        };
+      }
+
+      return { data, error: null };
     } catch (error: any) {
       return {
         data: null,
@@ -214,6 +248,13 @@ export const TutorService = {
       });
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get tutor stats!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };
@@ -228,7 +269,16 @@ export const TutorService = {
           Cookie: cookieStore.toString(),
         },
       });
+
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get weekly earnings!" },
+        };
+      }
+      
       return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };

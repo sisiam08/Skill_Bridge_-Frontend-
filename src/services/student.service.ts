@@ -15,6 +15,13 @@ export const StudentService = {
 
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get student stats!" },
+        };
+      }
+
 
       return { data, error: null };
     } catch (error: any) {
@@ -34,6 +41,13 @@ export const StudentService = {
         },
       });
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get student recent activity!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error: any) {

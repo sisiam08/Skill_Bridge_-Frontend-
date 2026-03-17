@@ -14,7 +14,7 @@ export const getAllReviews = async () => {
   return { data, error };
 };
 
-export const getAllReviewsForTutor = async (tutorId: string) => {
-  const { data, error } = await ReviewService.getAllReviewsForTutor(tutorId);
+export const getAllReviewsForTutorProfile = async (tutorId: string) => {
+  const { data, error } = await ReviewService.getAllReviewsForTutorProfile(tutorId);
   return { data, error };
 };

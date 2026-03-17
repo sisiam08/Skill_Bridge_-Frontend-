@@ -34,8 +34,8 @@ export default function CategoryPage() {
   const [editingCategoryId, setEditingCategoryId] = useState("");
 
   const refreshCategories = async () => {
-    const { data } = await getcategory();
-    setCategories(data ?? []);
+    const response = await getcategory();
+    setCategories(response.data.data ?? []);
   };
 
   useEffect(() => {
@@ -57,8 +57,8 @@ export default function CategoryPage() {
           name: normalizedName,
         } as Categories);
 
-        if (!response.success) {
-          throw new Error(response.error || "Category creation failed!");
+        if (!response.data.success) {
+          throw new Error(response.data.error || "Category creation failed!");
         }
 
         await refreshCategories();
@@ -112,8 +112,8 @@ export default function CategoryPage() {
     try {
       const response = await deleteCategory(categoryId);
 
-      if (!response.success) {
-        throw new Error(response.error || "Category delete failed!");
+      if (!response.data.success) {
+        throw new Error(response.data.error || "Category delete failed!");
       }
 
       await refreshCategories();
@@ -234,7 +234,10 @@ export default function CategoryPage() {
                         <>
                           <Button
                             className="bg-[#ec5b13] text-white hover:bg-[#d44f10]"
-                            onClick={() => editForm.handleSubmit()}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              editForm.handleSubmit();
+                            }}
                           >
                             Update
                           </Button>
@@ -271,7 +274,7 @@ export default function CategoryPage() {
                       )}
                     </div>
                   </div>
-                  {index < categories.length - 1 && <Separator />}
+                  <Separator />
                 </div>
               ))
             )}

@@ -28,6 +28,14 @@ export const UserService = {
         };
       }
 
+      if (!res.ok || !session?.success) {
+        return {
+          data: null,
+          error: { message: session?.message || "Failed to get session!" },
+        };
+      }
+
+
       return {
         data: session,
         error: null,
@@ -54,6 +62,13 @@ export const UserService = {
 
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get user!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -76,6 +91,13 @@ export const UserService = {
       });
 
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to update user!" },
+        };
+      }
 
       return {
         data,

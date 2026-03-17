@@ -21,7 +21,7 @@ export default function FiltersSidebar({
     (async () => {
       const response = await getcategory();
 
-      setCategories(response?.data ?? []);
+      setCategories(response?.data?.data ?? []);
     })();
   }, []);
 

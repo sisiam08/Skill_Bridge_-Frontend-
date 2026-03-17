@@ -21,6 +21,13 @@ export const CategoryService = {
 
       const data = await res.json();
 
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to create category!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };
@@ -34,8 +41,15 @@ export const CategoryService = {
       const res = await fetch(url.toString(), {
         next: { revalidate: 10, tags: ["category"] },
       });
-   
+
       const data = await res.json();
+
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get category!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error) {
@@ -100,7 +114,6 @@ export const CategoryService = {
           error: { message: data?.message || "Failed to delete category!" },
         };
       }
-
       return { data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong!" } };

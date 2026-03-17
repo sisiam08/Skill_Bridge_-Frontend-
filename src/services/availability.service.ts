@@ -19,6 +19,13 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to set availability!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -38,6 +45,13 @@ export const AvailabilityService = {
       });
 
       const data = await res.json();
+
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get availability!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error: any) {
@@ -65,6 +79,13 @@ export const AvailabilityService = {
       );
       const data = await res.json();
 
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get available slots!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -91,6 +112,13 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to update availability!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -109,6 +137,13 @@ export const AvailabilityService = {
       });
 
       const data = await res.json();
+
+         if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to delete availability!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error: any) {

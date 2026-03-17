@@ -19,9 +19,6 @@ export default function TutorCard({
   const averageRating =
     tutor.totalReviews > 0 ? tutor.totalRating / tutor.totalReviews : 0;
 
-  // console.log("User Image: ", user?.image);
-  // let id = tutor.id;
-
   return (
     <Card
       className="group animate-in fade-in slide-in-from-bottom-2 duration-500 overflow-hidden"
@@ -51,7 +48,7 @@ export default function TutorCard({
             </span>
           </div>
         </div>
-        <CardDescription>{tutor.category?.name ?? "General"}</CardDescription>
+        <CardDescription>{tutor.category?.name ?? "N/A"}</CardDescription>
         <p className="mb-2 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
           {tutor.bio}
         </p>

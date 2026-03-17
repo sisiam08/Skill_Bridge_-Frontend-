@@ -50,9 +50,8 @@ import { addHours, format } from "date-fns";
 import { toast } from "sonner";
 import { convertInto12h } from "@/helpers/convertInto12h";
 import { createBooking } from "@/actions/booking.action";
-import Reviews from "@/components/modules/Home/Reviews";
-import { getAllReviewsForTutor } from "@/actions/review.action";
-
+import Reviews from "@/components/layout/Reviews";
+import { getAllReviewsForTutorProfile } from "@/actions/review.action";
 
 export default function TutorProfileDetailPage(params: {
   params: Promise<{ id: string }>;
@@ -85,7 +84,7 @@ export default function TutorProfileDetailPage(params: {
       if (!availabilityResponse.data.success) return;
       setAvailabilities(availabilityResponse.data.data);
 
-      const reviewsResponse = await getAllReviewsForTutor(tutorId);
+      const reviewsResponse = await getAllReviewsForTutorProfile(tutorId);
       if (!reviewsResponse.data.success) return;
       setReviews(reviewsResponse.data.data);
     })();
@@ -171,9 +170,14 @@ export default function TutorProfileDetailPage(params: {
     try {
       const response = await createBooking(tutorId, bookingData);
       if (!response.data.success) {
-        toast.error(response.data.message || "Failed to book the session", {
-          id: toastId,
-        });
+        toast.error(
+          response.data.message === "Unauthorized"
+            ? "Must be logged in as a student to book a session"
+            : response.data.message || "Failed to book the session",
+          {
+            id: toastId,
+          },
+        );
         return;
       }
       toast.success("Session booked successfully", { id: toastId });
@@ -215,22 +219,14 @@ export default function TutorProfileDetailPage(params: {
                     <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">
                       {tutorDetails?.user?.name}
                     </h1>
-                    <div className=" text-sm text-zinc-600 dark:text-zinc-400">
-                      <div className="mt-3 flex flex-wrap items-center gap-3">
-                        <span className="inline-flex items-center gap-1">
-                          <Mail className="size-4 text-[#ec5b13]" />
-                          {tutorDetails?.user?.email}
-                        </span>
-                        {tutorDetails?.user?.phone ? (
-                          <span className="inline-flex items-center gap-1">
-                            <Phone className="size-4 text-[#ec5b13]" />
-                            {tutorDetails?.user?.phone}
-                          </span>
-                        ) : null}
-                      </div>
+                    <div className="mt-3 flex flex-col text-sm text-zinc-600 dark:text-zinc-400">
+                      <span className="inline-flex items-center gap-1">
+                        <Mail className="size-4 text-[#ec5b13]" />
+                        {tutorDetails?.user?.email}
+                      </span>
                       <span className="inline-flex items-center gap-1">
                         <GraduationCap className="size-4 text-[#ec5b13]" />
-                        {tutorDetails?.category?.name}
+                        {tutorDetails?.category?.name ?? "N/A"}
                       </span>
                     </div>
 

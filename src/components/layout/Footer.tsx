@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import {
-  Facebook,
-  GraduationCap,
-  Instagram,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 const navLinks = [
   {
@@ -37,13 +31,6 @@ const navLinks = [
   },
 ];
 
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-];
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -51,7 +38,6 @@ export default function Footer() {
     <footer className="mt-16 border-t border-gray-200 bg-[#f8f6f6] pb-10 pt-16 dark:border-gray-800 dark:bg-[#221610]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
-          {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex w-fit items-center gap-2">
               <div className="flex size-8 items-center justify-center rounded-lg bg-[#ec5b13] text-white">
@@ -66,22 +52,8 @@ export default function Footer() {
               The world&apos;s leading marketplace for 1-on-1 expert tutoring.
               Master any skill with personal guidance.
             </p>
-
-            <div className="flex items-center gap-2 pt-1">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex size-8 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-colors hover:border-[#ec5b13] hover:text-[#ec5b13] dark:border-gray-700 dark:text-gray-400"
-                >
-                  <Icon className="size-4" />
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {/* Nav columns */}
           {navLinks.map((section) => (
             <div key={section.title}>
               <h4 className="mb-5 text-sm font-bold text-[#221610] dark:text-white">

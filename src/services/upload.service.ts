@@ -7,7 +7,7 @@ export const UploadService = {
     try {
       const formData = new FormData();
       formData.append("image", file);
-      
+
       const res = await fetch(`${API_URL}/uploads`, {
         method: "POST",
         body: formData,
@@ -15,7 +15,12 @@ export const UploadService = {
 
       const data = await res.json();
 
-      // console.log(data);
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to upload image!" },
+        };
+      }
 
       return { data, error: null };
     } catch (error) {

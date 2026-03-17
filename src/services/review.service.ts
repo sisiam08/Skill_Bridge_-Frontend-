@@ -20,6 +20,13 @@ export const ReviewService = {
       });
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to create review!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -42,6 +49,13 @@ export const ReviewService = {
       });
       const data = await res.json();
 
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get all reviews!" },
+        };
+      }
+
       return { data, error: null };
     } catch (error: any) {
       return {
@@ -51,7 +65,7 @@ export const ReviewService = {
     }
   },
 
-  getAllReviewsForTutor: async (tutorId: string) => {
+  getAllReviewsForTutorProfile: async (tutorId: string) => {
     try {
       const cookieStore = await cookies();
 
@@ -61,6 +75,16 @@ export const ReviewService = {
         },
       });
       const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: {
+            message:
+              data?.message || "Failed to get reviews for tutor profile!",
+          },
+        };
+      }
 
       return { data, error: null };
     } catch (error: any) {

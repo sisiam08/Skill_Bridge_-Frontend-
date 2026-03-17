@@ -5,7 +5,7 @@ import { getAllTutors } from "@/actions/tutor.action";
 import Footer from "@/components/layout/Footer";
 import FeaturedSection from "@/components/modules/Home/FeaturedSection";
 import HeroSection from "@/components/modules/Home/HeroSection";
-import Reviews from "@/components/modules/Home/Reviews";
+import Reviews from "@/components/layout/Reviews";
 import WorkFlow from "@/components/modules/Home/WorkFlow";
 import { Separator } from "@/components/ui/separator";
 import { ReviewType, TutorProfile } from "@/types";

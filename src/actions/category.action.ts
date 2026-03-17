@@ -5,18 +5,18 @@ import { Categories } from "@/types";
 import { updateTag } from "next/cache";
 
 export const getcategory = async () => {
-  const { data } = await CategoryService.getCategories();
+  const { data, error } = await CategoryService.getCategories();
 
-  return data;
+  return {data, error};
 };
 
 export const createCategory = async (categoryData: Categories) => {
-  const { data } = await CategoryService.createCategory(categoryData);
+  const { data, error } = await CategoryService.createCategory(categoryData);
   if (data?.success) {
     updateTag("category");
   }
 
-  return data;
+  return { data, error };
 };
 
 export const updateCategory = async (categoryData: Categories) => {
@@ -25,7 +25,7 @@ export const updateCategory = async (categoryData: Categories) => {
   if (data?.success) {
     updateTag("category");
   }
-  return data;
+  return { data, error };
 };
 
 export const deleteCategory = async (categoryId: string) => {
@@ -39,5 +39,5 @@ export const deleteCategory = async (categoryId: string) => {
     updateTag("category");
   }
 
-  return data;
+  return { data, error };
 };
