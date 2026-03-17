@@ -36,6 +36,7 @@ import { getTutorById } from "@/actions/tutor.action";
 import {
   AvailabilityType,
   AvailableSlotType,
+  ReviewType,
   SlotType,
   TutorProfile,
 } from "@/types";
@@ -49,35 +50,16 @@ import { addHours, format } from "date-fns";
 import { toast } from "sonner";
 import { convertInto12h } from "@/helpers/convertInto12h";
 import { createBooking } from "@/actions/booking.action";
+import Reviews from "@/components/modules/Home/Reviews";
+import { getAllReviewsForTutor } from "@/actions/review.action";
 
-const reviews = [
-  {
-    student: "Sadia Islam",
-    rating: 5,
-    comment:
-      "She explains complex concepts in a very simple way. My assignment quality improved a lot in two weeks.",
-    session: "Python Data Structures",
-  },
-  {
-    student: "Rifat Hasan",
-    rating: 5,
-    comment:
-      "Great mentoring style and excellent time management. Every session has clear goals.",
-    session: "Machine Learning Basics",
-  },
-  {
-    student: "Tamim Ahmed",
-    rating: 4,
-    comment:
-      "Very practical sessions with coding exercises. Highly recommended for beginners.",
-    session: "Pandas & Data Cleaning",
-  },
-];
 
 export default function TutorProfileDetailPage(params: {
   params: Promise<{ id: string }>;
 }) {
   const tutorId = useParams().id as string;
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
+
   const [tutorDetails, setTutorDetails] = useState<TutorProfile | null>(null);
   const [availabilities, setAvailabilities] = useState<AvailabilityType[]>([]);
   const [availableSlots, setAvailableSlots] =
@@ -94,18 +76,18 @@ export default function TutorProfileDetailPage(params: {
     if (!tutorId) return;
 
     (async () => {
-      const response = await getTutorById(tutorId);
-
-      if (!response.data.success) return;
-
-      const tutorDetails: TutorProfile = response.data?.data;
-
+      const tutorResponse = await getTutorById(tutorId);
+      if (!tutorResponse.data.success) return;
+      const tutorDetails: TutorProfile = tutorResponse.data?.data;
       setTutorDetails(tutorDetails);
 
       const availabilityResponse = await getAvailability(tutorId);
       if (!availabilityResponse.data.success) return;
-
       setAvailabilities(availabilityResponse.data.data);
+
+      const reviewsResponse = await getAllReviewsForTutor(tutorId);
+      if (!reviewsResponse.data.success) return;
+      setReviews(reviewsResponse.data.data);
     })();
   }, [tutorId]);
 
@@ -305,7 +287,7 @@ export default function TutorProfileDetailPage(params: {
               <CardContent className="space-y-4">
                 <div className="rounded-lg border border-orange-200 bg-orange-50/70 p-3 text-sm text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
                   <p className="font-semibold">
-                    Rate: {tutorDetails?.hourlyRate} tk/ hour
+                    Rate: {tutorDetails?.hourlyRate} tk/hour
                   </p>
                   <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                     Estimated for selected duration:{" "}
@@ -412,56 +394,14 @@ export default function TutorProfileDetailPage(params: {
                 Student Reviews
               </CardTitle>
               <CardDescription>
-                Real feedback from students who have booked sessions with this tutor. Read about their experiences and the impact of the tutoring sessions on their learning journey.
+                Real feedback from students who have booked sessions with this
+                tutor. Read about their experiences and the impact of the
+                tutoring sessions on their learning journey.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {reviews.map((review, reviewIndex) => (
-                  <article
-                    key={`${review.student}-${review.session}`}
-                    className="animate-in fade-in slide-in-from-bottom-2 rounded-2xl border border-gray-100 bg-white p-6 shadow-md transition-all duration-500 hover:shadow-xl dark:border-gray-800 dark:bg-[#221610]/80"
-                    style={{ animationDelay: `${reviewIndex * 100}ms` }}
-                  >
-                    <div className="space-y-4">
-                      <Badge
-                        variant="secondary"
-                        className="w-fit bg-transparent p-0 text-lg text-[#ec5b13]"
-                      >
-                        {Array.from({ length: review.rating }).map((_, idx) => (
-                          <Star key={idx} className="size-4 fill-current" />
-                        ))}
-                      </Badge>
-
-                      <CardDescription className="text-sm leading-relaxed text-[#4b4b4b] italic dark:text-gray-300">
-                        &quot;{review.comment}&quot;
-                      </CardDescription>
-
-                      <div className="flex items-center gap-3">
-                        <Avatar className="size-10 border border-border/70">
-                          <AvatarImage src="/user.png" alt={review.student} />
-                          <AvatarFallback>
-                            {review.student
-                              .split(" ")
-                              .map((part) => part[0])
-                              .join("")
-                              .slice(0, 2)}
-                          </AvatarFallback>
-                        </Avatar>
-
-                        <div>
-                          <p className="text-sm font-bold text-[#221610] dark:text-white">
-                            {review.student}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {review.session}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <Reviews reviews={reviews} />
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"></div>
             </CardContent>
           </Card>
         </section>

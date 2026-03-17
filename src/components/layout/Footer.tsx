@@ -1,72 +1,101 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { GraduationCap } from "lucide-react";
+import {
+  Facebook,
+  GraduationCap,
+  Instagram,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
+
+const navLinks = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Find Tutors", href: "/find_tutors" },
+      { label: "Featured Tutors", href: "/#featured-tutors" },
+      { label: "Login", href: "/login" },
+      { label: "Register", href: "/register" },
+    ],
+  },
+  {
+    title: "For Students",
+    links: [
+      { label: "Find a Tutor", href: "/find_tutors" },
+      { label: "Book a Session", href: "/find_tutors" },
+      { label: "Student Dashboard", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "For Tutors",
+    links: [
+      { label: "Become a Tutor", href: "/register" },
+      { label: "Tutor Dashboard", href: "/tutor-dashboard" },
+      { label: "Manage Availability", href: "/tutor-dashboard/availability" },
+    ],
+  },
+];
+
+const socialLinks = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
+];
 
 export default function Footer() {
-  const footerLinks = [
-    {
-      title: "Company",
-      links: ["About Us", "Careers", "Press", "Contact"],
-    },
-    {
-      title: "Support",
-      links: [
-        "Help Center",
-        "Safety Center",
-        "Student Guidelines",
-        "Tutor Guidelines",
-      ],
-    },
-    {
-      title: "Join Us",
-      links: [
-        "Become a Tutor",
-        "Partner Program",
-        "SkillBridge for Business",
-        "Gift Cards",
-      ],
-    },
-  ];
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#f8f6f6] dark:bg-[#221610] border-t border-gray-200 dark:border-gray-800 pt-20 pb-10">
+    <footer className="mt-16 border-t border-gray-200 bg-[#f8f6f6] pb-10 pt-16 dark:border-gray-800 dark:bg-[#221610]">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid gap-10 md:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="size-8 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
+            <Link href="/" className="flex w-fit items-center gap-2">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-[#ec5b13] text-white">
                 <GraduationCap className="size-5" strokeWidth={2.2} />
               </div>
-
               <span className="text-xl font-bold text-[#221610] dark:text-white">
                 SkillBridge
               </span>
-            </div>
+            </Link>
 
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
               The world&apos;s leading marketplace for 1-on-1 expert tutoring.
               Master any skill with personal guidance.
             </p>
+
+            <div className="flex items-center gap-2 pt-1">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="flex size-8 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-colors hover:border-[#ec5b13] hover:text-[#ec5b13] dark:border-gray-700 dark:text-gray-400"
+                >
+                  <Icon className="size-4" />
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {footerLinks.map((section) => (
+          {/* Nav columns */}
+          {navLinks.map((section) => (
             <div key={section.title}>
-              <h4 className="font-bold mb-6 text-[#221610] dark:text-white">
+              <h4 className="mb-5 text-sm font-bold text-[#221610] dark:text-white">
                 {section.title}
               </h4>
-
-              <ul className="flex flex-col gap-3 text-sm text-gray-500">
-                {section.links.map((link) => (
-                  <li key={link}>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="font-normal hover:text-[#ec5b13] transition-colors p-0 h-auto text-inherit no-underline hover:no-underline"
+              <ul className="flex flex-col gap-3 text-sm text-gray-500 dark:text-gray-400">
+                {section.links.map(({ label, href }) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="transition-colors hover:text-[#ec5b13]"
                     >
-                      <Link href="#">{link}</Link>
-                    </Button>
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -74,25 +103,10 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="pt-8 mt-12">
+        <div className="mt-12">
           <Separator className="bg-gray-200 dark:bg-gray-800" />
-          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-            <p>&copy; 2024 SkillBridge Inc. All rights reserved.</p>
-
-            <div className="flex gap-6">
-              {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
-                (item) => (
-                  <Button
-                    key={item}
-                    asChild
-                    variant="link"
-                    className="font-normal hover:text-[#ec5b13] transition-colors p-0 h-auto text-inherit no-underline hover:no-underline text-xs"
-                  >
-                    <Link href="#">{item}</Link>
-                  </Button>
-                ),
-              )}
-            </div>
+          <div className="flex items-center justify-center pt-8 text-xs text-gray-500 md:flex-row dark:text-gray-400">
+            <p>&copy; {currentYear} SkillBridge. All rights reserved.</p>
           </div>
         </div>
       </div>

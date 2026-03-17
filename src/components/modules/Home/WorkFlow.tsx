@@ -6,12 +6,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-export function WorkFlow() {
+export default function WorkFlow() {
   const steps = [
     {
       icon: "person_search",
       title: "Find Your Tutor",
-      desc: "Browse thousands of vetted professional tutors across 100+ different subjects.",
+      desc: "Browse hundreds of vetted professional tutors across 20+ different subjects.",
     },
     {
       icon: "calendar_month",
@@ -28,7 +28,6 @@ export function WorkFlow() {
   return (
     <section className="py-16 md:py-20 bg-[#f8f6f6] dark:bg-[#1a120d]">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
         <div className="text-center mb-14">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#221610] dark:text-white">
             How SkillBridge Works
@@ -37,7 +36,6 @@ export function WorkFlow() {
           <Separator className="h-1.5 w-20 bg-[#ec5b13] mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Grid */}
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step) => (
             <Card
@@ -45,7 +43,6 @@ export function WorkFlow() {
               className="bg-white dark:bg-[#221610] border border-gray-100 dark:border-gray-800 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300"
             >
               <CardContent className="p-8 flex flex-col items-center">
-                {/* Icon Circle */}
                 <div className="size-16 bg-[#ec5b13]/10 text-[#ec5b13] rounded-full flex items-center justify-center mb-6">
                   <span className="material-symbols-outlined text-3xl">
                     {step.icon}

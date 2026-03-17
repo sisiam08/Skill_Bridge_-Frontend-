@@ -14,19 +14,21 @@ export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
-              <GraduationCap
-                className="size-5"
-                strokeWidth={2.2}
-                suppressHydrationWarning
-              />
-            </div>
+          <Link href={"/"}>
+            <div className="flex items-center gap-3">
+              <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
+                <GraduationCap
+                  className="size-5"
+                  strokeWidth={2.2}
+                  suppressHydrationWarning
+                />
+              </div>
 
-            <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
-              SkillBridge
-            </span>
-          </div>
+              <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
+                SkillBridge
+              </span>
+            </div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">

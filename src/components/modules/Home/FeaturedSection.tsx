@@ -1,39 +1,16 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import TutorCard from "@/components/layout/TutorCard";
-import { useEffect, useState } from "react";
-import { getAllTutors } from "@/actions/tutor.action";
 import { TutorProfile } from "@/types";
 
-export function FeaturedSection() {
-  const [tutors, setTutors] = useState<TutorProfile[]>([]);
-
-  useEffect(() => {
-    const fetchFeaturedTutors = async () => {
-      const response = await getAllTutors();
-      const featuredTutors = Array.isArray(response?.data)
-        ? response.data
-        : Array.isArray(response?.data?.data)
-          ? response.data.data
-          : Array.isArray(response)
-            ? response
-            : [];
-
-      setTutors(featuredTutors);
-    };
-
-    fetchFeaturedTutors();
-  }, []);
-
+export default function FeaturedSection({
+  featuredTutors,
+}: {
+  featuredTutors: TutorProfile[];
+}) {
   return (
-    <section
-      id="featured-tutors"
-      className="scroll-mt-20 py-16 md:py-24 bg-[#f8f6f6] dark:bg-[#1a120d]"
-    >
+    <section id="featured-tutors" className="scroll-mt-20 py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 text-center md:text-left">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#221610] dark:text-white">
@@ -57,11 +34,29 @@ export function FeaturedSection() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {tutors.map((tutor) => (
-            <TutorCard key={tutor.id} tutor={tutor} />
-          ))}
-        </div>
+        {featuredTutors.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {featuredTutors.map((tutor) => (
+              <TutorCard key={tutor.id} tutor={tutor} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-gray-300 py-16 text-center dark:border-gray-700">
+            <p className="text-base font-semibold text-[#221610] dark:text-white">
+              No featured tutors yet
+            </p>
+            <p className="max-w-sm text-sm text-gray-500 dark:text-gray-400">
+              Check back soon — we're busy finding the best tutors for you.
+              In the meantime, explore all available tutors.
+            </p>
+            <Button
+              asChild
+              className="mt-2 bg-[#ec5b13] text-white hover:bg-[#d44e0e]"
+            >
+              <Link href="/find_tutors">Browse all tutors</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
