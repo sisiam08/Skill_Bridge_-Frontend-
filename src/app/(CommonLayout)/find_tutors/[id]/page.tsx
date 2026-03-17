@@ -24,16 +24,13 @@ import {
 } from "@/components/ui/select";
 import {
   BadgeCheck,
-  CalendarDays,
   Clock3,
-  Languages,
+  GraduationCap,
   Mail,
-  MapPin,
   MessageSquareText,
   Phone,
   Sparkles,
   Star,
-  Users,
 } from "lucide-react";
 import { getTutorById } from "@/actions/tutor.action";
 import {
@@ -89,7 +86,6 @@ export default function TutorProfileDetailPage(params: {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<SlotType | null>(null);
-  console.log(selectedSlot);
 
   const today = addHours(new Date(), 6).toISOString().split("T")[0];
   const durationOptions = [30, 60, 90, 120];
@@ -179,7 +175,6 @@ export default function TutorProfileDetailPage(params: {
     }
 
     showAvailableSlots(new Date(selectedDate), selectedDuration);
-    
   }, [selectedDate, selectedDuration]);
 
   const bookingSession = async () => {
@@ -231,12 +226,6 @@ export default function TutorProfileDetailPage(params: {
                     unoptimized
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/35 via-black/5 to-transparent" />
-                  <div className="absolute bottom-3 left-3">
-                    <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
-                      Available this week
-                    </Badge>
-                  </div>
                 </div>
 
                 <div className="space-y-6 p-6">
@@ -244,18 +233,25 @@ export default function TutorProfileDetailPage(params: {
                     <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">
                       {tutorDetails?.user?.name}
                     </h1>
-                    <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400">
-                      <span className="inline-flex items-center gap-1">
-                        <Mail className="size-4 text-[#ec5b13]" />
-                        {tutorDetails?.user?.email}
-                      </span>
-                      {tutorDetails?.user?.phone ? (
+                    <div className=" text-sm text-zinc-600 dark:text-zinc-400">
+                      <div className="mt-3 flex flex-wrap items-center gap-3">
                         <span className="inline-flex items-center gap-1">
-                          <Phone className="size-4 text-[#ec5b13]" />
-                          {tutorDetails?.user?.phone}
+                          <Mail className="size-4 text-[#ec5b13]" />
+                          {tutorDetails?.user?.email}
                         </span>
-                      ) : null}
+                        {tutorDetails?.user?.phone ? (
+                          <span className="inline-flex items-center gap-1">
+                            <Phone className="size-4 text-[#ec5b13]" />
+                            {tutorDetails?.user?.phone}
+                          </span>
+                        ) : null}
+                      </div>
+                      <span className="inline-flex items-center gap-1">
+                        <GraduationCap className="size-4 text-[#ec5b13]" />
+                        {tutorDetails?.category?.name}
+                      </span>
                     </div>
+
                     <p className="mt-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
                       {tutorDetails?.bio}
                     </p>
@@ -416,7 +412,7 @@ export default function TutorProfileDetailPage(params: {
                 Student Reviews
               </CardTitle>
               <CardDescription>
-                Real feedback style mockup for UI preview
+                Real feedback from students who have booked sessions with this tutor. Read about their experiences and the impact of the tutoring sessions on their learning journey.
               </CardDescription>
             </CardHeader>
             <CardContent>
