@@ -1,3 +1,4 @@
+import { BookingStatus } from "@/constants/status";
 import { env } from "@/env";
 import { BookingSlot } from "@/types";
 import { create } from "domain";
@@ -115,7 +116,6 @@ export const BookingService = {
       });
       const data = await res.json();
 
-      
       if (!res.ok || !data?.success) {
         return {
           data: null,
@@ -125,6 +125,42 @@ export const BookingService = {
       }
 
       return { data, error: null };
+    } catch (error: any) {
+      return {
+        data: null,
+        error: { message: error.message || "Something went wrong!" },
+      };
+    }
+  },
+
+  getAllBookings: async (status?: BookingStatus) => {
+    console.log(status);
+    try {
+      const cookieStore = await cookies();
+      const url = new URL(`${API_URL}/bookings`);
+      if (status) {
+        url.searchParams.append("status", status);
+      }
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          cookie: cookieStore.toString(),
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        return {
+          data: null,
+          error: { message: data?.message || "Failed to get all bookings!" },
+        };
+      }
+
+      return {
+        data,
+        error: null,
+      };
     } catch (error: any) {
       return {
         data: null,

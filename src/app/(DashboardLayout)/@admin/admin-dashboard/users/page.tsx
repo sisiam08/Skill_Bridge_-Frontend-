@@ -11,8 +11,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Search, ShieldBan, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { getAllUsers, updateUserStatus } from "@/actions/admin.action";
@@ -85,7 +92,14 @@ export default function UsersPage() {
             </CardDescription>
           </div>
           <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
-            {users.length} Users
+            {users.length}{" "}
+            {filters.role === UserRole.STUDENT
+              ? "Students"
+              : filters.role === UserRole.TUTOR
+                ? "Tutors"
+                : filters.role === UserRole.ADMIN
+                  ? "Admins"
+                  : "Users"}
           </Badge>
         </CardHeader>
       </Card>
@@ -110,13 +124,13 @@ export default function UsersPage() {
                 className="pl-9"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 variant={filters.role === undefined ? "default" : "outline"}
                 onClick={() => setFilters({ ...filters, role: undefined })}
                 className={
                   filters.role === undefined
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                     : ""
                 }
               >
@@ -131,7 +145,7 @@ export default function UsersPage() {
                 }
                 className={
                   filters.role === UserRole.STUDENT
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                     : ""
                 }
               >
@@ -144,7 +158,7 @@ export default function UsersPage() {
                 onClick={() => setFilters({ ...filters, role: UserRole.TUTOR })}
                 className={
                   filters.role === UserRole.TUTOR
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                     : ""
                 }
               >
@@ -157,7 +171,7 @@ export default function UsersPage() {
                 onClick={() => setFilters({ ...filters, role: UserRole.ADMIN })}
                 className={
                   filters.role === UserRole.ADMIN
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                     : ""
                 }
               >
@@ -165,13 +179,13 @@ export default function UsersPage() {
               </Button>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={filters.status === undefined ? "default" : "outline"}
               onClick={() => setFilters({ ...filters, status: undefined })}
               className={
                 filters.status === undefined
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
             >
@@ -186,7 +200,7 @@ export default function UsersPage() {
               }
               className={
                 filters.status === UserStatus.UNBAN
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
             >
@@ -199,7 +213,7 @@ export default function UsersPage() {
               onClick={() => setFilters({ ...filters, status: UserStatus.BAN })}
               className={
                 filters.status === UserStatus.BAN
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10]"
+                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
             >
@@ -224,82 +238,98 @@ export default function UsersPage() {
             Manage user accounts and permissions.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent>
           {users.length === 0 ? (
             <p className="rounded-md border bg-muted/30 px-3 py-8 text-center text-sm text-muted-foreground">
               No users found matching your filters.
             </p>
           ) : (
-            users.map((user) => (
-              <div key={user.id} className="space-y-3">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={user.image} alt={user.name} />
-                      <AvatarFallback className="bg-[#ec5b13]/10 text-[#ec5b13]">
-                        {user.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <p className="font-semibold">{user.name}</p>
-                        <Badge className={getRoleBadgeColor(user.role)}>
-                          {user.role}
-                        </Badge>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="pl-25">User</TableHead>
+                  <TableHead className="text-center">Role</TableHead>
+                  <TableHead className="text-center">Joined</TableHead>
+                  <TableHead className="text-center">Status</TableHead>
+                  <TableHead className="text-center">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-9 w-9">
+                          <AvatarImage src={user.image} alt={user.name} />
+                          <AvatarFallback className="bg-[#ec5b13]/10 text-[#ec5b13] text-sm">
+                            {user.name?.charAt(0) ?? "U"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium">
+                            {user.name ?? "Unknown"}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {user.email}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {user.email}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Joined: {format(new Date(user.createdAt), "PPP")}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    {user.status === UserStatus.UNBAN ? (
-                      <>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Badge className={getRoleBadgeColor(user.role)}>
+                        {user.role}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-center text-muted-foreground">
+                      {format(new Date(user.createdAt), "PP")}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {user.status === UserStatus.UNBAN ? (
                         <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
                           <ShieldCheck className="mr-1 h-3 w-3" />
                           Active
                         </Badge>
-                        {user.role !== UserRole.ADMIN && (
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() =>
-                              handleStatusChange(user.id, UserStatus.BAN)
-                            }
-                          >
-                            <ShieldBan className="mr-1 h-4 w-4" />
-                            Ban User
-                          </Button>
-                        )}
-                      </>
-                    ) : (
-                      <>
+                      ) : (
                         <Badge className="bg-red-100 text-red-700 hover:bg-red-100">
                           <ShieldBan className="mr-1 h-3 w-3" />
                           Banned
                         </Badge>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-green-600 text-green-600 hover:bg-green-50"
-                          onClick={() =>
-                            handleStatusChange(user.id, UserStatus.UNBAN)
-                          }
-                        >
-                          <ShieldCheck className="mr-1 h-4 w-4" />
-                          Unban User
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <Separator />
-              </div>
-            ))
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {user.role !== UserRole.ADMIN && (
+                        <>
+                          {user.status === UserStatus.UNBAN ? (
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() =>
+                                handleStatusChange(user.id, UserStatus.BAN)
+                              }
+                            >
+                              <ShieldBan className="mr-1 h-4 w-4" />
+                              Ban
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-green-600 text-green-600 hover:bg-green-50 dark:text-green-400"
+                              onClick={() =>
+                                handleStatusChange(user.id, UserStatus.UNBAN)
+                              }
+                            >
+                              <ShieldCheck className="mr-1 h-4 w-4" />
+                              Unban
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           )}
         </CardContent>
       </Card>

@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ReviewType } from "@/types";
-import { Star } from "lucide-react";
+import RenderStars from "../ui/renderStars";
 
 export default function Reviews({ reviews }: { reviews: ReviewType[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -52,13 +52,7 @@ export default function Reviews({ reviews }: { reviews: ReviewType[] }) {
                       variant="secondary"
                       className="w-fit bg-transparent p-0 text-lg text-[#ec5b13]"
                     >
-                      {Array.from({ length: 5 }).map((_, idx) => (
-                        <Star
-                          key={idx}
-                          className={`size-4 ${idx < review.rating ? "fill-current" : "fill-none"}`}
-                          suppressHydrationWarning
-                        />
-                      ))}
+                      <RenderStars rating={review.rating} />
                     </Badge>
 
                     <CardDescription className="text-sm leading-relaxed text-[#4b4b4b] italic dark:text-gray-300">

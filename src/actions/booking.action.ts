@@ -1,5 +1,6 @@
 "use server";
 
+import { BookingStatus } from "@/constants/status";
 import { BookingService } from "@/services/booking.service";
 import { BookingSlot } from "@/types";
 
@@ -35,5 +36,10 @@ export const createBooking = async (
   );
 
   console.log(data);
+  return { data, error };
+};
+
+export const getAllBookings = async (status?: BookingStatus) => {
+  const { data, error } = await BookingService.getAllBookings(status);
   return { data, error };
 };

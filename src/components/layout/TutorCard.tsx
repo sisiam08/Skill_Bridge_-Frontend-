@@ -11,6 +11,7 @@ import default_avatar from "../../.././public/default-avatar-profile.jpg";
 import Image from "next/image";
 import { TutorCardProps } from "@/types";
 import Link from "next/link";
+import { Star } from "lucide-react";
 
 export default function TutorCard({
   tutor,
@@ -42,7 +43,7 @@ export default function TutorCard({
         <div className="flex items-center justify-between">
           <CardTitle>{tutor.user?.name ?? "Unknown Tutor"}</CardTitle>
           <div className="flex items-center gap-2 text-amber-500">
-            <span className="material-symbols-outlined text-sm">star</span>
+            <Star className="size-4" />
             <span className="text-sm font-bold">
               {averageRating.toFixed(1)}
             </span>

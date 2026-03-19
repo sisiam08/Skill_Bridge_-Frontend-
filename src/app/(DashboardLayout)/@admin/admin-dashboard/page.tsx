@@ -259,7 +259,7 @@ export default function AdminDashboardPage() {
                 </span>
                 <span className="text-xs sm:text-sm font-medium">
                   {stats.totalTutors > 0
-                    ? (stats.totalStudents / stats.totalTutors).toFixed(1)
+                    ? (stats.totalStudents / (stats.totalTutors - stats.bannedTutors)).toFixed(1)
                     : 0}
                   :1
                 </span>

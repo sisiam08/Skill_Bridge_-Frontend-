@@ -50,4 +50,34 @@ export type BookingSlot = {
   sessionDate: string;
   startTime: string;
   endTime: string;
-}
+};
+
+export type Bookings = {
+  id: string;
+  sessionDate: string;
+  startTime: string;
+  endTime: string;
+  price: number;
+  status: string;
+  tutor: {
+    user: {
+      name: string;
+      email: string;
+      role: string;
+      image?: string;
+    };
+    category: {
+      name: string;
+    };
+  };
+  student: {
+    name: string;
+    email: string;
+    role: string;
+    image?: string;
+  };
+  reviews?: {
+    rating: number;
+    comment: string;
+  };
+};
