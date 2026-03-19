@@ -8,3 +8,4 @@ export type * from "./availability.type";
 export type * from "./booking.type";
 export type * from "./review.type";
 export type * from "./student.type";
+export type * from "./admin.type";
