@@ -10,3 +10,9 @@ export type AdminDashboardStats = {
   totalRevenue: number;
   monthlyRevenue: number;
 };
+
+export type UsersFilter = {
+  search?: string;
+  role?: string;
+  status?: string;
+};

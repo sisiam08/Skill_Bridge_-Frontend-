@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookingStatus } from "@/constants/bookingStatus";
+import { BookingStatus } from "@/constants/status";
 import { convertInto12h } from "@/helpers/convertInto12h";
 import { StudentBookings } from "@/types";
 import { format } from "date-fns";

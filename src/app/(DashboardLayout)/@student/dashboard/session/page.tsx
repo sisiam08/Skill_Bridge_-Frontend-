@@ -14,7 +14,7 @@ import {
 import HistorySessionItem from "@/components/modules/Student/HistorySessionItem";
 import ReviewSessionSheet from "@/components/modules/Student/ReviewSessionSheet";
 import SessionCard from "@/components/layout/SessionCard";
-import { BookingStatus } from "@/constants/bookingStatus";
+import { BookingStatus } from "@/constants/status";
 import { StudentBookings } from "@/types";
 import { isAfter, isToday, startOfDay, startOfToday } from "date-fns";
 import {

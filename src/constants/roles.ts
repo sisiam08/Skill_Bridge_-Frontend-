@@ -1,5 +1,5 @@
-export const UserRole = {
-  ADMIN: "ADMIN",
-  TUTOR: "TUTOR",
-  STUDENT: "STUDENT",
+export enum UserRole {
+  ADMIN = "ADMIN",
+  TUTOR = "TUTOR",
+  STUDENT = "STUDENT",
 };

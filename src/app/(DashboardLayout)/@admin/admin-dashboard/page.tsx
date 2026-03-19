@@ -118,9 +118,6 @@ export default function AdminDashboardPage() {
               Overview of your tutoring platform statistics and metrics.
             </CardDescription>
           </div>
-          <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
-            Last Updated: Today
-          </Badge>
         </CardHeader>
       </Card>
 

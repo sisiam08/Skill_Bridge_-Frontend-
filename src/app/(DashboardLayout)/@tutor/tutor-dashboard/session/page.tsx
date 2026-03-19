@@ -18,7 +18,7 @@ import {
 import SessionCard from "@/components/layout/SessionCard";
 import CompleteSessionSheet from "@/components/modules/Tutor/CompleteSessionSheet";
 import SendClassLinkSheet from "@/components/modules/Tutor/SendClassLinkSheet";
-import { BookingStatus } from "@/constants/bookingStatus";
+import { BookingStatus } from "@/constants/status";
 import { TutorBookingSession } from "@/types";
 import { toast } from "sonner";
 import {
