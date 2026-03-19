@@ -35,7 +35,7 @@ export default function FeaturedSection({
         </div>
 
         {featuredTutors.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {featuredTutors.map((tutor) => (
               <TutorCard key={tutor.id} tutor={tutor} />
             ))}

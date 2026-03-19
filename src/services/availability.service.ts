@@ -19,7 +19,7 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
-         if (!res.ok || !data?.success) {
+      if (!res.ok || !data?.success) {
         return {
           data: null,
           error: { message: data?.message || "Failed to set availability!" },
@@ -46,7 +46,7 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
-         if (!res.ok || !data?.success) {
+      if (!res.ok || !data?.success) {
         return {
           data: null,
           error: { message: data?.message || "Failed to get availability!" },
@@ -78,8 +78,9 @@ export const AvailabilityService = {
         },
       );
       const data = await res.json();
+      // console.log(data.message);
 
-         if (!res.ok || !data?.success) {
+      if (!res.ok || !data?.success) {
         return {
           data: null,
           error: { message: data?.message || "Failed to get available slots!" },
@@ -112,7 +113,7 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
-         if (!res.ok || !data?.success) {
+      if (!res.ok || !data?.success) {
         return {
           data: null,
           error: { message: data?.message || "Failed to update availability!" },
@@ -138,7 +139,7 @@ export const AvailabilityService = {
 
       const data = await res.json();
 
-         if (!res.ok || !data?.success) {
+      if (!res.ok || !data?.success) {
         return {
           data: null,
           error: { message: data?.message || "Failed to delete availability!" },

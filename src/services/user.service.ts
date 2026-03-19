@@ -19,6 +19,7 @@ export const UserService = {
 
       const session = await res.json();
 
+
       if (session == null) {
         return {
           data: null,
@@ -27,14 +28,6 @@ export const UserService = {
           },
         };
       }
-
-      if (!res.ok || !session?.success) {
-        return {
-          data: null,
-          error: { message: session?.message || "Failed to get session!" },
-        };
-      }
-
 
       return {
         data: session,

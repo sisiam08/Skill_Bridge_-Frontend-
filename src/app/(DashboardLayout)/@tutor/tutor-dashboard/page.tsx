@@ -32,7 +32,7 @@ export default function TutorDashboardPage() {
     (async () => {
       const response = await getTutorStats();
 
-      if (!response.data?.success) {
+      if (response.error || !response.data) {
         return;
       }
 
@@ -40,7 +40,7 @@ export default function TutorDashboardPage() {
 
       const earningsResponse = await getWeeklyEarnings();
 
-      if (!earningsResponse.data?.success) {
+      if (earningsResponse.error || !earningsResponse.data) {
         return;
       }
 
@@ -136,9 +136,6 @@ export default function TutorDashboardPage() {
           <div className="flex flex-wrap gap-2">
             <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
               {stats?.sessions.upcoming ?? 0} Upcoming
-            </Badge>
-            <Badge variant="secondary">
-              {stats?.profile.averageRating ?? 0} Avg Rating
             </Badge>
           </div>
         </CardHeader>

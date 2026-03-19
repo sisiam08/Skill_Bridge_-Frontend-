@@ -33,5 +33,7 @@ export const createBooking = async (
     tutorId,
     bookingData,
   );
+
+  console.log(data);
   return { data, error };
 };

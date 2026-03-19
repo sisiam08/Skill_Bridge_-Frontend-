@@ -121,10 +121,10 @@ export default function TutorProfilePage() {
       const tutorResponse = await getTutorProfile();
       const categoriesResponse = await getcategory();
 
-      const profileData = tutorResponse?.data ?? null;
+      const profileData = tutorResponse?.data.data ?? null;
       setTutorData(profileData ?? undefined);
 
-      setCategories(categoriesResponse?.data || []);
+      setCategories(categoriesResponse?.data.data || []);
 
       if (profileData) {
         setHasTutorProfile(true);
@@ -158,7 +158,7 @@ export default function TutorProfilePage() {
         if (isCreating) {
           const toastId = toast.loading("Creating profile...");
           const response = await createTutorProfile(tutorProfileData);
-          if (!response.success) {
+          if (response.error || !response.data) {
             toast.error(response.error?.message || "Failed to create profile", {
               id: toastId,
             });
@@ -194,7 +194,7 @@ export default function TutorProfilePage() {
 
           const toastId = toast.loading("Saving changes...");
           const response = await updateTutorProfile(tutorProfileData);
-          if (!response.success) {
+          if (response.error || !response.data) {
             toast.error(response.error?.message || "Failed to update profile", {
               id: toastId,
             });
@@ -252,7 +252,7 @@ export default function TutorProfilePage() {
         const response = await uploadImage(selectedFileRef.current);
         console.log(response);
 
-        if (!response.data.success) {
+        if (response.error || !response.data) {
           toast.error("Failed to upload image.", { id: toastId });
           return;
         }
@@ -285,7 +285,7 @@ export default function TutorProfilePage() {
           return;
         }
 
-        if (!response?.data) {
+        if (response.error || !response.data) {
           toast.error("Failed to save changes.", {
             id: toastId,
           });

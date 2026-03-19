@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -28,7 +26,6 @@ import {
   GraduationCap,
   Mail,
   MessageSquareText,
-  Phone,
   Sparkles,
   Star,
 } from "lucide-react";
@@ -132,8 +129,13 @@ export default function TutorProfileDetailPage(params: {
     try {
       const response = await getAvailableSlots(tutorId, date, duration);
 
-      if (!response.data.success) {
-        toast.error("Failed to fetch available slots", { id: toastId });
+      // console.log(response);
+
+      if (response.error || !response.data) {
+        toast.error(
+          response.error?.message || "Failed to fetch available slots",
+          { id: toastId },
+        );
         setAvailableSlots(null);
         return;
       }
@@ -169,9 +171,10 @@ export default function TutorProfileDetailPage(params: {
     const toastId = toast.loading("Booking your session...");
     try {
       const response = await createBooking(tutorId, bookingData);
-      if (!response.data.success) {
+
+      if (response.error || !response.data.success) {
         toast.error(
-          response.data.message === "Unauthorized"
+          response?.error?.message === "Unauthorized"
             ? "Must be logged in as a student to book a session"
             : response.data.message || "Failed to book the session",
           {
@@ -211,6 +214,7 @@ export default function TutorProfileDetailPage(params: {
                     fill
                     unoptimized
                     className="object-cover"
+                    suppressHydrationWarning
                   />
                 </div>
 
@@ -221,11 +225,17 @@ export default function TutorProfileDetailPage(params: {
                     </h1>
                     <div className="mt-3 flex flex-col text-sm text-zinc-600 dark:text-zinc-400">
                       <span className="inline-flex items-center gap-1">
-                        <Mail className="size-4 text-[#ec5b13]" />
+                        <Mail
+                          className="size-4 text-[#ec5b13]"
+                          suppressHydrationWarning
+                        />
                         {tutorDetails?.user?.email}
                       </span>
                       <span className="inline-flex items-center gap-1">
-                        <GraduationCap className="size-4 text-[#ec5b13]" />
+                        <GraduationCap
+                          className="size-4 text-[#ec5b13]"
+                          suppressHydrationWarning
+                        />
                         {tutorDetails?.category?.name ?? "N/A"}
                       </span>
                     </div>
@@ -246,7 +256,10 @@ export default function TutorProfileDetailPage(params: {
                           <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
                             {item.label}
                           </p>
-                          <item.icon className="size-4 text-[#ec5b13]" />
+                          <item.icon
+                            className="size-4 text-[#ec5b13]"
+                            suppressHydrationWarning
+                          />
                         </div>
                         <p className="mt-2 text-xl font-bold text-zinc-900 dark:text-zinc-100">
                           {item.value}
@@ -281,14 +294,25 @@ export default function TutorProfileDetailPage(params: {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="rounded-lg border border-orange-200 bg-orange-50/70 p-3 text-sm text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                  <p className="font-semibold">
-                    Rate: {tutorDetails?.hourlyRate} tk/hour
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                    Estimated for selected duration:{" "}
-                    {availableSlots?.price || 0} Taka
-                  </p>
+                <div className="rounded-lg border border-orange-200 bg-orange-50/70 p-4 dark:border-zinc-700 dark:bg-zinc-900">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                        Hourly Rate
+                      </p>
+                      <p className="mt-1 text-md font-semibold text-zinc-700 dark:text-zinc-300">
+                        {tutorDetails?.hourlyRate} tk/hour
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                        Estimated Cost
+                      </p>
+                      <p className="mt-1 text-2xl font-bold text-[#ec5b13]">
+                        ৳{availableSlots?.price ?? 0}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -334,7 +358,10 @@ export default function TutorProfileDetailPage(params: {
                     Matching Availability
                   </p>
                   <p className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    <Clock3 className="size-4 text-[#ec5b13]" />
+                    <Clock3
+                      className="size-4 text-[#ec5b13]"
+                      suppressHydrationWarning
+                    />
                     {selectedDate
                       ? format(new Date(selectedDate), "EEEE, MMMM d")
                       : "Select a date first"}
@@ -386,7 +413,10 @@ export default function TutorProfileDetailPage(params: {
           <Card className="animate-in fade-in slide-in-from-bottom-2 border-border/70 duration-500">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MessageSquareText className="size-4 text-[#ec5b13]" />
+                <MessageSquareText
+                  className="size-4 text-[#ec5b13]"
+                  suppressHydrationWarning
+                />
                 Student Reviews
               </CardTitle>
               <CardDescription>

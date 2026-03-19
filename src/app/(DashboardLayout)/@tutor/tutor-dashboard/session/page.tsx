@@ -70,7 +70,7 @@ export default function TutorSessionPage() {
   const loadSessions = async () => {
     const response = await getBookingSessions();
 
-    if (!response?.data.success) return;
+    if (response.error || !response.data) return;
 
     const allSessions: TutorBookingSession[] = response.data.data;
 
@@ -104,7 +104,7 @@ export default function TutorSessionPage() {
 
       const classLinkResponse = await getDefaultClassLink();
 
-      if (!classLinkResponse?.data.success) return;
+      if (classLinkResponse.error || !classLinkResponse.data) return;
 
       set_DefaultClassLink(classLinkResponse.data.data.defaultClassLink || "");
     })();
@@ -119,7 +119,7 @@ export default function TutorSessionPage() {
         completedSession.id,
         BookingStatus.COMPLETED,
       );
-      if (!response.data.success) {
+      if (response.error || !response.data) {
         toast.error("Failed to mark session as completed", { id: toastId });
         return;
       }
@@ -177,11 +177,13 @@ export default function TutorSessionPage() {
     try {
       const response = await setDefaultClassLink(link.trim());
 
-      if (!response.data.success) {
+      if (response.error || !response.data) {
         toast.error("Failed to save default class link", { id: toastId });
         return;
       }
+
       toast.success("Default class link saved successfully", { id: toastId });
+      
     } catch (error) {
       toast.error("Failed to save default class link", { id: toastId });
     }
@@ -193,8 +195,9 @@ export default function TutorSessionPage() {
     const toastId = toast.loading("Sending class link...");
     try {
       const response = await sendClassLink(sheetSession.id, classLink.trim());
-      if (!response.data.success) {
-        toast.error(response.data.message || "Failed to send class link", {
+
+      if (response.error || !response.data) {
+        toast.error(response.error?.message || "Failed to send class link", {
           id: toastId,
         });
         return;

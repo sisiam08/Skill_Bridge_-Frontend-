@@ -15,13 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -31,13 +24,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { convertInto12h } from "@/helpers/convertInto12h";
 import { AvailabilityType, UpdateAvailabilityType } from "@/types";
 import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
-import { CalendarDays, CalendarPlus2, Clock3 } from "lucide-react";
+import { CalendarPlus2, Clock3 } from "lucide-react";
 import Availabilities from "@/components/layout/Availabilities";
 
 const AvailabilitySchema = z.object({
@@ -66,8 +58,9 @@ export default function TutorAvailabilityPage() {
   const loadAvailabilities = async () => {
     const response = await getTutorProfile();
 
-    if (response?.data.success)
+    if (response?.data?.data?.availability) {
       setAvailabilities(response.data.data.availability);
+    }
   };
 
   useEffect(() => {
@@ -86,8 +79,8 @@ export default function TutorAvailabilityPage() {
       const toastId = toast.loading("Saving...");
       const response = await setAvailability(value as AvailabilityType);
 
-      if (!response.data?.success) {
-        toast.error(response.data?.message || "Failed to save slot.", {
+      if (response.error || !response.data) {
+        toast.error(response.error?.message || "Failed to save slot.", {
           id: toastId,
         });
         return;
@@ -104,8 +97,9 @@ export default function TutorAvailabilityPage() {
     const response = await updateAvailability(slot.id!, {
       isActive: newActive,
     });
-    if (!response.data?.success) {
-      toast.error("Failed to update slot.");
+
+    if (response.error || !response.data) {
+      toast.error(response.error?.message || "Failed to update slot.");
       return;
     }
 
@@ -116,8 +110,8 @@ export default function TutorAvailabilityPage() {
 
   const handleDelete = async (slot: AvailabilityType) => {
     const response = await deleteAvailability(slot.id!);
-    if (!response.data?.success) {
-      toast.error("Failed to delete slot.");
+    if (response.error || !response.data) {
+      toast.error(response.error?.message || "Failed to delete slot.");
       return;
     }
 
@@ -136,8 +130,8 @@ export default function TutorAvailabilityPage() {
       endTime: editingSlot.endTime,
     });
 
-    if (!response.data?.success) {
-      toast.error(response.data?.message || "Failed to update slot.", {
+    if (response.error || !response.data) {
+      toast.error(response.error?.message || "Failed to update slot.", {
         id: toastId,
       });
       return;
@@ -148,13 +142,6 @@ export default function TutorAvailabilityPage() {
 
     toast.success("Slot updated!", { id: toastId });
   };
-
-  const weekDays = Array.from({ length: 7 }, (_, i) => ({
-    day: i,
-    slots: availabilities
-      .filter((a) => a.dayOfWeek === i)
-      .sort((a, b) => a.startTime.localeCompare(b.startTime)),
-  }));
 
   const totalSlots = availabilities.length;
   const activeSlots = availabilities.filter((a) => a.isActive).length;
@@ -181,14 +168,14 @@ export default function TutorAvailabilityPage() {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-6">
         <div className="col-span-4">
           <Availabilities
-          availabilities={availabilities}
-          isTutorView={true}
-          editingSlot={editingSlot}
-          setEditingSlot={setEditingSlot}
-          handleUpdate={handleUpdate}
-          handleToggle={handleToggle}
-          handleDelete={handleDelete}
-        />
+            availabilities={availabilities}
+            isTutorView={true}
+            editingSlot={editingSlot}
+            setEditingSlot={setEditingSlot}
+            handleUpdate={handleUpdate}
+            handleToggle={handleToggle}
+            handleDelete={handleDelete}
+          />
         </div>
 
         <Card className="col-span-2">

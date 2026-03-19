@@ -114,7 +114,10 @@ export default function HeroSection() {
                     setCategory(value === "all" ? "" : value)
                   }
                 >
-                  <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
+                  <SelectTrigger
+                    className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+                    suppressHydrationWarning
+                  >
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -133,7 +136,10 @@ export default function HeroSection() {
                     setRating(value === "all" ? "" : value)
                   }
                 >
-                  <SelectTrigger className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors">
+                  <SelectTrigger
+                    className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+                    suppressHydrationWarning
+                  >
                     <SelectValue placeholder="Rating" />
                   </SelectTrigger>
                   <SelectContent>
@@ -158,6 +164,7 @@ export default function HeroSection() {
                 src={hero_img}
                 alt="Tutor and student"
                 className="w-full h-full object-cover"
+                suppressHydrationWarning
               />
             </div>
           </div>

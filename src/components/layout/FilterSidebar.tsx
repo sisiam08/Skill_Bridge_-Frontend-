@@ -149,9 +149,19 @@ export default function FiltersSidebar({
             }
           >
             <div className="flex items-center gap-3 rounded-lg border border-primary/10 dark:border-primary/25 p-3 transition-colors hover:border-primary/40 cursor-pointer">
-              <RadioGroupItem value="4" id="r1" />
+              <RadioGroupItem value="5" id="r1" />
               <Label
                 htmlFor="r1"
+                className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
+              >
+                5 only
+              </Label>
+            </div>
+
+            <div className="flex items-center gap-3 rounded-lg border border-primary/10 dark:border-primary/25 p-3 transition-colors hover:border-primary/40 cursor-pointer">
+              <RadioGroupItem value="4" id="r2" />
+              <Label
+                htmlFor="r2"
                 className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
               >
                 4 & up
@@ -159,9 +169,9 @@ export default function FiltersSidebar({
             </div>
 
             <div className="flex items-center gap-3 rounded-lg border border-primary/10 dark:border-primary/25 p-3 transition-colors hover:border-primary/40 cursor-pointer">
-              <RadioGroupItem value="3" id="r2" />
+              <RadioGroupItem value="3" id="r3" />
               <Label
-                htmlFor="r2"
+                htmlFor="r3"
                 className="text-sm font-medium cursor-pointer text-slate-800 dark:text-slate-200"
               >
                 3 & up

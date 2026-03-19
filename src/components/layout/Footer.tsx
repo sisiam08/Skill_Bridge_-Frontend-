@@ -41,7 +41,11 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex w-fit items-center gap-2">
               <div className="flex size-8 items-center justify-center rounded-lg bg-[#ec5b13] text-white">
-                <GraduationCap className="size-5" strokeWidth={2.2} />
+                <GraduationCap
+                  className="size-5"
+                  strokeWidth={2.2}
+                  suppressHydrationWarning
+                />
               </div>
               <span className="text-xl font-bold text-[#221610] dark:text-white">
                 SkillBridge
