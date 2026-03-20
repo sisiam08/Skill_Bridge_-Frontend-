@@ -23,10 +23,20 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Lock, Mail } from "lucide-react";
+
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 const formSchema = z.object({
   email: z.email("Invalid email!"),
-  password: z.string().min(8, "Minimum length is 8!"),
+  password: z
+    .string()
+    .min(8, "Minimum length is 8!")
+    .regex(
+      passwordRegex,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+    ),
 });
 
 export default function LoginForm() {
@@ -45,7 +55,7 @@ export default function LoginForm() {
       email: "",
       password: "",
     },
-    validators: { onSubmit: formSchema },
+    validators: { onChange: formSchema },
     onSubmit: async ({ value }) => {
       setLoading(true);
       const toastId = toast.loading("Logging...");
@@ -109,9 +119,7 @@ export default function LoginForm() {
                   <Field>
                     <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        mail
-                      </span>
+                      <Mail className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="email"
                         id={field.name}
@@ -142,9 +150,7 @@ export default function LoginForm() {
                   <Field>
                     <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        lock
-                      </span>
+                      <Lock className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="password"
                         id={field.name}

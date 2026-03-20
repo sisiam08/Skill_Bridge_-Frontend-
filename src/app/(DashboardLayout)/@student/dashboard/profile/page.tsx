@@ -25,10 +25,17 @@ import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+const BD_PHONE_REGEX = /^(?:\+?88)?01[3-9]\d{8}$/;
+
 const StudentAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  phone: z.string(),
+  phone: z
+    .string()
+    .refine(
+      (val) => val === "" || val === "01XXXXXXXXX" || BD_PHONE_REGEX.test(val),
+      "Please enter a valid phone number",
+    ),
 });
 
 export default function StudentProfilePage() {

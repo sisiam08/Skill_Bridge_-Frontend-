@@ -24,14 +24,30 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { toast } from "sonner";
 import { UserRole } from "@/constants/roles";
+import { normalizeText } from "@/helpers/textNormalizer";
+import { Lock, Mail, User } from "lucide-react";
 
-const formSchema = z.object({
-  role: z.string().min(1, "Role is required!"),
-  name: z.string().min(1, "Full Name is required!"),
-  email: z.email("Invalid email!"),
-  password: z.string().min(8, "Minimum length is 8!"),
-  confirmPassword: z.string().min(8, "Minimum length is 8!"),
-});
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+const formSchema = z
+  .object({
+    role: z.nativeEnum(UserRole, { message: "Role is required!" }),
+    name: z.string().min(1, "Full Name is required!"),
+    email: z.string().email("Invalid email!"),
+    password: z
+      .string()
+      .min(8, "Minimum length is 8!")
+      .regex(
+        passwordRegex,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      ),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match!",
+    path: ["confirmPassword"],
+  });
 
 export default function RegisterForm() {
   const handleGoogleLogin = async () => {
@@ -49,14 +65,14 @@ export default function RegisterForm() {
       password: "",
       confirmPassword: "",
     },
-    validators: { onSubmit: formSchema },
+    validators: { onChange: formSchema },
     onSubmit: async ({ value }) => {
       setLoading(true);
       const toastId = toast.loading("Creating user...");
 
       try {
         const userData = {
-          name: value.name,
+          name: normalizeText(value.name),
           email: value.email,
           password: value.password,
           role: value.role,
@@ -117,7 +133,9 @@ export default function RegisterForm() {
                       type="single"
                       id={field.name}
                       value={field.state.value}
-                      onValueChange={(value) => field.handleChange(value)}
+                      onValueChange={(value) =>
+                        field.handleChange(value as UserRole)
+                      }
                       className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-primary/5"
                     >
                       <ToggleGroupItem
@@ -148,14 +166,14 @@ export default function RegisterForm() {
               name="name"
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  (field.state.meta.isTouched ||
+                    field.state.value.length > 0) &&
+                  !field.state.meta.isValid;
                 return (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        person
-                      </span>
+                      <User className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="text"
                         id={field.name}
@@ -180,14 +198,14 @@ export default function RegisterForm() {
               name="email"
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  (field.state.meta.isTouched ||
+                    field.state.value.length > 0) &&
+                  !field.state.meta.isValid;
                 return (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        mail
-                      </span>
+                      <Mail className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="email"
                         id={field.name}
@@ -212,14 +230,14 @@ export default function RegisterForm() {
               name="password"
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  (field.state.meta.isTouched ||
+                    field.state.value.length > 0) &&
+                  !field.state.meta.isValid;
                 return (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        lock
-                      </span>
+                      <Lock className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="password"
                         id={field.name}
@@ -246,16 +264,16 @@ export default function RegisterForm() {
               name="confirmPassword"
               children={(field) => {
                 const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
+                  (field.state.meta.isTouched ||
+                    field.state.value.length > 0) &&
+                  !field.state.meta.isValid;
                 return (
                   <Field>
                     <FieldLabel htmlFor={field.name}>
                       Confirm Password
                     </FieldLabel>
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                        security
-                      </span>
+                      <Lock className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
                         type="password"
                         id={field.name}

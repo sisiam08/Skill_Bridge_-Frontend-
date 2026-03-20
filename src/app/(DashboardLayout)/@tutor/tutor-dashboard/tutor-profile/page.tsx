@@ -59,10 +59,17 @@ const TutorProfileSchema = z.object({
   }, "Hourly rate must be a non-negative number"),
 });
 
+const BD_PHONE_REGEX = /^(?:\+?88)?01[3-9]\d{8}$/;
+
 const TutorAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  phone: z.string(),
+  phone: z
+    .string()
+    .refine(
+      (val) => val === "" || val === "01XXXXXXXXX" || BD_PHONE_REGEX.test(val),
+      "Please enter a valid phone number",
+    ),
 });
 
 export default function TutorProfilePage() {
@@ -248,19 +255,19 @@ export default function TutorProfilePage() {
       const toastId = toast.loading("Saving changes...");
 
       try {
-      if (selectedFileRef.current) {
-        const response = await uploadImage(selectedFileRef.current);
-        console.log(response);
+        if (selectedFileRef.current) {
+          const response = await uploadImage(selectedFileRef.current);
+          console.log(response);
 
-        if (response.error || !response.data) {
-          toast.error("Failed to upload image.", { id: toastId });
-          return;
+          if (response.error || !response.data) {
+            toast.error("Failed to upload image.", { id: toastId });
+            return;
+          }
+
+          updatedData.image = response.data.data.url;
         }
 
-        updatedData.image = response.data.data.url;
-      }
-
-      // console.log(updatedData);
+        // console.log(updatedData);
 
         const response = await updateUser(updatedData);
 
@@ -348,7 +355,7 @@ export default function TutorProfilePage() {
                 }
               }}
             >
-              <PencilLine className="mr-2 size-4" suppressHydrationWarning/>
+              <PencilLine className="mr-2 size-4" suppressHydrationWarning />
               Edit Profile
             </Button>
           </div>
@@ -359,7 +366,10 @@ export default function TutorProfilePage() {
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UserRound className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+              <UserRound
+                className="size-4 text-[#ec5b13]"
+                suppressHydrationWarning
+              />
               Account details
             </CardTitle>
           </CardHeader>
@@ -388,7 +398,10 @@ export default function TutorProfilePage() {
                       disabled={isAccountFormDisableMode}
                       onClick={() => fileInputRef.current?.click()}
                     >
-                      <Camera className="mr-2 size-4" suppressHydrationWarning/>
+                      <Camera
+                        className="mr-2 size-4"
+                        suppressHydrationWarning
+                      />
                       Add Profile Picture
                     </Button>
                   ) : null}
@@ -508,7 +521,7 @@ export default function TutorProfilePage() {
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">Status</p>
                 <Badge variant="secondary" className="flex items-center gap-1">
-                  <BadgeCheck className="size-3.5" suppressHydrationWarning/>
+                  <BadgeCheck className="size-3.5" suppressHydrationWarning />
                   {status}
                 </Badge>
               </div>
@@ -520,7 +533,10 @@ export default function TutorProfilePage() {
           <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-1">
               <CardTitle className="flex items-center gap-2">
-                <BriefcaseBusiness className="size-4 text-[#ec5b13]" suppressHydrationWarning />
+                <BriefcaseBusiness
+                  className="size-4 text-[#ec5b13]"
+                  suppressHydrationWarning
+                />
                 Professional profile details
               </CardTitle>
               <CardDescription>
@@ -717,7 +733,7 @@ export default function TutorProfilePage() {
                         profileForm.handleSubmit();
                       }}
                     >
-                      <Save className="mr-2 size-4" suppressHydrationWarning/>
+                      <Save className="mr-2 size-4" suppressHydrationWarning />
                       Save Changes
                     </Button>
                   )}
@@ -744,7 +760,10 @@ export default function TutorProfilePage() {
                     setIsCreating(true);
                   }}
                 >
-                  <PencilLine className="mr-2 size-4" suppressHydrationWarning/>
+                  <PencilLine
+                    className="mr-2 size-4"
+                    suppressHydrationWarning
+                  />
                   Create Profile
                 </Button>
               </div>
