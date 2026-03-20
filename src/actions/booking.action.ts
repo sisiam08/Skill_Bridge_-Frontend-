@@ -1,11 +1,10 @@
 "use server";
 
-import { BookingStatus } from "@/constants/status";
 import { BookingService } from "@/services/booking.service";
-import { BookingSlot } from "@/types";
+import { BookingsFilters, BookingSlot } from "@/types";
 
-export const getBookingSessions = async (status?: BookingStatus) => {
-  const { data, error } = await BookingService.getBookingSessions(status);
+export const getBookingSessions = async (filters: BookingsFilters) => {
+  const { data, error } = await BookingService.getBookingSessions(filters);
 
   return { data, error };
 };
@@ -21,8 +20,8 @@ export const updateBookingStatus = async (
   return { data, error };
 };
 
-export const getMyBookings = async (status?: BookingStatus) => {
-  const { data, error } = await BookingService.getMyBookings(status);
+export const getMyBookings = async (filters: BookingsFilters) => {
+  const { data, error } = await BookingService.getMyBookings(filters);
   return { data, error };
 };
 
@@ -39,7 +38,7 @@ export const createBooking = async (
   return { data, error };
 };
 
-export const getAllBookings = async (status?: BookingStatus) => {
-  const { data, error } = await BookingService.getAllBookings(status);
+export const getAllBookings = async (filters: BookingsFilters) => {
+  const { data, error } = await BookingService.getAllBookings(filters);
   return { data, error };
 };

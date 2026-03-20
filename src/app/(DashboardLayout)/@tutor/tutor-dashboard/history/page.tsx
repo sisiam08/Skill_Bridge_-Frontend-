@@ -1,33 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bookings } from "@/types";
+import { Bookings, BookingsFilters, PaginationType } from "@/types";
 import { BookingStatus } from "@/constants/status";
-import { getAllBookings, getBookingSessions, getMyBookings } from "@/actions/booking.action";
+import { getBookingSessions } from "@/actions/booking.action";
 import BookingsHistory from "@/components/layout/BookingsHistory";
 import { UserRole } from "@/constants/roles";
 
 export default function TutorSessionsHistoryPage() {
   const [bookings, setBookings] = useState<Bookings[]>([]);
-  const [status, setStatus] = useState<BookingStatus | undefined>();
+  const [pagination, setPagination] = useState<PaginationType>({
+    totalData: 0,
+    page: 1,
+    limit: 10,
+    totalPages: 1,
+  });
+  const [filters, setFilters] = useState<BookingsFilters>({
+    status: undefined,
+    page: "1",
+    limit: "10",
+  });
   const [expandedReview, setExpandedReview] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      const response = await getBookingSessions(status);
+      const response = await getBookingSessions(filters);
 
       if (response.error || !response.data) return;
 
-      setBookings(response.data.data);
+      setBookings(response.data.data.data);
+      setPagination(response.data.data.pagination);
     })();
-  }, [status]);
+  }, [filters]);
 
   return (
     <BookingsHistory
       role={UserRole.TUTOR}
       bookings={bookings}
-      status={status}
-      setStatus={setStatus}
+      pagination={pagination}
+      filters={filters}
+      setFilters={setFilters}
       expandedReview={expandedReview}
       setExpandedReview={setExpandedReview}
     />

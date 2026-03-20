@@ -1,3 +1,5 @@
+import { BookingStatus } from "@/constants/status";
+
 export type Filters = {
   search?: string | undefined;
   category?: string | undefined;
@@ -26,4 +28,11 @@ export type PaginationType = {
 export type PaginationProps = {
   paginationInfo: PaginationType;
   handlePageChange: (page: number) => void;
+  handleLimitChange: (limit: number) => void;
+};
+
+export type BookingsFilters = {
+  status?: BookingStatus | undefined;
+  page?: string | undefined;
+  limit?: string | undefined;
 };

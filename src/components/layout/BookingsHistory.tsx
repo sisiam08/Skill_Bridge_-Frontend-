@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import {
   Card,
   CardContent,
@@ -27,20 +27,20 @@ import {
   ChevronUp,
   MessageSquare,
 } from "lucide-react";
-import { Bookings } from "@/types";
+import { Bookings, BookingsFilters, PaginationType } from "@/types";
 import { BookingStatus } from "@/constants/status";
-import { getAllBookings } from "@/actions/booking.action";
 import { convertInto12h } from "@/helpers/convertInto12h";
 import { format } from "date-fns";
 import RenderStars from "@/components/ui/renderStars";
-import { User } from "better-auth";
 import { UserRole } from "@/constants/roles";
+import Pagination from "./Pagination";
 
 type BookingsHistoryProps = {
   role: UserRole;
   bookings: Bookings[];
-  status: BookingStatus | undefined;
-  setStatus: (status: BookingStatus | undefined) => void;
+  pagination: PaginationType;
+  filters: BookingsFilters;
+  setFilters: (filters: BookingsFilters) => void;
   expandedReview: string | null;
   setExpandedReview: (bookingId: string | null) => void;
 };
@@ -88,13 +88,37 @@ const getStatusBadge = (status: BookingStatus) => {
 export default function BookingsHistory({
   role,
   bookings,
-  status,
-  setStatus,
+  pagination,
+  filters,
+  setFilters,
   expandedReview,
   setExpandedReview,
 }: BookingsHistoryProps) {
   const toggleReview = (bookingId: string) => {
     setExpandedReview(expandedReview === bookingId ? null : bookingId);
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    if (
+      nextPage < 1 ||
+      nextPage > pagination.totalPages ||
+      nextPage === pagination.page
+    ) {
+      return;
+    }
+
+    setFilters({
+      ...filters,
+      page: String(nextPage),
+    });
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setFilters({
+      ...filters,
+      limit: String(newLimit),
+      page: "1",
+    });
   };
 
   return (
@@ -121,13 +145,13 @@ export default function BookingsHistory({
           </div>
           <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
             {bookings.length}{" "}
-            {status === BookingStatus.CONFIRMED
+            {filters.status === BookingStatus.CONFIRMED
               ? "Confirmed"
-              : status === BookingStatus.COMPLETED
+              : filters.status === BookingStatus.COMPLETED
                 ? "Completed"
-                : status === BookingStatus.CANCELLED
+                : filters.status === BookingStatus.CANCELLED
                   ? "Cancelled"
-                  : status === BookingStatus.RUNNING
+                  : filters.status === BookingStatus.RUNNING
                     ? "Running"
                     : "Bookings"}
           </Badge>
@@ -142,10 +166,10 @@ export default function BookingsHistory({
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
             <Button
-              variant={status === undefined ? "default" : "outline"}
-              onClick={() => setStatus(undefined)}
+              variant={filters.status === undefined ? "default" : "outline"}
+              onClick={() => setFilters({ ...filters, status: undefined })}
               className={
-                status === undefined
+                filters.status === undefined
                   ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
@@ -154,11 +178,15 @@ export default function BookingsHistory({
             </Button>
             <Button
               variant={
-                status === BookingStatus.CONFIRMED ? "default" : "outline"
+                filters.status === BookingStatus.CONFIRMED
+                  ? "default"
+                  : "outline"
               }
-              onClick={() => setStatus(BookingStatus.CONFIRMED)}
+              onClick={() =>
+                setFilters({ ...filters, status: BookingStatus.CONFIRMED })
+              }
               className={
-                status === BookingStatus.CONFIRMED
+                filters.status === BookingStatus.CONFIRMED
                   ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
@@ -167,11 +195,15 @@ export default function BookingsHistory({
             </Button>
             <Button
               variant={
-                status === BookingStatus.COMPLETED ? "default" : "outline"
+                filters.status === BookingStatus.COMPLETED
+                  ? "default"
+                  : "outline"
               }
-              onClick={() => setStatus(BookingStatus.COMPLETED)}
+              onClick={() =>
+                setFilters({ ...filters, status: BookingStatus.COMPLETED })
+              }
               className={
-                status === BookingStatus.COMPLETED
+                filters.status === BookingStatus.COMPLETED
                   ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
@@ -180,11 +212,15 @@ export default function BookingsHistory({
             </Button>
             <Button
               variant={
-                status === BookingStatus.CANCELLED ? "default" : "outline"
+                filters.status === BookingStatus.CANCELLED
+                  ? "default"
+                  : "outline"
               }
-              onClick={() => setStatus(BookingStatus.CANCELLED)}
+              onClick={() =>
+                setFilters({ ...filters, status: BookingStatus.CANCELLED })
+              }
               className={
-                status === BookingStatus.CANCELLED
+                filters.status === BookingStatus.CANCELLED
                   ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
@@ -192,10 +228,14 @@ export default function BookingsHistory({
               Cancelled
             </Button>
             <Button
-              variant={status === BookingStatus.RUNNING ? "default" : "outline"}
-              onClick={() => setStatus(BookingStatus.RUNNING)}
+              variant={
+                filters.status === BookingStatus.RUNNING ? "default" : "outline"
+              }
+              onClick={() =>
+                setFilters({ ...filters, status: BookingStatus.RUNNING })
+              }
               className={
-                status === BookingStatus.RUNNING
+                filters.status === BookingStatus.RUNNING
                   ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
                   : ""
               }
@@ -352,6 +392,12 @@ export default function BookingsHistory({
           )}
         </CardContent>
       </Card>
+
+      <Pagination
+        paginationInfo={pagination}
+        handlePageChange={handlePageChange}
+        handleLimitChange={handleLimitChange}
+      />
     </div>
   );
 }

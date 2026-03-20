@@ -24,17 +24,12 @@ export default function TutorsPage() {
     limit: "10",
   });
 
-  const [tutors, setTutors] = useState<{
-    data: TutorProfile[];
-    pagination: PaginationType;
-  }>({
-    data: [],
-    pagination: {
-      totalData: 0,
-      page: 1,
-      limit: 10,
-      totalPages: 1,
-    },
+  const [tutors, setTutors] = useState<TutorProfile[]>();
+  const [pagination, setPagination] = useState<PaginationType>({
+    totalData: 0,
+    page: 1,
+    limit: 10,
+    totalPages: 1,
   });
 
   useEffect(() => {
@@ -42,17 +37,18 @@ export default function TutorsPage() {
       const response = await getAllTutors(filters, { revalidate: 10 });
       if (!response.data.success) return;
 
-      setTutors(response.data.data ?? { data: [], pagination: {} });
+      setTutors(response.data.data ?? []);
+      setPagination(response.data.pagination);
     })();
   }, [filters]);
 
-  const { totalData }: PaginationType = tutors.pagination;
+  const { totalData }: PaginationType = pagination;
 
   const handlePageChange = (nextPage: number) => {
     if (
       nextPage < 1 ||
-      nextPage > tutors.pagination.totalPages ||
-      nextPage === tutors.pagination.page
+      nextPage > pagination.totalPages ||
+      nextPage === pagination.page
     ) {
       return;
     }
@@ -84,13 +80,13 @@ export default function TutorsPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {tutors?.data?.map((tutor, idx) => (
+            {tutors?.map((tutor, idx) => (
               <TutorCard key={tutor.id} tutor={tutor} animationIndex={idx} />
             ))}
           </div>
 
           <Pagination
-            paginationInfo={tutors.pagination}
+            paginationInfo={pagination}
             handlePageChange={handlePageChange}
           />
         </div>

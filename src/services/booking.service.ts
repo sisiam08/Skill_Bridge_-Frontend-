@@ -1,19 +1,22 @@
 import { BookingStatus } from "@/constants/status";
 import { env } from "@/env";
-import { BookingSlot } from "@/types";
+import { BookingsFilters, BookingSlot } from "@/types";
 import { create } from "domain";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
 
 export const BookingService = {
-  getBookingSessions: async (status?: BookingStatus) => {
+  getBookingSessions: async (filters: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/tutors/bookings`);
-      if (status) {
-        url.searchParams.append("status", status);
-      }
+      
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined || value !== null || value !== "") {
+          url.searchParams.append(key, value);
+        }
+      });
 
       const res = await fetch(url.toString(), {
         headers: {
@@ -76,13 +79,16 @@ export const BookingService = {
     }
   },
 
-  getMyBookings: async (status?: BookingStatus) => {
+  getMyBookings: async (filters: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/bookings/my-bookings`);
-      if (status) {
-        url.searchParams.append("status", status);
-      }
+      
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined || value !== null || value !== "") {
+          url.searchParams.append(key, value);
+        }
+      });
 
       const res = await fetch(url.toString(), {
         headers: {
@@ -141,13 +147,16 @@ export const BookingService = {
     }
   },
 
-  getAllBookings: async (status?: BookingStatus) => {
+  getAllBookings: async (filters: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/bookings`);
-      if (status) {
-        url.searchParams.append("status", status);
-      }
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined || value !== null || value !== "") {
+          url.searchParams.append(key, value);
+        }
+      });
 
       const res = await fetch(url.toString(), {
         headers: {

@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ModeToggle } from "@/components/layout/ModeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -9,6 +10,7 @@ import {
 import { UserRole } from "@/constants/roles";
 import { UserService } from "@/services/user.service";
 import { redirect } from "next/navigation";
+import default_img from "../../../public/default-avatar-profile.jpg";
 
 export default async function DashboardLayout({
   admin,
@@ -30,13 +32,26 @@ export default async function DashboardLayout({
     <SidebarProvider>
       <AppSidebar user={userInfo} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          />
-          <ModeToggle />
+        <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background px-4">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="h-6" />
+            <ModeToggle />
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <p className="text-md font-medium leading-none">
+                {userInfo.name}
+              </p>
+            </div>
+            <Avatar className="h-9 w-9">
+              <AvatarImage
+                src={userInfo.image || default_img.src}
+                alt={userInfo.name || "User Avatar"}
+              />
+              <AvatarFallback>{userInfo.name?.charAt(0) || "U"}</AvatarFallback>
+            </Avatar>
+          </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           {userInfo.role === UserRole.ADMIN
