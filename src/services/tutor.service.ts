@@ -2,12 +2,9 @@ import { env } from "@/env";
 import {
   Filters,
   ServiceOptions,
-  TutorProfile,
   TutorProfileCreateData,
 } from "@/types";
-import { getWeek } from "date-fns";
 import { cookies } from "next/headers";
-import { set } from "zod";
 
 const API_URL = env.API_URL;
 

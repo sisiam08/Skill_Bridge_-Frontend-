@@ -4,8 +4,8 @@ import { BookingStatus } from "@/constants/status";
 import { BookingService } from "@/services/booking.service";
 import { BookingSlot } from "@/types";
 
-export const getBookingSessions = async () => {
-  const { data, error } = await BookingService.getBookingSessions();
+export const getBookingSessions = async (status?: BookingStatus) => {
+  const { data, error } = await BookingService.getBookingSessions(status);
 
   return { data, error };
 };
@@ -21,8 +21,8 @@ export const updateBookingStatus = async (
   return { data, error };
 };
 
-export const getMyBookings = async () => {
-  const { data, error } = await BookingService.getMyBookings();
+export const getMyBookings = async (status?: BookingStatus) => {
+  const { data, error } = await BookingService.getMyBookings(status);
   return { data, error };
 };
 

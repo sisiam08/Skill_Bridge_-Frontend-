@@ -7,11 +7,15 @@ import { cookies } from "next/headers";
 const API_URL = env.API_URL;
 
 export const BookingService = {
-  getBookingSessions: async () => {
+  getBookingSessions: async (status?: BookingStatus) => {
     try {
       const cookieStore = await cookies();
+      const url = new URL(`${API_URL}/tutors/bookings`);
+      if (status) {
+        url.searchParams.append("status", status);
+      }
 
-      const res = await fetch(`${API_URL}/tutors/bookings`, {
+      const res = await fetch(url.toString(), {
         headers: {
           cookie: cookieStore.toString(),
         },
@@ -72,11 +76,15 @@ export const BookingService = {
     }
   },
 
-  getMyBookings: async () => {
+  getMyBookings: async (status?: BookingStatus) => {
     try {
       const cookieStore = await cookies();
+      const url = new URL(`${API_URL}/bookings/my-bookings`);
+      if (status) {
+        url.searchParams.append("status", status);
+      }
 
-      const res = await fetch(`${API_URL}/bookings/my-bookings`, {
+      const res = await fetch(url.toString(), {
         headers: {
           cookie: cookieStore.toString(),
         },
@@ -134,7 +142,6 @@ export const BookingService = {
   },
 
   getAllBookings: async (status?: BookingStatus) => {
-    console.log(status);
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/bookings`);

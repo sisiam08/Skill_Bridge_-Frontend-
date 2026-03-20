@@ -307,17 +307,6 @@ export default function StudentSessionPage() {
         submitReview={submitReview}
       />
 
-      {/* <SheetContent
-        side="right"
-        showCloseButton={false}
-        className="w-full sm:max-w-2xl p-0 gap-0"
-      >
-        <SheetHeader className="relative border-b bg-linear-to-r from-orange-50 via-white to-amber-50 px-6 py-5 text-left">
-          <SheetClose className="absolute right-4 top-4 rounded-sm p-1 text-[#221610] opacity-90 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#ec5b13] focus:ring-offset-2">
-            <X className="size-4" />
-            <span className="sr-only">Close</span>
-          </SheetClose> */}
-
       <Sheet open={feedBackSheetOpen} onOpenChange={setFeedbackSheetOpen}>
         <SheetContent
           side="bottom"

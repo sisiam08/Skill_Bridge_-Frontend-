@@ -25,18 +25,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail } from "lucide-react";
 
-const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
 const formSchema = z.object({
   email: z.email("Invalid email!"),
   password: z
     .string()
-    .min(8, "Minimum length is 8!")
-    .regex(
-      passwordRegex,
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
-    ),
 });
 
 export default function LoginForm() {
