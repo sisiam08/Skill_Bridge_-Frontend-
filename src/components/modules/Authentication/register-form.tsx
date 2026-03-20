@@ -37,7 +37,7 @@ const formSchema = z
     email: z.string().email("Invalid email!"),
     password: z
       .string()
-      .min(8, "Minimum length is 8!")
+      .min(8, "Password must be at least 8 characters")
       .regex(
         passwordRegex,
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
