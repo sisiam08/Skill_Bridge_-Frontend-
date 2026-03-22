@@ -24,9 +24,6 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
-import { env } from "@/env";
-
-const APP_URL = env.FRONTEND_URL;
 
 const formSchema = z.object({
   email: z.email("Invalid email!"),
@@ -37,21 +34,21 @@ export default function LoginForm() {
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: APP_URL,
+      callbackURL: process.env.NEXT_PUBLIC_FRONTEND_URL,
     });
   };
 
   const handleEmailVerification = async () => {
     await authClient.sendVerificationEmail({
       email: verificationEmail,
-      callbackURL: APP_URL,
+      callbackURL: process.env.NEXT_PUBLIC_FRONTEND_URL,
     });
   };
 
   const handleRequestResetPassword = async (email: string) => {
     await authClient.requestPasswordReset({
       email: email,
-      redirectTo: `${APP_URL}/reset_password`,
+      redirectTo: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/reset_password`,
     });
   };
 
