@@ -34,6 +34,10 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-surface: var(--brand-surface);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -57,6 +61,10 @@
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
+  --brand: #ec5b13;
+  --brand-strong: #d44f10;
+  --brand-ink: #221610;
+  --brand-surface: #f8f6f6;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -91,6 +99,10 @@
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
+  --brand: #ec5b13;
+  --brand-strong: #d44f10;
+  --brand-ink: #221610;
+  --brand-surface: #221610;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -120,8 +132,45 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
+  body {
+    @apply overflow-x-hidden;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .ui-title-hero {
+    @apply text-3xl sm:text-4xl lg:text-6xl font-black leading-tight tracking-tight text-brand-ink dark:text-white;
+  }
+  .ui-title-section {
+    @apply text-2xl sm:text-3xl font-extrabold text-brand-ink dark:text-white;
+  }
+  .ui-title-section-lg {
+    @apply text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-ink dark:text-white;
+  }
+  .ui-title-panel {
+    @apply text-2xl font-semibold text-brand-ink dark:text-white;
+  }
+  .ui-title-card {
+    @apply text-xl font-bold text-brand-ink dark:text-white;
+  }
+  .ui-title-auth {
+    @apply text-3xl font-black text-brand dark:text-white;
+  }
+  .ui-title-brand {
+    @apply text-xl font-bold tracking-tight text-brand-ink dark:text-white;
+  }
+  .ui-title-profile {
+    @apply text-2xl md:text-3xl font-bold tracking-tight text-brand-ink dark:text-white;
+  }
+  .ui-stat-value {
+    @apply text-2xl font-bold tracking-tight text-brand-ink dark:text-white;
+  }
+  .ui-stat-compact {
+    @apply text-xl font-bold text-brand-ink dark:text-white;
   }
 }
 

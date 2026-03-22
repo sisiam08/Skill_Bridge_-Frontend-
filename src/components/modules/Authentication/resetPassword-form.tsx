@@ -84,11 +84,11 @@ export default function ResetPasswordForm() {
   });
 
   return (
-    <Card className="mx-auto my-6 max-w-150 lg:px-6">
+    <Card className="mx-auto my-6 w-full max-w-xl">
       {passwordReset ? (
         <>
           <CardHeader>
-            <CardTitle className="text-3xl font-black text-[#ec5b13] dark:text-white mb-2">
+            <CardTitle className="ui-title-auth mb-2">
               Password Reset Successful
             </CardTitle>
             <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -109,7 +109,7 @@ export default function ResetPasswordForm() {
 
           <CardFooter className="flex flex-col gap-5 justify-end">
             <Link href="/login" className="w-full">
-              <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20">
+              <Button className="w-full bg-brand hover:bg-brand-strong text-white font-bold rounded-xl shadow-lg shadow-primary/20">
                 Go to Login
               </Button>
             </Link>
@@ -118,7 +118,7 @@ export default function ResetPasswordForm() {
       ) : (
         <>
           <CardHeader>
-            <CardTitle className="text-3xl font-black text-[#ec5b13] dark:text-white mb-2">
+            <CardTitle className="ui-title-auth mb-2">
               Reset Password
             </CardTitle>
             <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -210,7 +210,7 @@ export default function ResetPasswordForm() {
               form="reset-password"
               type="submit"
               disabled={loading}
-              className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
+              className="w-full bg-brand hover:bg-brand-strong text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
             >
               {loading ? "Resetting..." : "Reset Password"}
             </Button>
@@ -219,7 +219,7 @@ export default function ResetPasswordForm() {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 Remember your password?
                 <Link
-                  className="text-[#ee7031] hover:text-[#d44f10] font-bold hover:underline ml-1"
+                  className="text-brand-strong hover:text-brand-strong font-bold hover:underline ml-1"
                   href="/login"
                 >
                   Login
@@ -232,3 +232,4 @@ export default function ResetPasswordForm() {
     </Card>
   );
 }
+

@@ -4,11 +4,11 @@ import Pagination from "@/components/layout/Pagination";
 import FiltersSidebar from "@/components/layout/FilterSidebar";
 import TutorCard from "@/components/layout/TutorCard";
 import { Filters, PaginationType, TutorCardProps, TutorProfile } from "@/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Sorting from "@/components/layout/Sorting";
 import { useSearchParams } from "next/navigation";
 
-export default function TutorsPage() {
+function TutorsContent() {
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState<Filters>({
@@ -37,8 +37,8 @@ export default function TutorsPage() {
       const response = await getAllTutors(filters, { revalidate: 10 });
       if (!response.data.success) return;
 
-      setTutors(response.data.data ?? []);
-      setPagination(response.data.pagination);
+      setTutors(response.data.data.data);
+      setPagination(response.data.data.pagination);
     })();
   }, [filters]);
 
@@ -53,10 +53,15 @@ export default function TutorsPage() {
       return;
     }
 
-    setFilters((prev) => ({
-      ...prev,
-      page: String(nextPage),
-    }));
+    setFilters({ ...filters, page: String(nextPage) });
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setFilters({
+      ...filters,
+      limit: String(newLimit),
+      page: "1",
+    });
   };
 
   return (
@@ -88,9 +93,16 @@ export default function TutorsPage() {
           <Pagination
             paginationInfo={pagination}
             handlePageChange={handlePageChange}
+            handleLimitChange={handleLimitChange}
           />
         </div>
       </div>
     </main>
   );
+}
+
+export default function TutorsPage() {
+  return <Suspense fallback={<div>Loading...</div>}>
+    <TutorsContent />
+  </Suspense>;
 }

@@ -151,7 +151,7 @@ export default function TutorAvailabilityPage() {
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <CardTitle className="text-2xl">Tutor Availability</CardTitle>
+            <CardTitle className="ui-title-panel">Tutor Availability</CardTitle>
             <CardDescription>
               Manage your weekly teaching schedule.
             </CardDescription>
@@ -182,7 +182,7 @@ export default function TutorAvailabilityPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CalendarPlus2
-                className="size-4 text-[#ec5b13]"
+                className="size-4 text-brand"
                 suppressHydrationWarning
               />
               Add Time Slot
@@ -257,7 +257,7 @@ export default function TutorAvailabilityPage() {
                   />
                 </div>
 
-                <Button className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white">
+                <Button className="w-full bg-brand hover:bg-brand-strong text-white">
                   <Clock3 className="mr-2 size-4" suppressHydrationWarning />
                   Add Slot
                 </Button>
@@ -269,3 +269,4 @@ export default function TutorAvailabilityPage() {
     </div>
   );
 }
+

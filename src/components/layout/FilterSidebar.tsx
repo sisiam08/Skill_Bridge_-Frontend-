@@ -39,7 +39,9 @@ export default function FiltersSidebar({
     <aside className="w-full shrink-0 lg:w-64">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Filters</h2>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Filters
+          </h2>
           <Button
             className="text-xs font-medium text-primary bg-white dark:bg-background hover:bg-gray-100 dark:hover:bg-muted"
             onClick={() => {
@@ -209,8 +211,8 @@ export default function FiltersSidebar({
               px-3 py-1
               text-xs font-medium
               transition-all
-              hover:bg-primary hover:text-white
-              data-[state=on]:bg-primary
+              hover:bg-brand hover:text-white hover:border-brand
+              data-[state=on]:bg-brand-strong data-[state=on]:border-brand
               data-[state=on]:text-white
             "
               >

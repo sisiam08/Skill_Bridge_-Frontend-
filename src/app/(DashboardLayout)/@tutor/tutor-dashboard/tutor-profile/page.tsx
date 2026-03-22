@@ -63,7 +63,7 @@ const BD_PHONE_REGEX = /^(?:\+?88)?01[3-9]\d{8}$/;
 
 const TutorAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
   phone: z
     .string()
     .refine(
@@ -325,7 +325,7 @@ export default function TutorProfilePage() {
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">Tutor Profile</CardTitle>
+            <CardTitle className="ui-title-panel">Tutor Profile</CardTitle>
             <CardDescription>Tutor information.</CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -367,7 +367,7 @@ export default function TutorProfilePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserRound
-                className="size-4 text-[#ec5b13]"
+                className="size-4 text-brand"
                 suppressHydrationWarning
               />
               Account details
@@ -376,7 +376,7 @@ export default function TutorProfilePage() {
           <CardContent className="space-y-4">
             <form>
               <div className="flex flex-col items-center gap-3 mb-3">
-                <Avatar className="size-30">
+                <Avatar className="size-24 sm:size-28">
                   <AvatarImage src={profileImagePreview} />
                   <AvatarFallback>TP</AvatarFallback>
                 </Avatar>
@@ -514,7 +514,7 @@ export default function TutorProfilePage() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between">
                 <p className="text-muted-foreground">Role</p>
-                <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+                <Badge className="bg-brand text-white hover:bg-brand">
                   {role}
                 </Badge>
               </div>
@@ -534,7 +534,7 @@ export default function TutorProfilePage() {
             <div className="space-y-1">
               <CardTitle className="flex items-center gap-2">
                 <BriefcaseBusiness
-                  className="size-4 text-[#ec5b13]"
+                  className="size-4 text-brand"
                   suppressHydrationWarning
                 />
                 Professional profile details
@@ -715,7 +715,7 @@ export default function TutorProfilePage() {
                 <div className="mt-15 flex flex-wrap justify-center gap-2">
                   {isCreating ? (
                     <Button
-                      className="bg-[#ec5b13] hover:bg-[#d44f10] text-white"
+                      className="bg-brand hover:bg-brand-strong text-white"
                       disabled={isProfileFormDisableMode}
                       form="profileForm"
                       type="submit"
@@ -724,7 +724,7 @@ export default function TutorProfilePage() {
                     </Button>
                   ) : (
                     <Button
-                      className="bg-[#ec5b13] hover:bg-[#d44f10] text-white"
+                      className="bg-brand hover:bg-brand-strong text-white"
                       disabled={isProfileFormDisableMode}
                       form="profileForm"
                       type="submit"
@@ -754,7 +754,7 @@ export default function TutorProfilePage() {
             ) : (
               <div className="flex justify-center py-6">
                 <Button
-                  className="bg-[#ec5b13] hover:bg-[#d44f10] text-white"
+                  className="bg-brand hover:bg-brand-strong text-white"
                   onClick={() => {
                     setIsEditing(false);
                     setIsCreating(true);
@@ -774,3 +774,4 @@ export default function TutorProfilePage() {
     </div>
   );
 }
+

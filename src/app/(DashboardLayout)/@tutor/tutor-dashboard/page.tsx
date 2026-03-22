@@ -128,13 +128,13 @@ export default function TutorDashboardPage() {
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-2xl">Tutor Dashboard</CardTitle>
+            <CardTitle className="ui-title-panel">Tutor Dashboard</CardTitle>
             <CardDescription>
               Track your sessions, earnings, and student engagement.
             </CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+            <Badge className="bg-brand text-white hover:bg-brand">
               {stats?.sessions.upcoming ?? 0} Upcoming
             </Badge>
           </div>
@@ -154,9 +154,9 @@ export default function TutorDashboardPage() {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {item.title}
                   </p>
-                  <p className="mt-2 text-2xl font-bold">{item.value}</p>
+                  <p className="mt-2 ui-stat-value">{item.value}</p>
                 </div>
-                <item.icon className="size-4 text-[#ec5b13]" />
+                <item.icon className="size-4 text-brand" />
               </div>
               <p className="mt-2 text-xs text-muted-foreground">{item.note}</p>
             </CardContent>
@@ -177,9 +177,9 @@ export default function TutorDashboardPage() {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {item.title}
                   </p>
-                  <p className="mt-2 text-2xl font-bold">{item.value}</p>
+                  <p className="mt-2 ui-stat-value">{item.value}</p>
                 </div>
-                <item.icon className="size-4 text-[#ec5b13]" />
+                <item.icon className="size-4 text-brand" />
               </div>
               <p className="mt-2 text-xs text-muted-foreground">{item.note}</p>
             </CardContent>
@@ -205,7 +205,7 @@ export default function TutorDashboardPage() {
                   </span>
                   <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-muted">
                     <div
-                      className="h-full rounded-full bg-[#ec5b13] transition-all"
+                      className="h-full rounded-full bg-brand transition-all"
                       style={{ width: `${percentageofEarnings}%` }}
                     />
                   </div>
@@ -231,9 +231,9 @@ export default function TutorDashboardPage() {
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                       {item.title}
                     </p>
-                    <p className="mt-2 text-2xl font-bold">{item.value}</p>
+                    <p className="mt-2 ui-stat-value">{item.value}</p>
                   </div>
-                  <item.icon className="size-4 text-[#ec5b13]" />
+                  <item.icon className="size-4 text-brand" />
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
                   {item.note}
@@ -246,3 +246,4 @@ export default function TutorDashboardPage() {
     </div>
   );
 }
+

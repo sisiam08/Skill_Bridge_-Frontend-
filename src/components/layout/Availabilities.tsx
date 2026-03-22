@@ -52,7 +52,7 @@ export default function Availabilities({
     day: i,
     slots: availabilities
       .filter((a) => a.dayOfWeek === i)
-      .sort((a, b)=> a.startTime.localeCompare(b.startTime)),
+      .sort((a, b) => a.startTime.localeCompare(b.startTime)),
   }));
 
   return (
@@ -60,7 +60,7 @@ export default function Availabilities({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarDays
-            className="size-4 text-[#ec5b13]"
+            className="size-4 text-brand"
             suppressHydrationWarning
           />
           Weekly Schedule
@@ -75,9 +75,9 @@ export default function Availabilities({
         {weekDays.map(({ day, slots }) => (
           <div
             key={day}
-            className="flex items-start gap-4 rounded-lg border border-border/80 bg-muted/15 p-3"
+            className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 rounded-lg border border-border/80 bg-muted/15 p-3"
           >
-            <p className="w-24 shrink-0 pt-1 font-medium">
+            <p className="w-full sm:w-24 shrink-0 pt-1 font-medium">
               {daysWithNumber[day]}
             </p>
 
@@ -90,11 +90,11 @@ export default function Availabilities({
                     editingSlot && editingSlot?.id === slot.id ? (
                       <div
                         key={slot.id}
-                        className="flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-1.5"
+                        className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-lg border bg-muted/50 px-3 py-2"
                       >
                         <Input
                           type="time"
-                          className="h-7 w-28 text-xs"
+                          className="h-7 w-full sm:w-28 text-xs"
                           value={editingSlot.startTime}
                           onChange={(e) =>
                             setEditingSlot?.({
@@ -106,7 +106,7 @@ export default function Availabilities({
                         <span className="text-xs text-muted-foreground">–</span>
                         <Input
                           type="time"
-                          className="h-7 w-28 text-xs"
+                          className="h-7 w-full sm:w-28 text-xs"
                           value={editingSlot.endTime}
                           onChange={(e) =>
                             setEditingSlot?.({
@@ -117,7 +117,7 @@ export default function Availabilities({
                         />
                         <Button
                           size="sm"
-                          className="h-7 bg-[#ec5b13] px-2 text-xs hover:bg-[#d44f10] text-white"
+                          className="h-7 w-full sm:w-auto bg-brand px-2 text-xs hover:bg-brand-strong text-white"
                           onClick={handleUpdate}
                         >
                           Save
@@ -125,7 +125,7 @@ export default function Availabilities({
                         <Button
                           size="sm"
                           variant="ghost"
-                          className="h-7 px-2 text-xs"
+                          className="h-7 w-full sm:w-auto px-2 text-xs"
                           onClick={() => setEditingSlot?.(null)}
                         >
                           Cancel
@@ -193,3 +193,4 @@ export default function Availabilities({
     </Card>
   );
 }
+

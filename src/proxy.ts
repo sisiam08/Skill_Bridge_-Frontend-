@@ -23,7 +23,7 @@ export async function proxy(request: NextRequest) {
     [UserRole.STUDENT]: "/dashboard",
   };
 
-  const allowedBasePath = roleRoutes[data?.user?.role];
+  const allowedBasePath = roleRoutes[data?.user?.role as UserRole];
 
   if (!pathName.startsWith(allowedBasePath)) {
     return NextResponse.redirect(new URL(allowedBasePath, request.url));

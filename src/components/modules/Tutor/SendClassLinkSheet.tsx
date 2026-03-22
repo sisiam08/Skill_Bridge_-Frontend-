@@ -87,7 +87,7 @@ export default function SendClassLinkSheet({
               Cancel
             </Button>
             <Button
-              className="bg-[#ec5b13] text-white hover:bg-[#d44f10]"
+              className="bg-brand text-white hover:bg-brand-strong"
               disabled={
                 linkOption === "new" ? !newClassLink : !defaultClassLink
               }
@@ -105,3 +105,4 @@ export default function SendClassLinkSheet({
     </Sheet>
   );
 }
+

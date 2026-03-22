@@ -35,19 +35,19 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-t border-gray-200 bg-[#f8f6f6] pb-10 pt-16 dark:border-gray-800 dark:bg-[#221610]">
+    <footer className="mt-16 border-t border-gray-200 bg-brand-surface pb-10 pt-16 dark:border-gray-800 dark:bg-brand-surface">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           <div className="space-y-4">
             <Link href="/" className="flex w-fit items-center gap-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-[#ec5b13] text-white">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-brand text-white">
                 <GraduationCap
                   className="size-5"
                   strokeWidth={2.2}
                   suppressHydrationWarning
                 />
               </div>
-              <span className="text-xl font-bold text-[#221610] dark:text-white">
+              <span className="ui-title-brand">
                 SkillBridge
               </span>
             </Link>
@@ -60,7 +60,7 @@ export default function Footer() {
 
           {navLinks.map((section) => (
             <div key={section.title}>
-              <h4 className="mb-5 text-sm font-bold text-[#221610] dark:text-white">
+              <h4 className="mb-5 text-sm font-bold text-brand-ink dark:text-white">
                 {section.title}
               </h4>
               <ul className="flex flex-col gap-3 text-sm text-gray-500 dark:text-gray-400">
@@ -68,7 +68,7 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="transition-colors hover:text-[#ec5b13]"
+                      className="transition-colors hover:text-brand"
                     >
                       {label}
                     </Link>
@@ -89,3 +89,4 @@ export default function Footer() {
     </footer>
   );
 }
+

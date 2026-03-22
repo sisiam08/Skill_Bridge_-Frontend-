@@ -33,10 +33,11 @@ export function ModeToggle() {
         />
       ) : (
         <Sun
-          className={`h-[1.2rem] w-[1.2rem] transition-colors text-[#221610]`}
+          className={`h-[1.2rem] w-[1.2rem] transition-colors text-brand-ink`}
         />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
 }
+

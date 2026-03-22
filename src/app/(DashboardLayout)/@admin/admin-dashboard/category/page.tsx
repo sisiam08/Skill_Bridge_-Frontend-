@@ -129,12 +129,12 @@ export default function CategoryPage() {
       <Card className="animate-in fade-in slide-in-from-bottom-2 duration-500">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">Category Management</CardTitle>
+            <CardTitle className="ui-title-panel">Category Management</CardTitle>
             <CardDescription>
               Create, update, and delete tutoring categories.
             </CardDescription>
           </div>
-          <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+          <Badge className="bg-brand text-white hover:bg-brand">
             {categories.length} Categories
           </Badge>
         </CardHeader>
@@ -181,7 +181,7 @@ export default function CategoryPage() {
               <Button
                 form="newCategoryForm"
                 type="submit"
-                className="w-full bg-[#ec5b13] text-white hover:bg-[#d44f10]"
+                className="w-full bg-brand text-white hover:bg-brand-strong"
               >
                 Create Category
               </Button>
@@ -233,7 +233,7 @@ export default function CategoryPage() {
                       {editingCategoryId === category.id ? (
                         <>
                           <Button
-                            className="bg-[#ec5b13] text-white hover:bg-[#d44f10]"
+                            className="bg-brand text-white hover:bg-brand-strong"
                             onClick={(e) => {
                               e.preventDefault();
                               editForm.handleSubmit();
@@ -284,3 +284,4 @@ export default function CategoryPage() {
     </div>
   );
 }
+

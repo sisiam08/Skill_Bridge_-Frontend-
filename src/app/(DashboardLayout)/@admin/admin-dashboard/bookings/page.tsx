@@ -15,7 +15,7 @@ export default function AdminBookingsPage() {
     totalPages: 1,
   });
   
-  console.log(pagination);
+  // console.log(pagination);
 
   const [filters, setFilters] = useState<BookingsFilters>({
     status: undefined,
@@ -30,7 +30,7 @@ export default function AdminBookingsPage() {
 
       if (response.error || !response.data) return;
 
-      console.log(response.data.data.pagination);
+      // console.log(response.data.data.pagination);
 
       setBookings(response.data.data.data);
       setPagination(response.data.data.pagination);
@@ -49,3 +49,4 @@ export default function AdminBookingsPage() {
     />
   );
 }
+

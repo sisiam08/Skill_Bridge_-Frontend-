@@ -3,7 +3,7 @@
 import { BookingService } from "@/services/booking.service";
 import { BookingsFilters, BookingSlot } from "@/types";
 
-export const getBookingSessions = async (filters: BookingsFilters) => {
+export const getBookingSessions = async (filters?: BookingsFilters) => {
   const { data, error } = await BookingService.getBookingSessions(filters);
 
   return { data, error };
@@ -20,7 +20,7 @@ export const updateBookingStatus = async (
   return { data, error };
 };
 
-export const getMyBookings = async (filters: BookingsFilters) => {
+export const getMyBookings = async (filters?: BookingsFilters) => {
   const { data, error } = await BookingService.getMyBookings(filters);
   return { data, error };
 };
@@ -38,7 +38,7 @@ export const createBooking = async (
   return { data, error };
 };
 
-export const getAllBookings = async (filters: BookingsFilters) => {
+export const getAllBookings = async (filters?: BookingsFilters) => {
   const { data, error } = await BookingService.getAllBookings(filters);
   return { data, error };
 };

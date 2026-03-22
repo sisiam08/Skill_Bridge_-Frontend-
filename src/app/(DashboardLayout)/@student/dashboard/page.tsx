@@ -20,7 +20,6 @@ import {
   CalendarCheck2,
   CheckCircle2,
   CircleDollarSign,
-
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -108,14 +107,16 @@ export default function StudentDashboardPage() {
         <CardHeader>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <CardTitle className="text-2xl">Student Dashboard</CardTitle>
+              <CardTitle className="ui-title-panel">
+                Student Dashboard
+              </CardTitle>
               <CardDescription className="mt-2">
                 Snapshot of your learning activity.
               </CardDescription>
             </div>
             <div className="flex flex-wrap gap-2">
               <Link href={"/find_tutors"}>
-                <Button className="bg-[#ec5b13] text-white hover:bg-[#d44f10]">
+                <Button className="bg-brand text-white hover:bg-brand-strong">
                   Book New Session
                 </Button>
               </Link>
@@ -136,11 +137,12 @@ export default function StudentDashboardPage() {
                 <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {item.title}
                 </p>
-                <item.icon className="size-4 text-[#ec5b13]" suppressHydrationWarning />
+                <item.icon
+                  className="size-4 text-brand"
+                  suppressHydrationWarning
+                />
               </div>
-              <p className="mt-2 text-2xl font-bold tracking-tight">
-                {item.value}
-              </p>
+              <p className="mt-2 ui-stat-value">{item.value}</p>
               <p className="mt-1 text-xs text-muted-foreground">{item.note}</p>
             </CardContent>
           </Card>
@@ -151,7 +153,10 @@ export default function StudentDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <BookOpenCheck className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+              <BookOpenCheck
+                className="size-4 text-brand"
+                suppressHydrationWarning
+              />
               Recent Activity
             </CardTitle>
             <CardDescription>

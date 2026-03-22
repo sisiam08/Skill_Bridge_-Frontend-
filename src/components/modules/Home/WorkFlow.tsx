@@ -26,30 +26,30 @@ export default function WorkFlow() {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-[#f8f6f6] dark:bg-[#1a120d]">
+    <section className="py-16 md:py-20 bg-brand-surface dark:bg-brand-surface">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#221610] dark:text-white">
+          <h2 className="ui-title-section-lg">
             How SkillBridge Works
           </h2>
 
-          <Separator className="h-1.5 w-20 bg-[#ec5b13] mx-auto mt-4 rounded-full" />
+          <Separator className="h-1.5 w-20 bg-brand mx-auto mt-4 rounded-full" />
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step) => (
             <Card
               key={step.title}
-              className="bg-white dark:bg-[#221610] border border-gray-100 dark:border-gray-800 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300"
+              className="bg-white dark:bg-brand-surface border border-gray-100 dark:border-gray-800 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300"
             >
               <CardContent className="p-8 flex flex-col items-center">
-                <div className="size-16 bg-[#ec5b13]/10 text-[#ec5b13] rounded-full flex items-center justify-center mb-6">
+                <div className="size-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
                   <span className="material-symbols-outlined text-3xl">
                     {step.icon}
                   </span>
                 </div>
 
-                <CardTitle className="text-xl font-bold text-[#221610] dark:text-white mb-3">
+                <CardTitle className="ui-title-card mb-3">
                   {step.title}
                 </CardTitle>
 
@@ -64,3 +64,4 @@ export default function WorkFlow() {
     </section>
   );
 }
+

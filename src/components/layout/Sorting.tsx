@@ -36,7 +36,7 @@ export default function Sorting({ filters, setFilters }: FiltersStateProp) {
         }));
       }}
     >
-      <SelectTrigger className="w-55 rounded-xl">
+      <SelectTrigger className="w-full sm:w-56 rounded-xl">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
 
@@ -53,3 +53,4 @@ export default function Sorting({ filters, setFilters }: FiltersStateProp) {
     </Select>
   );
 }
+

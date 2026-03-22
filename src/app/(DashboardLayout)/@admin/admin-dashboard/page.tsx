@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { getAdminDashboardStats } from "@/actions/admin.action";
 import { AdminDashboardStats } from "@/types";
-import { getSession } from "@/actions/user.action";
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<AdminDashboardStats>({
@@ -113,7 +112,7 @@ export default function AdminDashboardPage() {
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-2xl">Admin Dashboard</CardTitle>
+            <CardTitle className="ui-title-panel">Admin Dashboard</CardTitle>
             <CardDescription>
               Overview of your tutoring platform statistics and metrics.
             </CardDescription>
@@ -135,9 +134,9 @@ export default function AdminDashboardPage() {
                   <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     {stat.title}
                   </p>
-                  <Icon className="size-4 text-[#ec5b13] shrink-0" />
+                  <Icon className="size-4 text-brand shrink-0" />
                 </div>
-                <p className="mt-2 text-2xl font-bold tracking-tight">
+                <p className="mt-2 ui-stat-value">
                   {stat.value}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -266,7 +265,7 @@ export default function AdminDashboardPage() {
               </div>
               <div className="h-2 rounded-full bg-muted">
                 <div
-                  className="h-2 rounded-full bg-[#ec5b13]"
+                  className="h-2 rounded-full bg-brand"
                   style={{
                     width: `${Math.min((stats.totalStudents / stats.totalUsers) * 100, 100)}%`,
                   }}
@@ -327,3 +326,4 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
+

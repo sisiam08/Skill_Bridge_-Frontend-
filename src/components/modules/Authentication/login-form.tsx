@@ -103,7 +103,7 @@ export default function LoginForm() {
     },
   });
   return (
-    <Card className="mx-auto my-6 max-w-150 lg:px-6">
+    <Card className="mx-auto my-6 w-full max-w-xl">
       {showResetPassword ? (
         <>
           <CardHeader>
@@ -114,12 +114,12 @@ export default function LoginForm() {
                 setResetEmailSent(false);
                 setResetPasswordEmail("");
               }}
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-[#ec5b13] transition-colors mb-4 w-fit"
+              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-brand transition-colors mb-4 w-fit"
             >
               <ArrowLeft className="size-4" />
               <span className="text-sm">Back to login</span>
             </button>
-            <CardTitle className="text-3xl font-black text-[#ec5b13] dark:text-white mb-2">
+            <CardTitle className="ui-title-auth mb-2">
               Forgot Password?
             </CardTitle>
             <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -137,7 +137,7 @@ export default function LoginForm() {
                 </div>
                 <p className="text-slate-600 dark:text-slate-400">
                   We've sent a password reset link to{" "}
-                  <span className="font-semibold text-[#ec5b13]">
+                  <span className="font-semibold text-brand">
                     {resetPasswordEmail}
                   </span>
                 </p>
@@ -146,7 +146,7 @@ export default function LoginForm() {
                   <button
                     type="button"
                     onClick={() => setResetEmailSent(false)}
-                    className="text-[#ec5b13] hover:underline font-medium"
+                    className="text-brand hover:underline font-medium"
                   >
                     try again
                   </button>
@@ -184,7 +184,7 @@ export default function LoginForm() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20"
+                  className="w-full bg-brand hover:bg-brand-strong text-white font-bold rounded-xl shadow-lg shadow-primary/20"
                 >
                   Send Reset Link
                 </Button>
@@ -203,7 +203,7 @@ export default function LoginForm() {
                     setResetEmailSent(false);
                     setResetPasswordEmail("");
                   }}
-                  className="text-[#ee7031] hover:text-[#d44f10] font-bold hover:underline ml-1"
+                  className="text-brand-strong hover:text-brand-strong font-bold hover:underline ml-1"
                 >
                   Login
                 </button>
@@ -214,7 +214,7 @@ export default function LoginForm() {
       ) : (
         <>
           <CardHeader>
-            <CardTitle className="text-3xl font-black text-[#ec5b13]  dark:text-white mb-2">
+            <CardTitle className="ui-title-auth mb-2">
               Welcome back
             </CardTitle>
             <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -275,7 +275,7 @@ export default function LoginForm() {
                           <button
                             type="button"
                             onClick={() => setShowResetPassword(true)}
-                            className="text-sm text-[#ee7031] hover:text-[#d44f10] hover:underline"
+                            className="text-sm text-brand-strong hover:text-brand-strong hover:underline"
                           >
                             Forgot Password?
                           </button>
@@ -308,7 +308,7 @@ export default function LoginForm() {
               form="sign-up"
               type="submit"
               disabled={loading}
-              className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
+              className="w-full bg-brand hover:bg-brand-strong text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
             >
               {loading ? "Logging..." : "Login"}
             </Button>
@@ -325,7 +325,7 @@ export default function LoginForm() {
             <Button
               type="submit"
               onClick={handleGoogleLogin}
-              className="w-full bg-[#c47852] hover:bg-[#d44f10] text-white dark:text-black font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
+              className="w-full bg-brand hover:bg-brand-strong text-white dark:text-black font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
             >
               Log in with google
             </Button>
@@ -334,7 +334,7 @@ export default function LoginForm() {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 Don't have an account?
                 <Link
-                  className="text-[#ee7031] hover:text-[#d44f10] font-bold hover:underline ml-1"
+                  className="text-brand-strong hover:text-brand-strong font-bold hover:underline ml-1"
                   href="/register"
                 >
                   Register
@@ -347,3 +347,4 @@ export default function LoginForm() {
     </Card>
   );
 }
+

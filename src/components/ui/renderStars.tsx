@@ -14,3 +14,4 @@ export default function RenderStars({rating}: {rating: number}) {
     </div>
   );
 }
+

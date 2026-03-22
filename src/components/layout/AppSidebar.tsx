@@ -58,7 +58,7 @@ export function AppSidebar({
     <Sidebar {...props}>
       <SidebarHeader>
         <div className="flex items-center gap-3 pt-2 pb-6 pl-2">
-          <div className="size-9 bg-[#ec5b13] rounded-lg flex items-center justify-center text-white">
+          <div className="size-9 bg-brand rounded-lg flex items-center justify-center text-white">
             <GraduationCap
               className="size-5"
               strokeWidth={2.2}
@@ -66,7 +66,7 @@ export function AppSidebar({
             />
           </div>
 
-          <span className="text-xl font-bold tracking-tight text-[#221610] dark:text-white">
+          <span className="ui-title-brand">
             <Link href={"/"}>SkillBridge</Link>
           </span>
         </div>
@@ -102,3 +102,4 @@ export function AppSidebar({
     </Sidebar>
   );
 }
+

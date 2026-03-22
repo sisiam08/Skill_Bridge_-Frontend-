@@ -94,6 +94,9 @@ export default function BookingsHistory({
   expandedReview,
   setExpandedReview,
 }: BookingsHistoryProps) {
+  const totalColumns =
+    6 + (role !== UserRole.STUDENT ? 1 : 0) + (role !== UserRole.TUTOR ? 1 : 0);
+
   const toggleReview = (bookingId: string) => {
     setExpandedReview(expandedReview === bookingId ? null : bookingId);
   };
@@ -126,7 +129,7 @@ export default function BookingsHistory({
       <Card className="animate-in fade-in slide-in-from-bottom-2 duration-500">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">
+            <CardTitle className="ui-title-panel">
               {role === UserRole.STUDENT
                 ? "Your Bookings"
                 : role === UserRole.TUTOR
@@ -143,8 +146,8 @@ export default function BookingsHistory({
               on the platform.
             </CardDescription>
           </div>
-          <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
-            {bookings.length}{" "}
+          <Badge className="bg-brand text-white hover:bg-brand">
+            {pagination.totalData}{" "}
             {filters.status === BookingStatus.CONFIRMED
               ? "Confirmed"
               : filters.status === BookingStatus.COMPLETED
@@ -167,10 +170,10 @@ export default function BookingsHistory({
           <div className="flex flex-wrap gap-2">
             <Button
               variant={filters.status === undefined ? "default" : "outline"}
-              onClick={() => setFilters({ ...filters, status: undefined })}
+              onClick={() => setFilters({ ...filters, status: undefined, page: "1" })}
               className={
                 filters.status === undefined
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -183,11 +186,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.CONFIRMED })
+                setFilters({ ...filters, status: BookingStatus.CONFIRMED, page: "1"  })
               }
               className={
                 filters.status === BookingStatus.CONFIRMED
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -200,11 +203,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.COMPLETED })
+                setFilters({ ...filters, status: BookingStatus.COMPLETED, page: "1" })
               }
               className={
                 filters.status === BookingStatus.COMPLETED
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -217,11 +220,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.CANCELLED })
+                setFilters({ ...filters, status: BookingStatus.CANCELLED, page: "1" })
               }
               className={
                 filters.status === BookingStatus.CANCELLED
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -232,11 +235,11 @@ export default function BookingsHistory({
                 filters.status === BookingStatus.RUNNING ? "default" : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.RUNNING })
+                setFilters({ ...filters, status: BookingStatus.RUNNING, page: "1" })
               }
               className={
                 filters.status === BookingStatus.RUNNING
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -259,7 +262,8 @@ export default function BookingsHistory({
               No bookings found matching your filters.
             </p>
           ) : (
-            <Table>
+            <div className="overflow-x-auto">
+              <Table className="min-w-225 lg:min-w-full">
               <TableHeader>
                 <TableRow>
                   {role !== UserRole.STUDENT ? (
@@ -268,12 +272,18 @@ export default function BookingsHistory({
                   {role !== UserRole.TUTOR ? (
                     <TableHead className="text-center">Tutor</TableHead>
                   ) : null}
-                  <TableHead className="text-center">Category</TableHead>
+                  <TableHead className="text-center">
+                    Category
+                  </TableHead>
                   <TableHead className="text-center">Session Date</TableHead>
-                  <TableHead className="text-center">Session Time</TableHead>
+                  <TableHead className="text-center">
+                    Session Time
+                  </TableHead>
                   <TableHead className="text-center">Price</TableHead>
                   <TableHead className="text-center">Status</TableHead>
-                  <TableHead className="text-center">Reviews</TableHead>
+                  <TableHead className="text-center">
+                    Reviews
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -301,7 +311,7 @@ export default function BookingsHistory({
                           <div className="flex items-center gap-2">
                             <Avatar className="h-8 w-8">
                               <AvatarImage src={booking.tutor?.user?.image} />
-                              <AvatarFallback className="bg-[#ec5b13]/10 text-[#ec5b13] text-xs">
+                              <AvatarFallback className="bg-brand/10 text-brand text-xs">
                                 {booking.tutor?.user?.name?.charAt(0)}
                               </AvatarFallback>
                             </Avatar>
@@ -357,10 +367,10 @@ export default function BookingsHistory({
                     </TableRow>
                     {expandedReview === booking.id && booking.reviews && (
                       <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={8} className="p-4">
+                        <TableCell colSpan={totalColumns} className="p-4">
                           <div className="flex items-start gap-4 rounded-lg border bg-background p-4">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ec5b13]/10">
-                              <MessageSquare className="h-5 w-5 text-[#ec5b13]" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand/10">
+                              <MessageSquare className="h-5 w-5 text-brand" />
                             </div>
                             <div className="flex-1 space-y-2">
                               <div className="flex items-center justify-between">
@@ -389,6 +399,7 @@ export default function BookingsHistory({
                 ))}
               </TableBody>
             </Table>
+            </div>
           )}
         </CardContent>
       </Card>
@@ -401,3 +412,4 @@ export default function BookingsHistory({
     </div>
   );
 }
+

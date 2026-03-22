@@ -51,7 +51,7 @@ export default function HistorySessionItem({
       <Button
         variant="outline"
         size="sm"
-        className="w-full border-[#ec5b13]/30 text-[#ec5b13] hover:bg-[#ec5b13]/5 hover:text-[#d44f10] font-normal"
+        className="w-full border-brand/30 text-brand hover:bg-brand/5 hover:text-brand-strong font-normal"
         onClick={() => openReviewSheet(session)}
       >
         <MessageSquare className="mr-2 size-4" />
@@ -60,3 +60,4 @@ export default function HistorySessionItem({
     </div>
   );
 }
+

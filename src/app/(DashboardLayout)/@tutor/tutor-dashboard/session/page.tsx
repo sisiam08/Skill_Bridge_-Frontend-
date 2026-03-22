@@ -72,7 +72,7 @@ export default function TutorSessionPage() {
 
     if (response.error || !response.data) return;
 
-    const allSessions: TutorBookingSession[] = response.data.data;
+    const allSessions: TutorBookingSession[] = response.data.data.data;
 
     const today = startOfToday();
 
@@ -220,7 +220,7 @@ export default function TutorSessionPage() {
         <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
           <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-2">
-              <CardTitle className="text-2xl">Tutor Sessions</CardTitle>
+              <CardTitle className="ui-title-panel">Tutor Sessions</CardTitle>
               <CardDescription>Enjoy your sessions.</CardDescription>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -239,7 +239,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Clock3 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+                  <Clock3 className="size-4 text-brand" suppressHydrationWarning/>
                   Today's Sessions
                 </CardTitle>
                 <CardDescription>Sessions scheduled for today.</CardDescription>
@@ -268,7 +268,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CalendarClock className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+                  <CalendarClock className="size-4 text-brand" suppressHydrationWarning/>
                   Upcoming Sessions
                 </CardTitle>
                 <CardDescription>Future confirmed sessions.</CardDescription>
@@ -299,7 +299,7 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Link2 className="size-4 text-[#ec5b13]" suppressHydrationWarning/>
+                  <Link2 className="size-4 text-brand" suppressHydrationWarning/>
                   Class Link
                 </CardTitle>
                 <CardDescription>
@@ -315,7 +315,7 @@ export default function TutorSessionPage() {
                   />
                 </div>
                 <Button
-                  className="w-full bg-[#ec5b13] text-white hover:bg-[#d44f10]"
+                  className="w-full bg-brand text-white hover:bg-brand-strong"
                   onClick={() => saveDefaultClassLink(defaultClassLink)}
                 >
                   <Link2 className="mr-2 size-4" suppressHydrationWarning />
@@ -348,3 +348,4 @@ export default function TutorSessionPage() {
     </>
   );
 }
+

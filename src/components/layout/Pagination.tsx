@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/select";
 import { PaginationProps } from "@/types";
 
-const LIMIT_OPTIONS = [2, 10, 20, 50];
+const LIMIT_OPTIONS = [5, 10, 20, 50];
 
 const getPageNumbers = (current: number, total: number) => {
   if (total <= 1) return [];
@@ -50,7 +50,7 @@ export default function Pagination({
           value={String(limit)}
           onValueChange={(value) => handleLimitChange(Number(value))}
         >
-          <SelectTrigger className="w-17.5 h-10 bg-white dark:bg-background border-primary/10">
+          <SelectTrigger className="w-20 h-10 bg-white dark:bg-background border-primary/10">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -67,7 +67,7 @@ export default function Pagination({
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         {/* Previous */}
         <Button
           type="button"
@@ -101,7 +101,7 @@ export default function Pagination({
               onClick={() => handlePageChange(num)}
               className={
                 isActive
-                  ? "flex size-10 items-center justify-center rounded-lg bg-[#ec5b13] font-bold text-white disabled:cursor-default disabled:opacity-100"
+                  ? "flex size-10 items-center justify-center rounded-lg bg-brand font-bold text-white disabled:cursor-default disabled:opacity-100"
                   : "flex size-10 items-center justify-center rounded-lg border border-primary/10 bg-white dark:bg-background text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/5"
               }
             >
@@ -123,3 +123,4 @@ export default function Pagination({
     </div>
   );
 }
+

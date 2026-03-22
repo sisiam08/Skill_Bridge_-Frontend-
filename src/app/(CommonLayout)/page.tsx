@@ -44,16 +44,16 @@ export default function Home() {
     })();
   }, []);
   return (
-    <main className="min-h-screen  bg-[#f8f6f6] dark:bg-[#1a120d] text-foreground">
+    <main className="min-h-screen  bg-brand-surface dark:bg-brand-surface text-foreground">
       <HeroSection />
       <WorkFlow />
       <FeaturedSection featuredTutors={featuredTutors} />
 
       <div className="text-center py-16 md:py-20">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#221610] dark:text-white">
+        <h2 className="ui-title-section">
           What Students Are Saying
         </h2>
-        <Separator className="h-1.5 w-20 bg-[#ec5b13] mx-auto mt-4 rounded-full" />
+        <Separator className="h-1.5 w-20 bg-brand mx-auto mt-4 rounded-full" />
       </div>
       <Reviews reviews={reviews} />
 
@@ -61,3 +61,4 @@ export default function Home() {
     </main>
   );
 }
+

@@ -86,12 +86,12 @@ export default function UsersPage() {
       <Card className="animate-in fade-in slide-in-from-bottom-2 duration-500">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">User Management</CardTitle>
+            <CardTitle className="ui-title-panel">User Management</CardTitle>
             <CardDescription>
               View and manage all users on the platform.
             </CardDescription>
           </div>
-          <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+          <Badge className="bg-brand text-white hover:bg-brand">
             {users.length}{" "}
             {filters.role === UserRole.STUDENT
               ? "Students"
@@ -130,7 +130,7 @@ export default function UsersPage() {
                 onClick={() => setFilters({ ...filters, role: undefined })}
                 className={
                   filters.role === undefined
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                    ? "bg-brand hover:bg-brand-strong dark:text-white"
                     : ""
                 }
               >
@@ -145,7 +145,7 @@ export default function UsersPage() {
                 }
                 className={
                   filters.role === UserRole.STUDENT
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                    ? "bg-brand hover:bg-brand-strong dark:text-white"
                     : ""
                 }
               >
@@ -158,7 +158,7 @@ export default function UsersPage() {
                 onClick={() => setFilters({ ...filters, role: UserRole.TUTOR })}
                 className={
                   filters.role === UserRole.TUTOR
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                    ? "bg-brand hover:bg-brand-strong dark:text-white"
                     : ""
                 }
               >
@@ -171,7 +171,7 @@ export default function UsersPage() {
                 onClick={() => setFilters({ ...filters, role: UserRole.ADMIN })}
                 className={
                   filters.role === UserRole.ADMIN
-                    ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                    ? "bg-brand hover:bg-brand-strong dark:text-white"
                     : ""
                 }
               >
@@ -185,7 +185,7 @@ export default function UsersPage() {
               onClick={() => setFilters({ ...filters, status: undefined })}
               className={
                 filters.status === undefined
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -200,7 +200,7 @@ export default function UsersPage() {
               }
               className={
                 filters.status === UserStatus.UNBAN
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -213,7 +213,7 @@ export default function UsersPage() {
               onClick={() => setFilters({ ...filters, status: UserStatus.BAN })}
               className={
                 filters.status === UserStatus.BAN
-                  ? "bg-[#ec5b13] hover:bg-[#d44f10] dark:text-white"
+                  ? "bg-brand hover:bg-brand-strong dark:text-white"
                   : ""
               }
             >
@@ -244,95 +244,100 @@ export default function UsersPage() {
               No users found matching your filters.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="pl-25">User</TableHead>
-                  <TableHead className="text-center">Role</TableHead>
-                  <TableHead className="text-center">Joined</TableHead>
-                  <TableHead className="text-center">Status</TableHead>
-                  <TableHead className="text-center">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage src={user.image} alt={user.name} />
-                          <AvatarFallback className="bg-[#ec5b13]/10 text-[#ec5b13] text-sm">
-                            {user.name?.charAt(0) ?? "U"}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-medium">
-                            {user.name ?? "Unknown"}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {user.email}
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <Badge className={getRoleBadgeColor(user.role)}>
-                        {user.role}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-center text-muted-foreground">
-                      {format(new Date(user.createdAt), "PP")}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {user.status === UserStatus.UNBAN ? (
-                        <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
-                          <ShieldCheck className="mr-1 h-3 w-3" />
-                          Active
-                        </Badge>
-                      ) : (
-                        <Badge className="bg-red-100 text-red-700 hover:bg-red-100">
-                          <ShieldBan className="mr-1 h-3 w-3" />
-                          Banned
-                        </Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {user.role !== UserRole.ADMIN && (
-                        <>
-                          {user.status === UserStatus.UNBAN ? (
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              onClick={() =>
-                                handleStatusChange(user.id, UserStatus.BAN)
-                              }
-                            >
-                              <ShieldBan className="mr-1 h-4 w-4" />
-                              Ban
-                            </Button>
-                          ) : (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-green-600 text-green-600 hover:bg-green-50 dark:text-green-400"
-                              onClick={() =>
-                                handleStatusChange(user.id, UserStatus.UNBAN)
-                              }
-                            >
-                              <ShieldCheck className="mr-1 h-4 w-4" />
-                              Unban
-                            </Button>
-                          )}
-                        </>
-                      )}
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table className="min-w-180 lg:min-w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="pl-4 sm:pl-6">User</TableHead>
+                    <TableHead className="text-center">Role</TableHead>
+                    <TableHead className="hidden md:table-cell text-center">
+                      Joined
+                    </TableHead>
+                    <TableHead className="text-center">Status</TableHead>
+                    <TableHead className="text-center">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {users.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-9 w-9">
+                            <AvatarImage src={user.image} alt={user.name} />
+                            <AvatarFallback className="bg-brand/10 text-brand text-sm">
+                              {user.name?.charAt(0) ?? "U"}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-medium">
+                              {user.name ?? "Unknown"}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {user.email}
+                            </p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <Badge className={getRoleBadgeColor(user.role)}>
+                          {user.role}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell text-center text-muted-foreground">
+                        {format(new Date(user.createdAt), "PP")}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {user.status === UserStatus.UNBAN ? (
+                          <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+                            <ShieldCheck className="mr-1 h-3 w-3" />
+                            Active
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-red-100 text-red-700 hover:bg-red-100">
+                            <ShieldBan className="mr-1 h-3 w-3" />
+                            Banned
+                          </Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {user.role !== UserRole.ADMIN && (
+                          <>
+                            {user.status === UserStatus.UNBAN ? (
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={() =>
+                                  handleStatusChange(user.id, UserStatus.BAN)
+                                }
+                              >
+                                <ShieldBan className="mr-1 h-4 w-4" />
+                                Ban
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="border-green-600 text-green-600 hover:bg-green-50 dark:text-green-400"
+                                onClick={() =>
+                                  handleStatusChange(user.id, UserStatus.UNBAN)
+                                }
+                              >
+                                <ShieldCheck className="mr-1 h-4 w-4" />
+                                Unban
+                              </Button>
+                            )}
+                          </>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>
     </div>
   );
 }
+

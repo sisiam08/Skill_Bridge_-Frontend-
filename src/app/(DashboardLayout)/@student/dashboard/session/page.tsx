@@ -65,9 +65,9 @@ export default function StudentSessionPage() {
   const loadSessions = async () => {
     const response = await getMyBookings();
 
-    if (!response?.data.success) return;
+    if (response.error || !response?.data) return;
 
-    const allSessions: StudentBookings[] = response.data.data;
+    const allSessions: StudentBookings[] = response.data.data.data;
 
     const today = startOfToday();
 
@@ -141,7 +141,7 @@ export default function StudentSessionPage() {
         <CardHeader>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <CardTitle className="text-2xl">Student Sessions</CardTitle>
+              <CardTitle className="ui-title-panel">Student Sessions</CardTitle>
               <CardDescription className="mt-2">
                 Review ongoing, upcoming, and previous booking sessions.
               </CardDescription>
@@ -162,7 +162,7 @@ export default function StudentSessionPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock3
-                  className="size-4 text-[#ec5b13]"
+                  className="size-4 text-brand"
                   suppressHydrationWarning
                 />
                 Today's Sessions
@@ -193,7 +193,7 @@ export default function StudentSessionPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CalendarClock
-                  className="size-4 text-[#ec5b13]"
+                  className="size-4 text-brand"
                   suppressHydrationWarning
                 />
                 Upcoming Sessions
@@ -226,7 +226,7 @@ export default function StudentSessionPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <NotebookTabs
-                  className="size-4 text-[#ec5b13]"
+                  className="size-4 text-brand"
                   suppressHydrationWarning
                 />
                 Session History
@@ -267,10 +267,7 @@ export default function StudentSessionPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Star
-                  className="size-4 text-[#ec5b13]"
-                  suppressHydrationWarning
-                />
+                <Star className="size-4 text-brand" suppressHydrationWarning />
                 Feedback Reminder
               </CardTitle>
             </CardHeader>
@@ -281,7 +278,7 @@ export default function StudentSessionPage() {
                 recommendations.
               </p>
               <Button
-                className="mt-4 w-full bg-[#ec5b13] text-white hover:bg-[#d44f10] font-normal"
+                className="mt-4 w-full bg-brand text-white hover:bg-brand-strong font-normal"
                 disabled={withoutReviewSessions.length === 0}
                 onClick={() => {
                   openFeedBackSheet();
@@ -314,13 +311,13 @@ export default function StudentSessionPage() {
           className="inset-auto left-1/2 top-1/2 w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-xl border flex flex-col max-h-[80vh]"
         >
           <SheetHeader className="shrink-0 relative border-b bg-linear-to-r from-orange-50 via-orange-50 to-amber-50 px-6 py-5 text-left">
-            <SheetClose className="absolute right-4 top-4 rounded-sm p-1 text-[#221610] opacity-90 transition-opacity hover:opacity-100 focus:outline-none">
+            <SheetClose className="absolute right-4 top-4 rounded-sm p-1 text-brand-ink opacity-90 transition-opacity hover:opacity-100 focus:outline-none">
               <X className="size-4" />
               <span className="sr-only">Close</span>
             </SheetClose>
-            <SheetTitle className="flex items-center gap-2 text-xl text-[rgb(34,22,16)] dark:text-[#221610]">
+            <SheetTitle className="flex items-center gap-2 text-xl text-brand-ink dark:text-brand-ink">
               <MessageSquare
-                className="size-5 text-[#ec5b13]"
+                className="size-5 text-brand"
                 suppressHydrationWarning
               />
               Add Reviews

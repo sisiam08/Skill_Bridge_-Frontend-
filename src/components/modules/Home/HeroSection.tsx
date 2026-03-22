@@ -50,14 +50,14 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative py-14 md:py-20 overflow-hidden bg-[#f8f6f6] dark:bg-[#1a120d]">
+    <section className="relative py-14 md:py-20 overflow-hidden bg-brand-surface dark:bg-brand-surface">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="flex flex-col gap-6 md:gap-8 text-center lg:text-left">
             <Badge
               variant="secondary"
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ec5b13]/10 text-[#ec5b13] text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 text-brand text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0"
             >
               <span className="material-symbols-outlined text-sm">
                 auto_awesome
@@ -65,9 +65,9 @@ export default function HeroSection() {
               Unlock Your Potential
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black leading-tight tracking-tight text-[#221610] dark:text-white">
+            <h1 className="ui-title-hero">
               Connect with Expert Tutors,
-              <span className="text-[#ec5b13] block">Learn Anything</span>
+              <span className="text-brand block">Learn Anything</span>
             </h1>
 
             <p className="text-base md:text-lg text-[#4b4b4b] dark:text-slate-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
@@ -83,9 +83,9 @@ export default function HeroSection() {
               }}
             >
               {/* Search Box */}
-              <div className="flex flex-col md:flex-row gap-2 bg-white dark:bg-[#221610] p-2 rounded-2xl shadow-xl shadow-[#ec5b13]/5 border border-[#ec5b13]/10 dark:border-[#ec5b13]/20">
+              <div className="flex flex-col md:flex-row gap-2 bg-white dark:bg-brand-surface p-2 rounded-2xl shadow-xl shadow-brand/5 border border-brand/10 dark:border-brand/20">
                 <div className="flex-1 flex items-center px-4 gap-3 border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700">
-                  <span className="text-[#ec5b13] material-symbols-outlined">
+                  <span className="text-brand material-symbols-outlined">
                     search
                   </span>
 
@@ -94,20 +94,20 @@ export default function HeroSection() {
                     value={searchValue}
                     onChange={(e) => setSeachValue(e.target.value)}
                     placeholder="Search subjects (e.g. Physics, TypeScript)"
-                    className="border-none focus-visible:ring-0 bg-transparent text-[#221610] dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                    className="border-none focus-visible:ring-0 bg-transparent text-brand-ink dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="bg-[#ec5b13] hover:bg-[#d44f10] text-white px-8 py-3 rounded-xl font-bold transition-all w-full md:w-auto"
+                  className="bg-brand hover:bg-brand-strong text-white px-8 py-3 rounded-xl font-bold transition-all w-full md:w-auto"
                 >
                   Search
                 </Button>
               </div>
 
               {/* Filters */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-2">
                 <Select
                   value={categoryValue}
                   onValueChange={(value) =>
@@ -115,7 +115,7 @@ export default function HeroSection() {
                   }
                 >
                   <SelectTrigger
-                    className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+                    className="h-auto shadow-none w-full sm:w-44 md:w-48 px-4 py-2 text-brand-ink dark:text-slate-100 bg-white dark:bg-brand-surface border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-brand transition-colors"
                     suppressHydrationWarning
                   >
                     <SelectValue placeholder="Category" />
@@ -137,7 +137,7 @@ export default function HeroSection() {
                   }
                 >
                   <SelectTrigger
-                    className="h-auto shadow-none w-37.5 px-4 py-2 text-[#221610] dark:text-slate-100 bg-white dark:bg-[#221610] border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-[#ec5b13] transition-colors"
+                    className="h-auto shadow-none w-full sm:w-44 md:w-48 px-4 py-2 text-brand-ink dark:text-slate-100 bg-white dark:bg-brand-surface border border-gray-200 dark:border-gray-700 rounded-xl text-xs font-semibold hover:border-brand transition-colors"
                     suppressHydrationWarning
                   >
                     <SelectValue placeholder="Rating" />
@@ -155,11 +155,11 @@ export default function HeroSection() {
 
           {/* Right Image */}
           <div className="relative flex justify-center">
-            <div className="absolute -top-10 -right-10 w-56 md:w-64 h-56 md:h-64 bg-[#ec5b13]/20 rounded-full blur-3xl" />
+            <div className="absolute -top-10 -right-10 w-56 md:w-64 h-56 md:h-64 bg-brand/20 rounded-full blur-3xl" />
 
-            <div className="absolute -bottom-10 -left-10 w-40 md:w-48 h-40 md:h-48 bg-[#ec5b13]/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-10 -left-10 w-40 md:w-48 h-40 md:h-48 bg-brand/10 rounded-full blur-2xl" />
 
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#ec5b13]/20 aspect-video bg-gray-200">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-brand/20 aspect-video bg-gray-200">
               <Image
                 src={hero_img}
                 alt="Tutor and student"
@@ -173,3 +173,4 @@ export default function HeroSection() {
     </section>
   );
 }
+

@@ -62,3 +62,4 @@ export function VersionSwitcher({
     </SidebarMenu>
   )
 }
+

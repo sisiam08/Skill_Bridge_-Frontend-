@@ -99,9 +99,9 @@ export default function RegisterForm() {
   const passwordsMatch =
     passwordValue.length > 0 && passwordValue === confirmPasswordValue;
   return (
-    <Card className="lg:px-6 rounded-none rounded-r-2xl">
+    <Card className="w-full max-w-xl mx-auto rounded-2xl lg:mx-0 lg:max-w-none lg:rounded-none lg:rounded-r-2xl">
       <CardHeader>
-        <CardTitle className="text-3xl font-black text-[#ec5b13]  dark:text-white mb-2">
+        <CardTitle className="ui-title-auth mb-2">
           Create Account
         </CardTitle>
         <CardDescription className="text-slate-600 dark:text-slate-400">
@@ -140,14 +140,14 @@ export default function RegisterForm() {
                     >
                       <ToggleGroupItem
                         value={UserRole.STUDENT}
-                        className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-[#ec5b13] data-[state=on]:text-white"
+                        className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-brand data-[state=on]:text-white"
                       >
                         Student
                       </ToggleGroupItem>
 
                       <ToggleGroupItem
                         value={UserRole.TUTOR}
-                        className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-[#ec5b13] data-[state=on]:text-white"
+                        className="flex-1  rounded-lg text-sm font-bold data-[state=on]:bg-brand data-[state=on]:text-white"
                       >
                         Tutor
                       </ToggleGroupItem>
@@ -303,7 +303,7 @@ export default function RegisterForm() {
           form="sign-up"
           type="submit"
           disabled={loading || !passwordsMatch}
-          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
+          className="w-full bg-brand hover:bg-brand-strong text-white font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
         >
           {loading ? "Verification mail sending..." : "Create Account"}
         </Button>
@@ -311,7 +311,7 @@ export default function RegisterForm() {
         <Button
           type="submit"
           onClick={handleGoogleLogin}
-          className="w-full bg-[#ec5b13] hover:bg-[#d44f10] text-white dark:text-black font-bold  py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full bg-brand hover:bg-brand-strong text-white dark:text-black font-bold  py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
         >
           Continue with google
         </Button>
@@ -320,7 +320,7 @@ export default function RegisterForm() {
           <p className="text-sm text-slate-600 dark:text-slate-400">
             Already have an account?
             <Link
-              className="text-[#ec5b13] hover:text-[#d44f10] font-bold hover:underline ml-1"
+              className="text-brand hover:text-brand-strong font-bold hover:underline ml-1"
               href="/login"
             >
               Log in
@@ -331,3 +331,4 @@ export default function RegisterForm() {
     </Card>
   );
 }
+

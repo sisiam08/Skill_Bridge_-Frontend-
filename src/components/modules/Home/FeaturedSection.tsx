@@ -13,7 +13,7 @@ export default function FeaturedSection({
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12 text-center md:text-left">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#221610] dark:text-white">
+            <h2 className="ui-title-section">
               Featured Expert Tutors
             </h2>
 
@@ -25,7 +25,7 @@ export default function FeaturedSection({
           <Button
             asChild
             variant="link"
-            className="text-[#ec5b13] font-bold flex items-center gap-2 hover:gap-3 transition-all text-sm p-0 h-auto no-underline hover:no-underline"
+            className="text-brand font-bold flex items-center gap-2 hover:gap-3 transition-all text-sm p-0 h-auto no-underline hover:no-underline"
           >
             <Link href="/find_tutors">
               View all tutors
@@ -42,7 +42,7 @@ export default function FeaturedSection({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-gray-300 py-16 text-center dark:border-gray-700">
-            <p className="text-base font-semibold text-[#221610] dark:text-white">
+            <p className="text-base font-semibold text-brand-ink dark:text-white">
               No featured tutors yet
             </p>
             <p className="max-w-sm text-sm text-gray-500 dark:text-gray-400">
@@ -51,7 +51,7 @@ export default function FeaturedSection({
             </p>
             <Button
               asChild
-              className="mt-2 bg-[#ec5b13] text-white hover:bg-[#d44e0e]"
+              className="mt-2 bg-brand text-white hover:bg-brand-strong"
             >
               <Link href="/find_tutors">Browse all tutors</Link>
             </Button>
@@ -61,3 +61,4 @@ export default function FeaturedSection({
     </section>
   );
 }
+

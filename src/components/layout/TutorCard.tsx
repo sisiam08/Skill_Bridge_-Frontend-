@@ -27,7 +27,7 @@ export default function TutorCard({
     >
       <CardHeader className="flex items-center justify-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="relative h-30 w-30 shrink-0 overflow-hidden rounded-full sm:h-48 sm:w-48">
+          <div className="relative size-24 shrink-0 overflow-hidden rounded-full sm:size-32 lg:size-36">
             <Image
               src={tutor.user?.image || default_avatar}
               alt={tutor.user?.name ?? "Tutor"}
@@ -72,3 +72,4 @@ export default function TutorCard({
     </Card>
   );
 }
+

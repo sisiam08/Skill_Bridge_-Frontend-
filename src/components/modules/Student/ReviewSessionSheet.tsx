@@ -54,8 +54,8 @@ export default function ReviewSessionSheet({
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
       <SheetContent side="right" className="w-full sm:max-w-2xl p-0 gap-0" showCloseButton={false}>
         <SheetHeader className="border-b bg-linear-to-r from-orange-50 via-white to-amber-50 px-6 py-5 text-left">
-          <SheetTitle className="flex items-center gap-2 text-xl text-[rgb(34,22,16)] dark:text-[#221610]">
-            <MessageSquare className="size-5 text-[#ec5b13]" suppressHydrationWarning/>
+          <SheetTitle className="flex items-center gap-2 text-xl text-brand-ink dark:text-brand-ink">
+            <MessageSquare className="size-5 text-brand" suppressHydrationWarning/>
             Review Session
           </SheetTitle>
           <SheetDescription className="text-[#6b4f3d] dark:text-[#6b4f3d]">
@@ -73,7 +73,7 @@ export default function ReviewSessionSheet({
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="flex size-11 items-center justify-center rounded-xl bg-[#ec5b13]/10 text-[#ec5b13]">
+                      <div className="flex size-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
                         <UserRound className="size-5" />
                       </div>
                       <div>
@@ -95,7 +95,7 @@ export default function ReviewSessionSheet({
                           Category
                         </p>
                         <p className="mt-1 flex items-center gap-2 text-sm font-medium">
-                          <GraduationCap className="size-4 text-[#ec5b13]" />
+                          <GraduationCap className="size-4 text-brand" />
                           {reviewSession.tutor.category.name}
                         </p>
                       </div>
@@ -157,7 +157,7 @@ export default function ReviewSessionSheet({
                             <Star
                               className={
                                 active
-                                  ? "size-7 fill-[#ec5b13] text-[#ec5b13]"
+                                  ? "size-7 fill-brand text-brand"
                                   : "size-7 text-muted-foreground/40"
                               }
                             />
@@ -208,7 +208,7 @@ export default function ReviewSessionSheet({
             Cancel
           </Button>
           <Button
-            className="bg-[#ec5b13] text-white hover:bg-[#d44f10] font-normal"
+            className="bg-brand text-white hover:bg-brand-strong font-normal"
             onClick={submitReview}
             disabled={
               hasReview() ||
@@ -225,3 +225,4 @@ export default function ReviewSessionSheet({
     </Sheet>
   );
 }
+

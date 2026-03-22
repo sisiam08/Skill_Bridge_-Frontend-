@@ -174,9 +174,9 @@ export default function TutorProfileDetailPage(params: {
 
       if (response.error || !response.data.success) {
         toast.error(
-          response?.error?.message === "Unauthorized"
+          response?.error?.message === "You don't have permission to access this resource"
             ? "Must be logged in as a student to book a session"
-            : response.data.message || "Failed to book the session",
+            : response?.error?.message || "Failed to book the session",
           {
             id: toastId,
           },
@@ -207,7 +207,7 @@ export default function TutorProfileDetailPage(params: {
           <Card className="animate-in fade-in slide-in-from-bottom-2 overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 shadow-md duration-500 dark:from-card dark:via-card dark:to-card">
             <CardContent className="p-0">
               <div className="grid gap-0 md:grid-cols-[280px_1fr]">
-                <div className="relative h-72 md:h-full">
+                <div className="relative h-56 md:h-full">
                   <Image
                     src={tutorDetails?.user?.image ?? default_img}
                     alt={tutorDetails?.user?.name ?? "Tutor profile picture"}
@@ -220,20 +220,20 @@ export default function TutorProfileDetailPage(params: {
 
                 <div className="space-y-6 p-6">
                   <div>
-                    <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">
+                    <h1 className="ui-title-profile">
                       {tutorDetails?.user?.name}
                     </h1>
                     <div className="mt-3 flex flex-col text-sm text-zinc-600 dark:text-zinc-400">
                       <span className="inline-flex items-center gap-1">
                         <Mail
-                          className="size-4 text-[#ec5b13]"
+                          className="size-4 text-brand"
                           suppressHydrationWarning
                         />
                         {tutorDetails?.user?.email}
                       </span>
                       <span className="inline-flex items-center gap-1">
                         <GraduationCap
-                          className="size-4 text-[#ec5b13]"
+                          className="size-4 text-brand"
                           suppressHydrationWarning
                         />
                         {tutorDetails?.category?.name ?? "N/A"}
@@ -257,13 +257,11 @@ export default function TutorProfileDetailPage(params: {
                             {item.label}
                           </p>
                           <item.icon
-                            className="size-4 text-[#ec5b13]"
+                            className="size-4 text-brand"
                             suppressHydrationWarning
                           />
                         </div>
-                        <p className="mt-2 text-xl font-bold text-zinc-900 dark:text-zinc-100">
-                          {item.value}
-                        </p>
+                        <p className="mt-2 ui-stat-compact">{item.value}</p>
                         <p className="mt-1 text-xs text-zinc-500">
                           {item.note}
                         </p>
@@ -275,14 +273,14 @@ export default function TutorProfileDetailPage(params: {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Availabilities
               availabilities={availabilities}
               isTutorView={false}
             />
 
             <Card>
-              <div className="bg-linear-to-r from-[#ec5b13] to-orange-400 px-6 py-4 text-white">
+              <div className="bg-linear-to-r from-brand to-brand-strong px-6 py-4 text-white">
                 <p className="text-xs uppercase tracking-wider text-orange-100">
                   Book Session
                 </p>
@@ -295,7 +293,7 @@ export default function TutorProfileDetailPage(params: {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="rounded-lg border border-orange-200 bg-orange-50/70 p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <p className="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Hourly Rate
@@ -304,11 +302,11 @@ export default function TutorProfileDetailPage(params: {
                         {tutorDetails?.hourlyRate} tk/hour
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-left sm:text-right">
                       <p className="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                         Estimated Cost
                       </p>
-                      <p className="mt-1 text-2xl font-bold text-[#ec5b13]">
+                      <p className="mt-1 ui-stat-value text-brand">
                         ৳{availableSlots?.price ?? 0}
                       </p>
                     </div>
@@ -359,7 +357,7 @@ export default function TutorProfileDetailPage(params: {
                   </p>
                   <p className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                     <Clock3
-                      className="size-4 text-[#ec5b13]"
+                      className="size-4 text-brand"
                       suppressHydrationWarning
                     />
                     {selectedDate
@@ -387,7 +385,9 @@ export default function TutorProfileDetailPage(params: {
                           size="sm"
                           onClick={() => setSelectedSlot(slot)}
                           className={
-                            "rounded-full border px-3 py-1 text-xs font-medium transition-colors border-emerald-400 bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
+                            selectedSlot === slot
+                              ? "rounded-full bg-brand text-white hover:bg-brand-strong"
+                              : "rounded-full border px-3 py-1 text-xs font-medium transition-colors border-emerald-400 bg-emerald-50 text-emerald-700  hover:border-orange-200 hover:text-emerald-900 dark:bg-emerald-950 dark:text-emerald-300 dark:hover:border-orange-200 dark:hover:bg-orange-50/10"
                           }
                         >
                           {convertInto12h(slot.startTime)} –{" "}
@@ -401,7 +401,7 @@ export default function TutorProfileDetailPage(params: {
               <CardFooter className="flex-col items-stretch gap-2">
                 <Button
                   disabled={!selectedSlot}
-                  className="w-full bg-[#ec5b13] text-white hover:bg-[#d44f10]"
+                  className="w-full bg-brand text-white hover:bg-brand-strong"
                   onClick={() => bookingSession()}
                 >
                   Book Session
@@ -414,7 +414,7 @@ export default function TutorProfileDetailPage(params: {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquareText
-                  className="size-4 text-[#ec5b13]"
+                  className="size-4 text-brand"
                   suppressHydrationWarning
                 />
                 Student Reviews

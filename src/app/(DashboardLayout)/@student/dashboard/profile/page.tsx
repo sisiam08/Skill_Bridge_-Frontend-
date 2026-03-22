@@ -168,7 +168,7 @@ export default function StudentProfilePage() {
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">Student Profile</CardTitle>
+            <CardTitle className="ui-title-panel">Student Profile</CardTitle>
             <CardDescription>Student information.</CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -192,7 +192,7 @@ export default function StudentProfilePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <UserRound
-              className="size-4 text-[#ec5b13]"
+              className="size-4 text-brand"
               suppressHydrationWarning
             />
             Account details
@@ -207,7 +207,7 @@ export default function StudentProfilePage() {
             }}
           >
             <div className="flex flex-col items-center gap-3 mb-3">
-              <Avatar className="size-30">
+              <Avatar className="size-24 sm:size-28">
                 <AvatarImage src={profileImagePreview} />
                 <AvatarFallback>TP</AvatarFallback>
               </Avatar>
@@ -334,7 +334,7 @@ export default function StudentProfilePage() {
           <div className="space-y-3 text-sm">
             <div className="flex items-center justify-between">
               <p className="text-muted-foreground">Role</p>
-              <Badge className="bg-[#ec5b13] text-white hover:bg-[#ec5b13]">
+              <Badge className="bg-brand text-white hover:bg-brand">
                 {role}
               </Badge>
             </div>
@@ -350,7 +350,7 @@ export default function StudentProfilePage() {
         <CardFooter className="flex justify-center">
           <div className="mt-15 flex flex-wrap justify-center gap-2">
             <Button
-              className="bg-[#ec5b13] hover:bg-[#d44f10] text-white"
+              className="bg-brand hover:bg-brand-strong text-white"
               disabled={!isEditing}
               form="profileForm"
               type="submit"
@@ -375,3 +375,4 @@ export default function StudentProfilePage() {
     </div>
   );
 }
+

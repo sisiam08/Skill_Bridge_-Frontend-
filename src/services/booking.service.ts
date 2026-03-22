@@ -7,16 +7,18 @@ import { cookies } from "next/headers";
 const API_URL = env.API_URL;
 
 export const BookingService = {
-  getBookingSessions: async (filters: BookingsFilters) => {
+  getBookingSessions: async (filters?: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/tutors/bookings`);
-      
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined || value !== null || value !== "") {
-          url.searchParams.append(key, value);
-        }
-      });
+
+      if (filters) {
+        Object.entries(filters as BookingsFilters).forEach(([key, value]) => {
+          if (value !== undefined || value !== null || value !== "") {
+            url.searchParams.append(key, value);
+          }
+        });
+      }
 
       const res = await fetch(url.toString(), {
         headers: {
@@ -79,16 +81,18 @@ export const BookingService = {
     }
   },
 
-  getMyBookings: async (filters: BookingsFilters) => {
+  getMyBookings: async (filters?: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/bookings/my-bookings`);
-      
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined || value !== null || value !== "") {
-          url.searchParams.append(key, value);
-        }
-      });
+
+      if (filters) {
+        Object.entries(filters as BookingsFilters).forEach(([key, value]) => {
+          if (value !== undefined || value !== null || value !== "") {
+            url.searchParams.append(key, value);
+          }
+        });
+      }
 
       const res = await fetch(url.toString(), {
         headers: {
@@ -133,9 +137,8 @@ export const BookingService = {
       if (!res.ok || !data?.success) {
         return {
           data: null,
-          error: { message: "Unauthorized" },
+          error: { message: data?.message || "Failed to create booking!" },
         };
-        console.log(data);
       }
 
       return { data, error: null };
@@ -147,16 +150,18 @@ export const BookingService = {
     }
   },
 
-  getAllBookings: async (filters: BookingsFilters) => {
+  getAllBookings: async (filters?: BookingsFilters) => {
     try {
       const cookieStore = await cookies();
       const url = new URL(`${API_URL}/bookings`);
 
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined || value !== null || value !== "") {
-          url.searchParams.append(key, value);
-        }
-      });
+      if (filters) {
+        Object.entries(filters as BookingsFilters).forEach(([key, value]) => {
+          if (value !== undefined || value !== null || value !== "") {
+            url.searchParams.append(key, value);
+          }
+        });
+      }
 
       const res = await fetch(url.toString(), {
         headers: {
