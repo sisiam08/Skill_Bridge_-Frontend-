@@ -24,6 +24,9 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
+import { env } from "@/env";
+
+const APP_URL = env.FRONTEND_URL;
 
 const formSchema = z.object({
   email: z.email("Invalid email!"),
@@ -31,25 +34,24 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+      callbackURL: APP_URL,
     });
   };
 
   const handleEmailVerification = async () => {
     await authClient.sendVerificationEmail({
       email: verificationEmail,
-      callbackURL: "http://localhost:3000",
+      callbackURL: APP_URL,
     });
   };
 
   const handleRequestResetPassword = async (email: string) => {
     await authClient.requestPasswordReset({
       email: email,
-      redirectTo: "http://localhost:3000/reset_password",
+      redirectTo: `${APP_URL}/reset_password`,
     });
   };
 
@@ -165,7 +167,9 @@ export default function LoginForm() {
               >
                 <FieldGroup>
                   <Field>
-                    <FieldLabel htmlFor="reset-password-email">Email</FieldLabel>
+                    <FieldLabel htmlFor="reset-password-email">
+                      Email
+                    </FieldLabel>
                     <div className="relative">
                       <Mail className="absolute size-5 left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                       <Input
@@ -214,9 +218,7 @@ export default function LoginForm() {
       ) : (
         <>
           <CardHeader>
-            <CardTitle className="ui-title-auth mb-2">
-              Welcome back
-            </CardTitle>
+            <CardTitle className="ui-title-auth mb-2">Welcome back</CardTitle>
             <CardDescription className="text-slate-600 dark:text-slate-400">
               Fill in your details to learn more skills
             </CardDescription>
@@ -347,4 +349,3 @@ export default function LoginForm() {
     </Card>
   );
 }
-
