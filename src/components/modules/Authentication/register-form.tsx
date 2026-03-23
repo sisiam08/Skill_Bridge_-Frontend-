@@ -53,7 +53,7 @@ export default function RegisterForm() {
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+      callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
     });
   };
   const [loading, setLoading] = useState(false);

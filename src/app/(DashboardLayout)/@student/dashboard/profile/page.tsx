@@ -118,7 +118,7 @@ export default function StudentProfilePage() {
         if (value.email !== mainEmail) {
           const response = await authClient.changeEmail({
             newEmail: value.email,
-            callbackURL: "http://localhost:3000/dashboard",
+            callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/dashboard`,
           });
 
           if (response.error) {
