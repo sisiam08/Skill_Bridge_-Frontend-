@@ -34,14 +34,14 @@ export default function LoginForm() {
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: process.env.NEXT_PUBLIC_FRONTEND_URL,
+      callbackURL: "https://skillbridgeclient.vercel.app/",
     });
   };
 
   const handleEmailVerification = async () => {
     await authClient.sendVerificationEmail({
       email: verificationEmail,
-      callbackURL: process.env.NEXT_PUBLIC_FRONTEND_URL,
+      callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
     });
   };
 
@@ -93,9 +93,11 @@ export default function LoginForm() {
         toast.success("Login successful!", {
           id: toastId,
         });
-        router.push("/");
-      } catch (error: any) {
-        toast.error(error.message, { id: toastId });
+        window.location.href = "/";
+      } catch (error) {
+        toast.error("An unexpected error occurred. Please try again.", {
+          id: toastId,
+        });
       } finally {
         setLoading(false);
       }

@@ -48,7 +48,7 @@ import {
 
 const TutorProfileSchema = z.object({
   categoryId: z.string().min(1, "Category is required"),
-  bio: z.string(),
+  bio: z.string().max(255, "Bio must be at most 255 characters"),
   experienceYears: z.string().refine((value) => {
     const num = Number(value);
     return !isNaN(num) && num >= 0;
@@ -151,7 +151,7 @@ export default function TutorProfilePage() {
       experienceYears: "",
       hourlyRate: "",
     },
-    validators: { onSubmit: TutorProfileSchema },
+    validators: { onChange: TutorProfileSchema },
     onSubmit: async ({ value }) => {
       const tutorProfileData = {
         userId: userId,
@@ -232,7 +232,7 @@ export default function TutorProfilePage() {
       email: email,
       phone: phone,
     },
-    validators: { onSubmit: TutorAccountSchema },
+    validators: { onChange: TutorAccountSchema },
     onSubmit: async ({ value }) => {
       // console.log(value);
 
@@ -571,30 +571,35 @@ export default function TutorProfilePage() {
                             field.state.meta.isTouched &&
                             !field.state.meta.isValid;
                           return (
-                            <Select
-                              disabled={isProfileFormDisableMode}
-                              value={field.state.value}
-                              onValueChange={(value) =>
-                                field.handleChange(value)
-                              }
-                            >
-                              <SelectTrigger id="category" className="w-full">
-                                <SelectValue placeholder="Select category" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="all">
-                                  All Categories
-                                </SelectItem>
-                                {categories.map((cat) => (
-                                  <SelectItem key={cat.id} value={cat.id || ""}>
-                                    {cat.name}
+                            <Field>
+                              <Select
+                                disabled={isProfileFormDisableMode}
+                                value={field.state.value}
+                                onValueChange={(value) =>
+                                  field.handleChange(value)
+                                }
+                              >
+                                <SelectTrigger id="category" className="w-full">
+                                  <SelectValue placeholder="Select category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="all">
+                                    All Categories
                                   </SelectItem>
-                                ))}
-                              </SelectContent>
+                                  {categories.map((cat) => (
+                                    <SelectItem
+                                      key={cat.id}
+                                      value={cat.id || ""}
+                                    >
+                                      {cat.name}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
                               {isInvalid && (
                                 <FieldError errors={field.state.meta.errors} />
                               )}
-                            </Select>
+                            </Field>
                           );
                         }}
                       />
@@ -774,4 +779,3 @@ export default function TutorProfilePage() {
     </div>
   );
 }
-

@@ -4,9 +4,19 @@ const config: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "5000",
+        protocol: "https",
+        hostname: "vercel.com",
+        pathname: "/uploads/**",
+      },
+      // Vercel Blob storage
+      {
+        protocol: "https",
+        hostname: "*.vercel-storage.com",
+      },
+      // Backend uploaded images
+      {
+        protocol: "https",
+        hostname: "skillbridgeserver-one.vercel.app",
         pathname: "/uploads/**",
       },
     ],
@@ -15,7 +25,7 @@ const config: NextConfig = {
     return [
       {
         source: "/api/auth/:path*",
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/:path*`,
+        destination: `${process.env.AUTH_URL}/:path*`,
       },
     ];
   },
