@@ -139,6 +139,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  button {
+    cursor: pointer !important;
+  }
+  button:hover {
+    cursor: pointer !important;
+  }
 }
 
 @layer components {

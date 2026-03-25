@@ -99,18 +99,26 @@ export default function StudentProfilePage() {
         phone: value.phone,
       };
 
-      const toastId = toast.loading("Saving changes...");
+      const toastId = toast.loading("Saving your profile changes...");
 
       try {
         if (selectedFileRef.current) {
           const response = await uploadImage(selectedFileRef.current);
 
-          if (!response.data.success) {
-            toast.error("Failed to upload image.", { id: toastId });
+          if (response.error || !response.data) {
+            toast.error(
+              response.error?.message ||
+                "Unable to upload profile image. Please try again.",
+              { id: toastId },
+            );
             return;
           }
 
-          updatedData.image = response.data.data.url;
+          updatedData.image = response.data?.data?.url;
+          toast.success("Profile image uploaded successfully", {
+            id: toastId,
+            duration: 2000,
+          });
         }
 
         const response = await updateUser(updatedData);
@@ -122,9 +130,11 @@ export default function StudentProfilePage() {
           });
 
           if (response.error) {
-            toast.error(response.error.message || "Failed to change email!", {
-              id: toastId,
-            });
+            toast.error(
+              response.error.message ||
+                "Failed to change email. Please check and try again.",
+              { id: toastId },
+            );
             return;
           }
 
@@ -136,7 +146,7 @@ export default function StudentProfilePage() {
         }
 
         if (!response?.data) {
-          toast.error("Failed to save changes.", {
+          toast.error("Failed to save profile changes. Please try again.", {
             id: toastId,
           });
           return;
@@ -147,11 +157,12 @@ export default function StudentProfilePage() {
         if (updatedData.image) setProfileImagePreview(updatedData.image);
         selectedFileRef.current = null;
         setIsEditing(false);
-        toast.success("Changes saved successfully!", { id: toastId });
+        toast.success("Profile updated successfully!", { id: toastId });
       } catch (error) {
-        toast.error("An error occurred.", {
-          id: toastId,
-        });
+        toast.error(
+          "Something went wrong while saving your profile. Please try again.",
+          { id: toastId },
+        );
       }
     },
   });
@@ -191,10 +202,7 @@ export default function StudentProfilePage() {
       <Card className="max-w-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <UserRound
-              className="size-4 text-brand"
-              suppressHydrationWarning
-            />
+            <UserRound className="size-4 text-brand" suppressHydrationWarning />
             Account details
           </CardTitle>
         </CardHeader>
@@ -375,4 +383,3 @@ export default function StudentProfilePage() {
     </div>
   );
 }
-

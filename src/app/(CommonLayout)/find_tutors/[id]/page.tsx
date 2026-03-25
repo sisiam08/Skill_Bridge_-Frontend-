@@ -43,9 +43,9 @@ import {
   getAvailableSlots,
 } from "@/actions/availability.action";
 import Availabilities from "@/components/layout/Availabilities";
-import { addHours, format } from "date-fns";
+import { format } from "date-fns";
 import { toast } from "sonner";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h } from "@/helpers/TimeHelpers";
 import { createBooking } from "@/actions/booking.action";
 import Reviews from "@/components/layout/Reviews";
 import { getAllReviewsForTutorProfile } from "@/actions/review.action";
@@ -65,8 +65,16 @@ export default function TutorProfileDetailPage(params: {
   const [selectedDuration, setSelectedDuration] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<SlotType | null>(null);
 
-  const today = addHours(new Date(), 6).toISOString().split("T")[0];
-  const durationOptions = [30, 60, 90, 120];
+  const today = format(new Date(), "yyyy-MM-dd");
+  const durationOptions = [60, 120, 180];
+
+  const formatDuration = (minutes: number): string => {
+    const hours = minutes / 60;
+    if (hours === Math.floor(hours)) {
+      return `${Math.floor(hours)} ${hours === 1 ? "hour" : "hours"}`;
+    }
+    return `${minutes} minutes`;
+  };
 
   useEffect(() => {
     if (!tutorId) return;
@@ -140,6 +148,16 @@ export default function TutorProfileDetailPage(params: {
         return;
       }
 
+      // console.log(response.data.data.availableSlots.length);
+
+      if (response.data.data.availableSlots.length === 0) {
+        toast.error("No available slots match the selected date and duration", {
+          id: toastId,
+        });
+        setAvailableSlots(null);
+        return;
+      }
+
       toast.success("Available slots updated", { id: toastId });
       setAvailableSlots(response.data.data);
     } catch (error) {
@@ -162,19 +180,25 @@ export default function TutorProfileDetailPage(params: {
 
   const bookingSession = async () => {
     if (!selectedSlot) return;
+    const now = new Date();
+    const currentTime = format(now, "HH:mm");
+    const todayDate = format(now, "yyyy-MM-dd");
     const bookingData = {
       sessionDate: selectedDate,
       startTime: selectedSlot.startTime,
       endTime: selectedSlot.endTime,
+      currentTime,
+      todayDate,
     };
 
     const toastId = toast.loading("Booking your session...");
     try {
       const response = await createBooking(tutorId, bookingData);
 
-      if (response.error || !response.data.success) {
+      if (response.error || !response.data) {
         toast.error(
-          response?.error?.message === "You don't have permission to access this resource"
+          response?.error?.message ===
+            "You don't have permission to access this resource"
             ? "Must be logged in as a student to book a session"
             : response?.error?.message || "Failed to book the session",
           {
@@ -183,10 +207,13 @@ export default function TutorProfileDetailPage(params: {
         );
         return;
       }
-      toast.success("Session booked successfully", { id: toastId });
-      setSelectedDate("");
-      setSelectedDuration("");
-      setSelectedSlot(null);
+
+      if (response.data) {
+        toast.success("Session booked successfully", { id: toastId });
+        setSelectedDate("");
+        setSelectedDuration("");
+        setSelectedSlot(null);
+      }
     } catch (error) {
       toast.error("An error occurred while booking the session", {
         id: toastId,
@@ -344,7 +371,7 @@ export default function TutorProfileDetailPage(params: {
                     <SelectContent>
                       {durationOptions.map((duration) => (
                         <SelectItem key={duration} value={String(duration)}>
-                          {duration} minutes
+                          {formatDuration(duration)}
                         </SelectItem>
                       ))}
                     </SelectContent>

@@ -11,6 +11,7 @@ import { UserRole } from "@/constants/roles";
 import { UserService } from "@/services/user.service";
 import { redirect } from "next/navigation";
 import default_img from "../../../public/default-avatar-profile.jpg";
+import Link from "next/link";
 
 export default async function DashboardLayout({
   admin,
@@ -38,20 +39,30 @@ export default async function DashboardLayout({
             <Separator orientation="vertical" className="h-6" />
             <ModeToggle />
           </div>
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <p className="text-md font-medium leading-none">
-                {userInfo.name}
-              </p>
+          <Link
+            href={
+              userInfo.role === UserRole.STUDENT
+                ? "dashboard/profile"
+                : "/tutor-dashboard/tutor-profile"
+            }
+          >
+            <div className="flex items-center gap-3">
+              <div className="text-right">
+                <p className="text-md font-medium leading-none">
+                  {userInfo.name}
+                </p>
+              </div>
+              <Avatar className="h-9 w-9">
+                <AvatarImage
+                  src={userInfo.image || default_img.src}
+                  alt={userInfo.name || "User Avatar"}
+                />
+                <AvatarFallback>
+                  {userInfo.name?.charAt(0) || "U"}
+                </AvatarFallback>
+              </Avatar>
             </div>
-            <Avatar className="h-9 w-9">
-              <AvatarImage
-                src={userInfo.image || default_img.src}
-                alt={userInfo.name || "User Avatar"}
-              />
-              <AvatarFallback>{userInfo.name?.charAt(0) || "U"}</AvatarFallback>
-            </Avatar>
-          </div>
+          </Link>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           {userInfo.role === UserRole.ADMIN
@@ -64,4 +75,3 @@ export default async function DashboardLayout({
     </SidebarProvider>
   );
 }
-

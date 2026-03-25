@@ -31,17 +31,31 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-  const handleGoogleLogin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "https://skillbridgeclient.vercel.app/",
-    });
-  };
+  const router = useRouter();
+
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const { data, error } = await authClient.signIn.social({
+  //       provider: "google",
+  //     });
+
+  //     if (error) {
+  //       toast.error(`Google login failed: ${error.message}`);
+  //       console.error("Google login error:", error);
+  //       return;
+  //     }
+
+  //     // router.push("/");
+  //   } catch (error) {
+  //     console.error("Google login exception:", error);
+  //     toast.error("An error occurred during Google login");
+  //   }
+  // };
 
   const handleEmailVerification = async () => {
     await authClient.sendVerificationEmail({
       email: verificationEmail,
-      callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
+      callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`,
     });
   };
 
@@ -52,7 +66,6 @@ export default function LoginForm() {
     });
   };
 
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const [showVerifyButton, setShowVerifyButton] = useState(false);
@@ -93,7 +106,7 @@ export default function LoginForm() {
         toast.success("Login successful!", {
           id: toastId,
         });
-        window.location.href = "/";
+        router.push("/");
       } catch (error) {
         toast.error("An unexpected error occurred. Please try again.", {
           id: toastId,
@@ -322,14 +335,14 @@ export default function LoginForm() {
                 Resend Verification Email
               </Button>
             )}
-            <p className="text-sm">or</p>
+            {/* <p className="text-sm">or</p>
             <Button
               type="submit"
               onClick={handleGoogleLogin}
               className="w-full bg-brand hover:bg-brand-strong text-white dark:text-black font-bold rounded-xl shadow-lg shadow-primary/20 disabled:opacity-50"
             >
               Log in with google
-            </Button>
+            </Button> */}
 
             <div className="mt-8 text-center">
               <p className="text-sm text-slate-600 dark:text-slate-400">

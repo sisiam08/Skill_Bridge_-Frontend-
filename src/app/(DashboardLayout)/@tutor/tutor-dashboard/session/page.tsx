@@ -19,6 +19,7 @@ import SessionCard from "@/components/layout/SessionCard";
 import CompleteSessionSheet from "@/components/modules/Tutor/CompleteSessionSheet";
 import SendClassLinkSheet from "@/components/modules/Tutor/SendClassLinkSheet";
 import { BookingStatus } from "@/constants/status";
+import { UserRole } from "@/constants/roles";
 import { TutorBookingSession } from "@/types";
 import { toast } from "sonner";
 import {
@@ -183,7 +184,6 @@ export default function TutorSessionPage() {
       }
 
       toast.success("Default class link saved successfully", { id: toastId });
-      
     } catch (error) {
       toast.error("Failed to save default class link", { id: toastId });
     }
@@ -239,7 +239,10 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Clock3 className="size-4 text-brand" suppressHydrationWarning/>
+                  <Clock3
+                    className="size-4 text-brand"
+                    suppressHydrationWarning
+                  />
                   Today's Sessions
                 </CardTitle>
                 <CardDescription>Sessions scheduled for today.</CardDescription>
@@ -254,6 +257,7 @@ export default function TutorSessionPage() {
                     <SessionCard
                       key={session.id}
                       session={session}
+                      role={UserRole.TUTOR}
                       animationIndex={idx}
                       startClass={() => startClass(session)}
                       openCompleteSessionSheet={() =>
@@ -268,7 +272,10 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CalendarClock className="size-4 text-brand" suppressHydrationWarning/>
+                  <CalendarClock
+                    className="size-4 text-brand"
+                    suppressHydrationWarning
+                  />
                   Upcoming Sessions
                 </CardTitle>
                 <CardDescription>Future confirmed sessions.</CardDescription>
@@ -283,6 +290,7 @@ export default function TutorSessionPage() {
                     <SessionCard
                       key={session.id}
                       session={session}
+                      role={UserRole.TUTOR}
                       animationIndex={idx}
                       startClass={() => startClass(session)}
                       openCompleteSessionSheet={() =>
@@ -299,7 +307,10 @@ export default function TutorSessionPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Link2 className="size-4 text-brand" suppressHydrationWarning/>
+                  <Link2
+                    className="size-4 text-brand"
+                    suppressHydrationWarning
+                  />
                   Class Link
                 </CardTitle>
                 <CardDescription>
@@ -348,4 +359,3 @@ export default function TutorSessionPage() {
     </>
   );
 }
-

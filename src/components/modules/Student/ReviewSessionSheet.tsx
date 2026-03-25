@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h } from "@/helpers/TimeHelpers";
 import { StudentBookings } from "@/types";
 import { format } from "date-fns";
 import { GraduationCap, MessageSquare, Star, UserRound } from "lucide-react";
@@ -52,10 +52,17 @@ export default function ReviewSessionSheet({
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
-      <SheetContent side="right" className="w-full sm:max-w-2xl p-0 gap-0" showCloseButton={false}>
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-2xl p-0 gap-0"
+        showCloseButton={false}
+      >
         <SheetHeader className="border-b bg-linear-to-r from-orange-50 via-white to-amber-50 px-6 py-5 text-left">
           <SheetTitle className="flex items-center gap-2 text-xl text-brand-ink dark:text-brand-ink">
-            <MessageSquare className="size-5 text-brand" suppressHydrationWarning/>
+            <MessageSquare
+              className="size-5 text-brand"
+              suppressHydrationWarning
+            />
             Review Session
           </SheetTitle>
           <SheetDescription className="text-[#6b4f3d] dark:text-[#6b4f3d]">
@@ -145,7 +152,7 @@ export default function ReviewSessionSheet({
 
                         return (
                           <button
-                          disabled={hasReview()}
+                            disabled={hasReview()}
                             key={value}
                             type="button"
                             className="transition-transform hover:scale-110"
@@ -184,7 +191,7 @@ export default function ReviewSessionSheet({
                   </p>
                 </div>
                 <Textarea
-                disabled={hasReview()}
+                  disabled={hasReview()}
                   rows={6}
                   value={reviewText}
                   onChange={(event) => setReviewText(event.target.value)}
@@ -225,4 +232,3 @@ export default function ReviewSessionSheet({
     </Sheet>
   );
 }
-

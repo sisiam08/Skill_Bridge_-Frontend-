@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { AvailabilityType } from "@/types";
+import { format } from "date-fns";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -78,7 +79,6 @@ export const AvailabilityService = {
         },
       );
       const data = await res.json();
-      // console.log(data.message);
 
       if (!res.ok || !data?.success) {
         return {

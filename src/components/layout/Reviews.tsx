@@ -34,14 +34,14 @@ export default function Reviews({ reviews }: { reviews: ReviewType[] }) {
 
   return (
     <section>
-      <div className="max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-7xl mx-auto px-4">
+      <div className="max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-7xl mx-auto px-2">
         {reviews.length > 0 ? (
           <div ref={scrollRef} className="pb-4 overflow-x-auto scrollbar-hide">
             <div className="flex min-w-max gap-6">
               {reviews.map((review, index) => (
                 <Card
                   key={review.id}
-                  className="animate-in fade-in slide-in-from-bottom-2 w-72 shrink-0 rounded-2xl border border-gray-100 bg-white py-0 shadow-md transition-all duration-500 hover:shadow-xl sm:w-80 lg:w-88 dark:border-gray-800 dark:bg-brand-surface/80 snap-start"
+                  className="animate-in fade-in slide-in-from-bottom-2 w-65 shrink-0 rounded-2xl border border-gray-100 bg-white py-0 shadow-md transition-all duration-500 hover:shadow-xl sm:w-80 lg:w-88 dark:border-gray-800 dark:bg-brand-surface/80 snap-start"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <CardContent className="space-y-4 p-6">

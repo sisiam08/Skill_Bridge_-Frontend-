@@ -7,12 +7,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h } from "@/helpers/TimeHelpers";
 import { TutorBookingSession } from "@/types";
 import { format } from "date-fns";
 
 type CompleteSessionSheetProps = {
-  completeSessionSheetOpen: boolean; 
+  completeSessionSheetOpen: boolean;
   setCompleteSessionSheetOpen: (open: boolean) => void;
   completedSession: TutorBookingSession | null;
   dismissCompleteSessionSheet: () => void;
@@ -27,7 +27,10 @@ export default function CompleteSessionSheet({
   confirmCompletedSession,
 }: CompleteSessionSheetProps) {
   return (
-    <Sheet open={completeSessionSheetOpen} onOpenChange={setCompleteSessionSheetOpen}>
+    <Sheet
+      open={completeSessionSheetOpen}
+      onOpenChange={setCompleteSessionSheetOpen}
+    >
       <SheetContent
         side="bottom"
         className="inset-auto left-1/2 top-1/2 w-[95%] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border"
@@ -86,4 +89,3 @@ export default function CompleteSessionSheet({
     </Sheet>
   );
 }
-

@@ -34,7 +34,7 @@ const formSchema = z
   .object({
     role: z.nativeEnum(UserRole, { message: "Role is required!" }),
     name: z.string().min(1, "Full Name is required!"),
-    email: z.string().email("Invalid email!"),
+    email: z.email("Invalid email!"),
     password: z
       .string()
       .min(8, "Password must be at least 8 characters")
@@ -50,12 +50,25 @@ const formSchema = z
   });
 
 export default function RegisterForm() {
-  const handleGoogleLogin = async () => {
-    const data = authClient.signIn.social({
-      provider: "google",
-      callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
-    });
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const { data, error } = await authClient.signIn.social({
+  //       provider: "google",
+  //       callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/`,
+  //     });
+
+  //     if (error) {
+  //       toast.error(`Google login failed: ${error.message}`);
+  //       console.error("Google login error:", error);
+  //       return;
+  //     }
+
+  //     // router.push("/");
+  //   } catch (error) {
+  //     console.error("Google login exception:", error);
+  //     toast.error("An error occurred during Google login");
+  //   }
+  // };
   const [loading, setLoading] = useState(false);
   const form = useForm({
     defaultValues: {
@@ -101,9 +114,7 @@ export default function RegisterForm() {
   return (
     <Card className="w-full max-w-xl mx-auto rounded-2xl lg:mx-0 lg:max-w-none lg:rounded-none lg:rounded-r-2xl">
       <CardHeader>
-        <CardTitle className="ui-title-auth mb-2">
-          Create Account
-        </CardTitle>
+        <CardTitle className="ui-title-auth mb-2">Create Account</CardTitle>
         <CardDescription className="text-slate-600 dark:text-slate-400">
           Fill in your details to get started
         </CardDescription>
@@ -307,14 +318,14 @@ export default function RegisterForm() {
         >
           {loading ? "Verification mail sending..." : "Create Account"}
         </Button>
-        <p className="text-sm">or</p>
+        {/* <p className="text-sm">or</p>
         <Button
           type="submit"
           onClick={handleGoogleLogin}
           className="w-full bg-brand hover:bg-brand-strong text-white dark:text-black font-bold  py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
         >
           Continue with google
-        </Button>
+        </Button> */}
 
         <div className="mt-8 text-center">
           <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -331,4 +342,3 @@ export default function RegisterForm() {
     </Card>
   );
 }
-

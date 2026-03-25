@@ -252,22 +252,27 @@ export default function TutorProfilePage() {
         phone: value.phone,
       };
 
-      const toastId = toast.loading("Saving changes...");
+      const toastId = toast.loading("Saving your profile changes...");
 
       try {
         if (selectedFileRef.current) {
           const response = await uploadImage(selectedFileRef.current);
-          console.log(response);
 
           if (response.error || !response.data) {
-            toast.error("Failed to upload image.", { id: toastId });
+            toast.error(
+              response.error?.message ||
+                "Unable to upload profile image. Please try again.",
+              { id: toastId },
+            );
             return;
           }
 
-          updatedData.image = response.data.data.url;
+          updatedData.image = response.data?.data?.url;
+          toast.success("Profile image uploaded successfully", {
+            id: toastId,
+            duration: 2000,
+          });
         }
-
-        // console.log(updatedData);
 
         const response = await updateUser(updatedData);
 
@@ -277,11 +282,12 @@ export default function TutorProfilePage() {
             callbackURL: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/dashboard`,
           });
 
-          console.log(response);
           if (response.error) {
-            toast.error(response.error.message || "Failed to change email!", {
-              id: toastId,
-            });
+            toast.error(
+              response.error.message ||
+                "Failed to change email. Please check and try again.",
+              { id: toastId },
+            );
             return;
           }
 
@@ -293,7 +299,7 @@ export default function TutorProfilePage() {
         }
 
         if (response.error || !response.data) {
-          toast.error("Failed to save changes.", {
+          toast.error("Failed to save profile changes. Please try again.", {
             id: toastId,
           });
           return;
@@ -304,11 +310,12 @@ export default function TutorProfilePage() {
         if (updatedData.image) setProfileImagePreview(updatedData.image);
         selectedFileRef.current = null;
         setIsEditing(false);
-        toast.success("Changes saved successfully!", { id: toastId });
+        toast.success("Profile updated successfully!", { id: toastId });
       } catch (error) {
-        toast.error("An error occurred.", {
-          id: toastId,
-        });
+        toast.error(
+          "Something went wrong while saving your profile. Please try again.",
+          { id: toastId },
+        );
       }
     },
   });

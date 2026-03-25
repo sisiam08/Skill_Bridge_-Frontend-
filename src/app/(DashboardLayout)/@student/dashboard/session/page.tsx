@@ -1,6 +1,6 @@
 "use client";
 
-import { getMyBookings } from "@/actions/booking.action";
+import { getMyBookings, updateBookingStatus } from "@/actions/booking.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import HistorySessionItem from "@/components/modules/Student/HistorySessionItem";
 import ReviewSessionSheet from "@/components/modules/Student/ReviewSessionSheet";
+import { UserRole } from "@/constants/roles";
 import SessionCard from "@/components/layout/SessionCard";
 import { BookingStatus } from "@/constants/status";
 import { StudentBookings } from "@/types";
@@ -109,6 +110,31 @@ export default function StudentSessionPage() {
     setFeedbackSheetOpen(true);
   };
 
+  const handleCancelSession = async (session: StudentBookings) => {
+    if (!session) return;
+    const toastId = toast.loading("Cancelling session...");
+    try {
+      const response = await updateBookingStatus(
+        session.id,
+        BookingStatus.CANCELLED,
+      );
+
+      if (response.error || !response?.data?.success) {
+        toast.error(response?.error?.message || "Failed to cancel session", {
+          id: toastId,
+        });
+        return;
+      }
+
+      toast.success("Session cancelled successfully", { id: toastId });
+      loadSessions();
+    } catch (error) {
+      toast.error("An error occurred while cancelling the session", {
+        id: toastId,
+      });
+    }
+  };
+
   const submitReview = async () => {
     if (!reviewSession || rating === 0 || !reviewText.trim()) return;
     const toastId = toast.loading("Review submitting...");
@@ -181,8 +207,10 @@ export default function StudentSessionPage() {
                   <SessionCard
                     key={session.id}
                     session={session}
+                    role={UserRole.STUDENT}
                     animationIndex={idx}
                     openReviewSheet={() => openReviewSheet(session)}
+                    handleCancelSession={() => handleCancelSession(session)}
                   />
                 ))
               )}
@@ -212,8 +240,10 @@ export default function StudentSessionPage() {
                   <SessionCard
                     key={session.id}
                     session={session}
+                    role={UserRole.STUDENT}
                     animationIndex={idx}
                     openReviewSheet={() => openReviewSheet(session)}
+                    handleCancelSession={() => handleCancelSession(session)}
                   />
                 ))
               )}

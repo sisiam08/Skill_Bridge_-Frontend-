@@ -34,7 +34,7 @@ export const createBooking = async (
     bookingData,
   );
 
-  console.log(data);
+  // console.log(data);
   return { data, error };
 };
 

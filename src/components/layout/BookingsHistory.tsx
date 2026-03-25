@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { Bookings, BookingsFilters, PaginationType } from "@/types";
 import { BookingStatus } from "@/constants/status";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h } from "@/helpers/TimeHelpers";
 import { format } from "date-fns";
 import RenderStars from "@/components/ui/renderStars";
 import { UserRole } from "@/constants/roles";
@@ -170,7 +170,9 @@ export default function BookingsHistory({
           <div className="flex flex-wrap gap-2">
             <Button
               variant={filters.status === undefined ? "default" : "outline"}
-              onClick={() => setFilters({ ...filters, status: undefined, page: "1" })}
+              onClick={() =>
+                setFilters({ ...filters, status: undefined, page: "1" })
+              }
               className={
                 filters.status === undefined
                   ? "bg-brand hover:bg-brand-strong dark:text-white"
@@ -186,7 +188,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.CONFIRMED, page: "1"  })
+                setFilters({
+                  ...filters,
+                  status: BookingStatus.CONFIRMED,
+                  page: "1",
+                })
               }
               className={
                 filters.status === BookingStatus.CONFIRMED
@@ -203,7 +209,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.COMPLETED, page: "1" })
+                setFilters({
+                  ...filters,
+                  status: BookingStatus.COMPLETED,
+                  page: "1",
+                })
               }
               className={
                 filters.status === BookingStatus.COMPLETED
@@ -220,7 +230,11 @@ export default function BookingsHistory({
                   : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.CANCELLED, page: "1" })
+                setFilters({
+                  ...filters,
+                  status: BookingStatus.CANCELLED,
+                  page: "1",
+                })
               }
               className={
                 filters.status === BookingStatus.CANCELLED
@@ -235,7 +249,11 @@ export default function BookingsHistory({
                 filters.status === BookingStatus.RUNNING ? "default" : "outline"
               }
               onClick={() =>
-                setFilters({ ...filters, status: BookingStatus.RUNNING, page: "1" })
+                setFilters({
+                  ...filters,
+                  status: BookingStatus.RUNNING,
+                  page: "1",
+                })
               }
               className={
                 filters.status === BookingStatus.RUNNING
@@ -264,141 +282,138 @@ export default function BookingsHistory({
           ) : (
             <div className="overflow-x-auto">
               <Table className="min-w-225 lg:min-w-full">
-              <TableHeader>
-                <TableRow>
-                  {role !== UserRole.STUDENT ? (
-                    <TableHead className="text-center">Student</TableHead>
-                  ) : null}
-                  {role !== UserRole.TUTOR ? (
-                    <TableHead className="text-center">Tutor</TableHead>
-                  ) : null}
-                  <TableHead className="text-center">
-                    Category
-                  </TableHead>
-                  <TableHead className="text-center">Session Date</TableHead>
-                  <TableHead className="text-center">
-                    Session Time
-                  </TableHead>
-                  <TableHead className="text-center">Price</TableHead>
-                  <TableHead className="text-center">Status</TableHead>
-                  <TableHead className="text-center">
-                    Reviews
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {bookings.map((booking) => (
-                  <Fragment key={booking.id}>
-                    <TableRow>
-                      {role !== UserRole.STUDENT ? (
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Avatar className="h-8 w-8">
-                              <AvatarImage src={booking.student?.image} />
-                              <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
-                                {booking.student?.name?.charAt(0)}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span className="font-medium">
-                              {booking.student?.name}
-                            </span>
-                          </div>
-                        </TableCell>
-                      ) : null}
+                <TableHeader>
+                  <TableRow>
+                    {role !== UserRole.STUDENT ? (
+                      <TableHead className="text-center">Student</TableHead>
+                    ) : null}
+                    {role !== UserRole.TUTOR ? (
+                      <TableHead className="text-center">Tutor</TableHead>
+                    ) : null}
+                    <TableHead className="text-center">Category</TableHead>
+                    <TableHead className="text-center">Session Date</TableHead>
+                    <TableHead className="text-center">Session Time</TableHead>
+                    <TableHead className="text-center">Price</TableHead>
+                    <TableHead className="text-center">Status</TableHead>
+                    <TableHead className="text-center">Reviews</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {bookings.map((booking) => (
+                    <Fragment key={booking.id}>
+                      <TableRow>
+                        {role !== UserRole.STUDENT ? (
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Avatar className="h-8 w-8">
+                                <AvatarImage src={booking.student?.image} />
+                                <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
+                                  {booking.student?.name?.charAt(0)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <span className="font-medium">
+                                {booking.student?.name}
+                              </span>
+                            </div>
+                          </TableCell>
+                        ) : null}
 
-                      {role !== UserRole.TUTOR ? (
+                        {role !== UserRole.TUTOR ? (
+                          <TableCell className="text-center">
+                            <div className="flex items-center gap-2">
+                              <Avatar className="h-8 w-8">
+                                <AvatarImage src={booking.tutor?.user?.image} />
+                                <AvatarFallback className="bg-brand/10 text-brand text-xs">
+                                  {booking.tutor?.user?.name?.charAt(0)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <span className="font-medium">
+                                {booking.tutor?.user?.name}
+                              </span>
+                            </div>
+                          </TableCell>
+                        ) : null}
+
                         <TableCell className="text-center">
-                          <div className="flex items-center gap-2">
-                            <Avatar className="h-8 w-8">
-                              <AvatarImage src={booking.tutor?.user?.image} />
-                              <AvatarFallback className="bg-brand/10 text-brand text-xs">
-                                {booking.tutor?.user?.name?.charAt(0)}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span className="font-medium">
-                              {booking.tutor?.user?.name}
-                            </span>
-                          </div>
+                          <Badge variant="outline">
+                            {booking.tutor?.category?.name ?? "N/A"}
+                          </Badge>
                         </TableCell>
-                      ) : null}
-
-                      <TableCell className="text-center">
-                        <Badge variant="outline">
-                          {booking.tutor?.category?.name ?? "N/A"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {format(new Date(booking.sessionDate), "PP")}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {convertInto12h(booking.startTime)} -{" "}
-                        {convertInto12h(booking.endTime)}
-                      </TableCell>
-                      <TableCell className="text-center font-semibold">
-                        ৳{booking.price}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {getStatusBadge(booking.status as BookingStatus)}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {booking.reviews ? (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => toggleReview(booking.id)}
-                            className="gap-1"
-                          >
-                            <span className="flex items-center gap-1">
-                              {booking.reviews.rating}
-                              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        <TableCell className="text-center">
+                          {format(new Date(booking.sessionDate), "PP")}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {convertInto12h(booking.startTime)} -{" "}
+                          {convertInto12h(booking.endTime)}
+                        </TableCell>
+                        <TableCell className="text-center font-semibold">
+                          ৳{booking.price}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {getStatusBadge(booking.status as BookingStatus)}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {booking.reviews ? (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => toggleReview(booking.id)}
+                              className="gap-1"
+                            >
+                              <span className="flex items-center gap-1">
+                                {booking.reviews.rating}
+                                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                              </span>
+                              {expandedReview === booking.id ? (
+                                <ChevronUp className="h-4 w-4" />
+                              ) : (
+                                <ChevronDown className="h-4 w-4" />
+                              )}
+                            </Button>
+                          ) : (
+                            <span className="text-sm text-muted-foreground">
+                              No review
                             </span>
-                            {expandedReview === booking.id ? (
-                              <ChevronUp className="h-4 w-4" />
-                            ) : (
-                              <ChevronDown className="h-4 w-4" />
-                            )}
-                          </Button>
-                        ) : (
-                          <span className="text-sm text-muted-foreground">
-                            No review
-                          </span>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                    {expandedReview === booking.id && booking.reviews && (
-                      <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={totalColumns} className="p-4">
-                          <div className="flex items-start gap-4 rounded-lg border bg-background p-4">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand/10">
-                              <MessageSquare className="h-5 w-5 text-brand" />
-                            </div>
-                            <div className="flex-1 space-y-2">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                  <span className="font-semibold">
-                                    Review from {booking.student?.name}
-                                  </span>
-                                  <RenderStars
-                                    rating={booking.reviews.rating}
-                                  />
-                                </div>
-                                <Badge variant="secondary" className="text-xs">
-                                  {booking.reviews.rating}/5
-                                </Badge>
-                              </div>
-                              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                                {booking.reviews.comment ||
-                                  "No comment provided."}
-                              </p>
-                            </div>
-                          </div>
+                          )}
                         </TableCell>
                       </TableRow>
-                    )}
-                  </Fragment>
-                ))}
-              </TableBody>
-            </Table>
+                      {expandedReview === booking.id && booking.reviews && (
+                        <TableRow className="bg-muted/30 hover:bg-muted/30">
+                          <TableCell colSpan={totalColumns} className="p-4">
+                            <div className="flex items-start gap-4 rounded-lg border bg-background p-4">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand/10">
+                                <MessageSquare className="h-5 w-5 text-brand" />
+                              </div>
+                              <div className="flex-1 space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <span className="font-semibold">
+                                      Review from {booking.student?.name}
+                                    </span>
+                                    <RenderStars
+                                      rating={booking.reviews.rating}
+                                    />
+                                  </div>
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs"
+                                  >
+                                    {booking.reviews.rating}/5
+                                  </Badge>
+                                </div>
+                                <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                                  {booking.reviews.comment ||
+                                    "No comment provided."}
+                                </p>
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </Fragment>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
           )}
         </CardContent>
@@ -412,4 +427,3 @@ export default function BookingsHistory({
     </div>
   );
 }
-

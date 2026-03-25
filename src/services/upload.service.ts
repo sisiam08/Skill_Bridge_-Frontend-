@@ -18,13 +18,16 @@ export const UploadService = {
       if (!res.ok || !data?.success) {
         return {
           data: null,
-          error: { message: data?.message || "Failed to upload image!" },
+          error: { message: data?.message || "Upload unsuccessful" },
         };
       }
 
       return { data, error: null };
-    } catch (error) {
-      return { data: null, error: { message: "Something went wrong!" } };
+    } catch (error: any) {
+      return {
+        data: null,
+        error: { message: error.message || "Failed to upload image!" },
+      };
     }
   },
 };

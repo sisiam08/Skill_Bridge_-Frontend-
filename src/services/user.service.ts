@@ -2,7 +2,7 @@ import { env } from "@/env";
 import { UserUpdate } from "@/types";
 import { cookies } from "next/headers";
 
-const AUTH_URL = env.AUTH_URL;
+const AUTH_URL = `${env.FRONTEND_URL}/api/auth`;
 const API_URL = env.API_URL;
 
 export const UserService = {
@@ -19,12 +19,13 @@ export const UserService = {
 
       const session = await res.json();
 
+      // console.log("Session: ", session);
 
       if (session == null) {
         return {
           data: null,
           error: {
-            message: "Sesion is null",
+            message: "Session is null",
           },
         };
       }

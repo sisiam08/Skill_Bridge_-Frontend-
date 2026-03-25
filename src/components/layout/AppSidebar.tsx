@@ -57,19 +57,19 @@ export function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <div className="flex items-center gap-3 pt-2 pb-6 pl-2">
-          <div className="size-9 bg-brand rounded-lg flex items-center justify-center text-white">
-            <GraduationCap
-              className="size-5"
-              strokeWidth={2.2}
-              suppressHydrationWarning
-            />
-          </div>
+        <Link href={"/"}>
+          <div className="flex items-center gap-3 pt-2 pb-6 pl-2">
+            <div className="size-9 bg-brand rounded-lg flex items-center justify-center text-white">
+              <GraduationCap
+                className="size-5"
+                strokeWidth={2.2}
+                suppressHydrationWarning
+              />
+            </div>
 
-          <span className="ui-title-brand">
-            <Link href={"/"}>SkillBridge</Link>
-          </span>
-        </div>
+            <span className="ui-title-brand">SkillBridge</span>
+          </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         {routes.items.map((item) => (
@@ -102,4 +102,3 @@ export function AppSidebar({
     </Sidebar>
   );
 }
-

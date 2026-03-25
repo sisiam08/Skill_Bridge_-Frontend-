@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookingStatus } from "@/constants/status";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h } from "@/helpers/TimeHelpers";
 import { StudentBookings } from "@/types";
 import { format } from "date-fns";
 import { MessageSquare } from "lucide-react";
@@ -13,8 +13,7 @@ type HistorySessionItemProps = {
   openReviewSheet: (session: StudentBookings) => void;
 };
 
-const hasReview = (session: StudentBookings) =>
-  Boolean(session.reviews);
+const hasReview = (session: StudentBookings) => Boolean(session.reviews);
 
 export default function HistorySessionItem({
   session,
@@ -60,4 +59,3 @@ export default function HistorySessionItem({
     </div>
   );
 }
-

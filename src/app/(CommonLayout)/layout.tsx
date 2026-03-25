@@ -7,6 +7,7 @@ export default async function CommonLayout({
   children: React.ReactNode;
 }) {
   const session = await UserService.getSession();
+
   let isLoggedIn = false;
 
   if (session?.data?.user) {
@@ -20,4 +21,3 @@ export default async function CommonLayout({
     </div>
   );
 }
-

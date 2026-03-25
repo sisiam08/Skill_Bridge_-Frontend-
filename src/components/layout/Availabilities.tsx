@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { convertInto12h } from "@/helpers/convertInto12h";
+import { convertInto12h, timeToMinutes } from "@/helpers/TimeHelpers";
 import { Badge } from "../ui/badge";
 
 export const daysWithNumber: { [key: number]: string } = {
@@ -52,7 +52,7 @@ export default function Availabilities({
     day: i,
     slots: availabilities
       .filter((a) => a.dayOfWeek === i)
-      .sort((a, b) => a.startTime.localeCompare(b.startTime)),
+      .sort((a, b) => timeToMinutes(a.startTime) - timeToMinutes(b.startTime)),
   }));
 
   return (
@@ -193,4 +193,3 @@ export default function Availabilities({
     </Card>
   );
 }
-

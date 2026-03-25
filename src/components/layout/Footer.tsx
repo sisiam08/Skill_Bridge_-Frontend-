@@ -6,7 +6,6 @@ const navLinks = [
   {
     title: "Explore",
     links: [
-      { label: "Home", href: "/" },
       { label: "Find Tutors", href: "/find_tutors" },
       { label: "Featured Tutors", href: "/#featured-tutors" },
       { label: "Login", href: "/login" },
@@ -47,9 +46,7 @@ export default function Footer() {
                   suppressHydrationWarning
                 />
               </div>
-              <span className="ui-title-brand">
-                SkillBridge
-              </span>
+              <span className="ui-title-brand">SkillBridge</span>
             </Link>
 
             <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
@@ -89,4 +86,3 @@ export default function Footer() {
     </footer>
   );
 }
-

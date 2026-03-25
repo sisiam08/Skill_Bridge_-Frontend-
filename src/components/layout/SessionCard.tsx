@@ -3,9 +3,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { UserRole } from "@/constants/roles";
 import { BookingStatus } from "@/constants/status";
-import { convertInto12h } from "@/helpers/convertInto12h";
-import { SessionCardBooking } from "@/types";
+import { convertInto12h } from "@/helpers/TimeHelpers";
+import { StudentBookings, TutorBookingSession } from "@/types";
 import { format } from "date-fns";
 import {
   AlarmClockCheck,
@@ -13,6 +14,7 @@ import {
   ExternalLink,
   GraduationCap,
   MessageSquare,
+  Trash2,
   UserRound,
   Video,
   XCircle,
@@ -20,30 +22,40 @@ import {
 import Link from "next/link";
 
 type SessionCardProps = {
-  session: SessionCardBooking;
+  session: TutorBookingSession | StudentBookings;
   animationIndex?: number;
+  role: UserRole;
 
   openReviewSheet?: () => void;
   startClass?: () => void;
   openCompleteSessionSheet?: () => void;
+  handleCancelSession?: (session: StudentBookings) => void;
 };
 
 export default function SessionCard({
   session,
   animationIndex = 0,
+  role,
   openReviewSheet,
   startClass,
   openCompleteSessionSheet,
+  handleCancelSession,
 }: SessionCardProps) {
-  const isStudentSession = "tutor" in session;
+  const isStudentRole = role === UserRole.STUDENT;
 
-  const personName = isStudentSession
-    ? session.tutor.user.name
-    : session.student.name;
-  const personSubtitle = isStudentSession
-    ? session.tutor.category.name
-    : session.student.email;
-  const hasReview = isStudentSession ? Boolean(session.reviews) : false;
+  const studentSession = isStudentRole ? (session as StudentBookings) : null;
+  const tutorSession = !isStudentRole ? (session as TutorBookingSession) : null;
+
+  const personName = isStudentRole
+    ? studentSession?.tutor?.user?.name || "Unknown Tutor"
+    : tutorSession?.student?.name || "Unknown Student";
+
+  const personSubtitle = isStudentRole
+    ? studentSession?.tutor?.category?.name || "No Category"
+    : tutorSession?.student?.email || "N/A";
+
+  const hasReview =
+    isStudentRole && studentSession ? Boolean(studentSession.reviews) : false;
 
   return (
     <Card
@@ -102,11 +114,11 @@ export default function SessionCard({
           </div>
         </div>
 
-        {isStudentSession ? (
-          session.classLink ? (
-            session.status === BookingStatus.RUNNING ? (
+        {isStudentRole ? (
+          studentSession?.classLink ? (
+            studentSession.status === BookingStatus.RUNNING ? (
               <div className="flex flex-col gap-2 sm:flex-row">
-                <Link href={session.classLink} target="_blank">
+                <Link href={studentSession.classLink} target="_blank">
                   <Button className="bg-brand text-white hover:bg-brand-strong font-normal">
                     <Video className="mr-2 size-4" />
                     Join Live Class
@@ -135,7 +147,25 @@ export default function SessionCard({
                 ) : null}
               </div>
             )
-          ) : session.status === BookingStatus.CANCELLED ? (
+          ) : studentSession?.status === BookingStatus.CONFIRMED ? (
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button variant="outline" className="font-normal" disabled>
+                <AlarmClockCheck className="mr-2 size-4" />
+                Wait For Class Link
+              </Button>
+              <Button
+                variant="outline"
+                className="border-red-300 text-red-500 hover:bg-red-50 hover:text-red-600 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950 font-normal"
+                onClick={() => {
+                  handleCancelSession &&
+                    handleCancelSession(session as StudentBookings);
+                }}
+              >
+                <Trash2 className="mr-2 size-4" />
+                Cancel Session
+              </Button>
+            </div>
+          ) : studentSession?.status === BookingStatus.CANCELLED ? (
             <Button
               variant="outline"
               className="border-red-300 text-red-500 hover:bg-red-50 hover:text-red-600 dark:border-red-800 dark:text-red-400 font-normal"
@@ -144,15 +174,8 @@ export default function SessionCard({
               <XCircle className="mr-2 size-4" />
               Class Cancelled
             </Button>
-          ) : (
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button variant="outline" className="font-normal" disabled>
-                <AlarmClockCheck className="mr-2 size-4" />
-                Wait For Class Link
-              </Button>
-            </div>
-          )
-        ) : session.status === BookingStatus.RUNNING ? (
+          ) : null
+        ) : tutorSession?.status === BookingStatus.RUNNING ? (
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
               className="flex-1 bg-blue-500 text-white hover:bg-blue-600 font-normal"
@@ -169,7 +192,7 @@ export default function SessionCard({
               Mark as Completed
             </Button>
           </div>
-        ) : session.status === BookingStatus.COMPLETED ? (
+        ) : tutorSession?.status === BookingStatus.COMPLETED ? (
           <Button
             className="bg-emerald-600 text-white hover:bg-emerald-700 font-normal"
             disabled
@@ -177,7 +200,7 @@ export default function SessionCard({
             <CircleCheckBig className="mr-2 size-4" />
             Class Completed
           </Button>
-        ) : session.status === BookingStatus.CANCELLED ? (
+        ) : tutorSession?.status === BookingStatus.CANCELLED ? (
           <Button
             variant="outline"
             className="border-red-300 text-red-500 hover:bg-red-50 hover:text-red-600 dark:border-red-800 dark:text-red-400 font-normal"
@@ -201,4 +224,3 @@ export default function SessionCard({
     </Card>
   );
 }
-
