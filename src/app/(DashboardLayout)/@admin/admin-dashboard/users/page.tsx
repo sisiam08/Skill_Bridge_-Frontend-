@@ -126,7 +126,7 @@ export default function UsersPage() {
             </CardDescription>
           </div>
           <Badge className="bg-brand text-white hover:bg-brand">
-            {users.length}{" "}
+            {pagination.totalData}{" "}
             {filters.role === UserRole.STUDENT
               ? "Students"
               : filters.role === UserRole.TUTOR

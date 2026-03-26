@@ -100,7 +100,6 @@ export default function TutorProfilePage() {
   const [experienceYears, setExperienceYears] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
 
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const selectedFileRef = useRef<File | null>(null);
 
@@ -165,6 +164,7 @@ export default function TutorProfilePage() {
       try {
         if (isCreating) {
           const toastId = toast.loading("Creating profile...");
+
           const response = await createTutorProfile(tutorProfileData);
           if (response.error || !response.data) {
             toast.error(response.error?.message || "Failed to create profile", {
@@ -246,12 +246,11 @@ export default function TutorProfilePage() {
         return;
       }
 
-      
       const updatedData: { name: string; phone: string; image?: string } = {
         name: value.name,
         phone: value.phone,
       };
-      
+
       const toastId = toast.loading("Saving your profile changes...");
 
       try {
