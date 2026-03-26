@@ -15,4 +15,6 @@ export type UsersFilter = {
   search?: string;
   role?: string;
   status?: string;
+  page?: string;
+  limit?: string;
 };

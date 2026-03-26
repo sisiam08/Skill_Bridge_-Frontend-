@@ -23,29 +23,63 @@ import {
 import { Search, ShieldBan, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { getAllUsers, updateUserStatus } from "@/actions/admin.action";
-import { UserType, UsersFilter } from "@/types";
+import { PaginationType, UserType, UsersFilter } from "@/types";
 import { UserRole } from "@/constants/roles";
 import { UserStatus } from "@/constants/status";
 import { format } from "date-fns";
+import Pagination from "@/components/layout/Pagination";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<UserType[]>([]);
+  const [pagination, setPagination] = useState<PaginationType>({
+    totalData: 0,
+    page: 1,
+    limit: 10,
+    totalPages: 1,
+  });
+
   const [filters, setFilters] = useState<UsersFilter>({
     search: undefined,
     role: undefined,
     status: undefined,
+    page: "1",
+    limit: "10",
   });
 
   const loadUsers = async () => {
     const response = await getAllUsers(filters);
     if (response.error || !response.data) return;
 
-    setUsers(response.data.data);
+    setUsers(response.data.data.data);
+    setPagination(response.data.data.pagination);
   };
 
   useEffect(() => {
     loadUsers();
   }, [filters]);
+
+  const handlePageChange = (nextPage: number) => {
+    if (
+      nextPage < 1 ||
+      nextPage > pagination.totalPages ||
+      nextPage === pagination.page
+    ) {
+      return;
+    }
+
+    setFilters({
+      ...filters,
+      page: String(nextPage),
+    });
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setFilters({
+      ...filters,
+      limit: String(newLimit),
+      page: "1",
+    });
+  };
 
   const handleStatusChange = async (userId: string, newStatus: UserStatus) => {
     const toastId = toast.loading(`Updating user status...`);
@@ -337,7 +371,11 @@ export default function UsersPage() {
           )}
         </CardContent>
       </Card>
+      <Pagination
+        paginationInfo={pagination}
+        handlePageChange={handlePageChange}
+        handleLimitChange={handleLimitChange}
+      />
     </div>
   );
 }
-
