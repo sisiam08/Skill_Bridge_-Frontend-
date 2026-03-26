@@ -21,14 +21,14 @@ function TutorsContent() {
     sortBy: undefined,
     sortOrder: undefined,
     page: "1",
-    limit: "10",
+    limit: "12",
   });
 
   const [tutors, setTutors] = useState<TutorProfile[]>();
   const [pagination, setPagination] = useState<PaginationType>({
     totalData: 0,
     page: 1,
-    limit: 10,
+    limit: 12,
     totalPages: 1,
   });
 
