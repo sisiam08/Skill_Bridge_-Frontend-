@@ -21,7 +21,7 @@ import {
   updateCategory,
 } from "@/actions/category.action";
 import { Categories } from "@/types";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import * as z from "zod";
 import { normalizeText } from "@/helpers/textNormalizer";
 

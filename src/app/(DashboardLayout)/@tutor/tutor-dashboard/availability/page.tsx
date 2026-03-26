@@ -27,7 +27,7 @@ import {
 import { AvailabilityType, UpdateAvailabilityType } from "@/types";
 import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import * as z from "zod";
 import { CalendarPlus2, Clock3 } from "lucide-react";
 import Availabilities from "@/components/layout/Availabilities";

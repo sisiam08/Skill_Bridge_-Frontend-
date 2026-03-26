@@ -20,7 +20,7 @@ import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Lock, Mail } from "lucide-react";

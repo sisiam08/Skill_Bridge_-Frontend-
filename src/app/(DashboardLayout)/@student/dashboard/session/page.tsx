@@ -28,7 +28,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { createReview } from "@/actions/review.action";
 import {
   Sheet,

@@ -21,7 +21,7 @@ import SendClassLinkSheet from "@/components/modules/Tutor/SendClassLinkSheet";
 import { BookingStatus } from "@/constants/status";
 import { UserRole } from "@/constants/roles";
 import { TutorBookingSession } from "@/types";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import {
   getDefaultClassLink,
   sendClassLink,

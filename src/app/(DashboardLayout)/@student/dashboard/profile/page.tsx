@@ -16,7 +16,7 @@ import { BadgeCheck, Camera, PencilLine, Save, UserRound } from "lucide-react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import * as z from "zod";
 import default_avatar from "../../../../../../public/default-avatar-profile.jpg";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { useForm } from "@tanstack/react-form";
 import { getSession, updateUser } from "@/actions/user.action";
 import { uploadImage } from "@/actions/upload.action";

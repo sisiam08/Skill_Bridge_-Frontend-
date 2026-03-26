@@ -8,12 +8,10 @@ const config: NextConfig = {
         hostname: "vercel.com",
         pathname: "/uploads/**",
       },
-      // Vercel Blob storage
       {
         protocol: "https",
         hostname: "*.vercel-storage.com",
       },
-      // Backend uploaded images
       {
         protocol: "https",
         hostname: "skillbridgeserver-one.vercel.app",

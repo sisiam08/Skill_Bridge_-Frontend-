@@ -22,7 +22,7 @@ import { useState } from "react";
 import { Lock, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

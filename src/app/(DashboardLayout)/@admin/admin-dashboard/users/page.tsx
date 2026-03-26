@@ -21,7 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Search, ShieldBan, ShieldCheck } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { getAllUsers, updateUserStatus } from "@/actions/admin.action";
 import { PaginationType, UserType, UsersFilter } from "@/types";
 import { UserRole } from "@/constants/roles";

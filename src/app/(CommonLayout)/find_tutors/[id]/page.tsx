@@ -44,7 +44,7 @@ import {
 } from "@/actions/availability.action";
 import Availabilities from "@/components/layout/Availabilities";
 import { format } from "date-fns";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { convertInto12h } from "@/helpers/TimeHelpers";
 import { createBooking } from "@/actions/booking.action";
 import Reviews from "@/components/layout/Reviews";

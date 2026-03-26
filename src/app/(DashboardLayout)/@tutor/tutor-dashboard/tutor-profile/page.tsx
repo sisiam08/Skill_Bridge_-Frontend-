@@ -34,7 +34,7 @@ import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldError } from "@/components/ui/field";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { authClient } from "@/lib/auth-client";
 import { uploadImage } from "@/actions/upload.action";
 import {
@@ -99,6 +99,7 @@ export default function TutorProfilePage() {
   const [bio, setBio] = useState("");
   const [experienceYears, setExperienceYears] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
+
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const selectedFileRef = useRef<File | null>(null);
@@ -234,8 +235,6 @@ export default function TutorProfilePage() {
     },
     validators: { onChange: TutorAccountSchema },
     onSubmit: async ({ value }) => {
-      // console.log(value);
-
       const accountChanged =
         value.name !== name ||
         value.email !== mainEmail ||
@@ -247,11 +246,12 @@ export default function TutorProfilePage() {
         return;
       }
 
+      
       const updatedData: { name: string; phone: string; image?: string } = {
         name: value.name,
         phone: value.phone,
       };
-
+      
       const toastId = toast.loading("Saving your profile changes...");
 
       try {
@@ -327,6 +327,16 @@ export default function TutorProfilePage() {
     setProfileImagePreview(URL.createObjectURL(file));
   };
 
+  const handleBothFormSubmit = async () => {
+    try {
+      await accountForm.handleSubmit();
+
+      await profileForm.handleSubmit();
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
+  };
+
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 p-4">
       <Card className="overflow-hidden border-border/70 bg-linear-to-r from-orange-50 via-white to-amber-50 dark:from-card dark:via-card dark:to-card">
@@ -381,7 +391,11 @@ export default function TutorProfilePage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               <div className="flex flex-col items-center gap-3 mb-3">
                 <Avatar className="size-24 sm:size-28">
                   <AvatarImage src={profileImagePreview} />
@@ -741,8 +755,7 @@ export default function TutorProfilePage() {
                       form="profileForm"
                       type="submit"
                       onClick={() => {
-                        accountForm.handleSubmit();
-                        profileForm.handleSubmit();
+                        handleBothFormSubmit();
                       }}
                     >
                       <Save className="mr-2 size-4" suppressHydrationWarning />
